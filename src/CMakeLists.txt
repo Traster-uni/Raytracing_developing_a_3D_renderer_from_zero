@@ -1,0 +1,5 @@
+function(add_src name)
+    add_executable(${name} ${name}.cpp)
+    set_target_properties(${name} PROPERTIES CXX_STANDARD 17 CXX_STANDARD_REQUIRED YES)
+endfunction()
+add_src()
