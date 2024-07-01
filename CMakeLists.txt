@@ -8,3 +8,4 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 set(CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR}/bin)
 
 add_subdirectory(libs)
+add_subdirectory(src)

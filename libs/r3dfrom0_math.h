@@ -3,6 +3,8 @@
 //
 
 #ifndef R3DFROM0_R3DFROM0_MATH_H
+#include <stdlib.h>
+#include <math.h>
 #define R3DFROM0_R3DFROM0_MATH_H
 
 #endif //R3DFROM0_R3DFROM0_MATH_H
