@@ -80,6 +80,14 @@
 
 # CMake
 cmake-build-*/
+bin
+build
+/*.vscode/
+/*.idea
+/*.hdr
+/*.exr
+/*.png
+/*.jpg
 
 # Mongo Explorer plugin
 .idea/**/mongoSettings.xml
