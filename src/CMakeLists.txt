@@ -1,6 +1,9 @@
-function(add_exe name)
+function(add_src name)
     add_executable(${name} ${name}.cpp)
+    set_property(TARGET r3dfrom0 PROPERTY LINKER_LANGUAGE CXX)
     set_target_properties(${name} PROPERTIES CXX_STANDARD 17 CXX_STANDARD_REQUIRED YES)
+    target_include_directories(${name} PRIVATE ${CMAKE_SOURCE_DIR}/libs)
+    target_link_libraries(${name} PRIVATE r3dfrom0)
 endfunction()
 
-add_exe(main)
+add_src(r3df0_main)
