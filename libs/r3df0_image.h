@@ -10,6 +10,7 @@
 #include <string>
 #include <fstream>
 #include <vector>
+#include <r3df0_math.h>
 
 using namespace std;
 using std::string;
@@ -17,7 +18,13 @@ using std::vector;
 
 namespace r3dfrom0{
 
-auto ppm_out(int w, int h, vector<vector<float>>& img_data, const string& fname){
+auto ppm_out(vector<vector<pixel_f>>& img_data, const string& fname){
+    /**
+     * PIXEL FORMAT: (float, float, float) => (red, green, blue)
+     * This function scales the float in an integer between 0 and 255
+     */
+    auto w = int (img_data[0].size());
+    auto h = int (img_data.size());
     ofstream out;
     out.open(fname);
     // ppm header
@@ -25,7 +32,16 @@ auto ppm_out(int w, int h, vector<vector<float>>& img_data, const string& fname)
     // ppm body render
     for (int i = 0; i < w; i++){
         for (int j = 0; j < h; j++){
+            auto r_i = int(255.999 * img_data[i][j].r);
+            auto g_i = int(255.999 * img_data[i][j].g);
+            auto b_i = int(255.999 * img_data[i][j].b);
 
+            out << r_i << " " << g_i << " " << b_i << endl;
+            if (j < h){
+                out << " " << endl;
+            } else {
+                out << "\n" << endl;
+            }
         }
     }
     out.close();
