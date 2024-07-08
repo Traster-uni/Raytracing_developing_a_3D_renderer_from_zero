@@ -80,8 +80,9 @@
 
 # CMake
 cmake-build-*/
-bin
-build
+bin/
+bin/
+build/
 /*.vscode/
 /*.idea
 /*.hdr
