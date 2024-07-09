@@ -1,9 +1,24 @@
 #include <iostream>
+#include <vector>
 #include "r3df0_math.h"
+#include "r3df0_image.h"
 using namespace std;
 using namespace r3dfrom0;
 
 int main(){
-    vec3f p = {1,2,3};
-    cout << "HELLO WORLD! " << p.x << "," << p.y << "," << p.z << endl;
+    vector<vector<pixel_f>> img = {};
+    for (int i = 0; i < 256; i++){
+        vector<pixel_f> row = {};
+        for (int j = 0; j<256; j++){
+            pixel_f p;
+            p.r = double(i) / (255);
+            p.g = double(j) / (255);
+            p.b = 0.0;
+            row.push_back(p);
+//          cout << "(" << p.r << " " << p.g << " " << p.b << ")" << " ";
+        }
+//        cout << "\n" << endl;
+        img.push_back(row);
+    }
+    ppm_out(img, "hello_world.ppm");
 }

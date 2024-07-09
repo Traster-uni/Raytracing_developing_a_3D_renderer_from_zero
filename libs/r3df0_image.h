@@ -23,26 +23,22 @@ auto ppm_out(vector<vector<pixel_f>>& img_data, const string& fname){
      * PIXEL FORMAT: (float, float, float) => (red, green, blue)
      * This function scales the float in an integer between 0 and 255
      */
-    auto w = int (img_data[0].size());
-    auto h = int (img_data.size());
+    auto columns = int (img_data[0].size());
+    auto rows = int (img_data.size());
     ofstream out;
     out.open(fname);
     // ppm header
-    out << "P3\n" << w << " " << h << "\n255\n" <<endl;
+    out << "P3\n" << columns << " " << rows << "\n255\n" <<endl;
     // ppm body render
-    for (int i = 0; i < w; i++){
-        for (int j = 0; j < h; j++){
+    for (int i = 0; i < rows; i++){
+        for (int j = 0; j < columns; j++){
             auto r_i = int(255.999 * img_data[i][j].r);
             auto g_i = int(255.999 * img_data[i][j].g);
             auto b_i = int(255.999 * img_data[i][j].b);
 
-            out << r_i << " " << g_i << " " << b_i << endl;
-            if (j < h){
-                out << " " << endl;
-            } else {
-                out << "\n" << endl;
-            }
+            out << r_i << " " << g_i << " " << b_i << " ";
         }
+        out << endl;
     }
     out.close();
 } // ppm_out
