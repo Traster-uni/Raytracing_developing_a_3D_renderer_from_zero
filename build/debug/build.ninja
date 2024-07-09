@@ -39,13 +39,13 @@ include CMakeFiles/rules.ninja
 #############################################
 # Logical path to working directory; prefix for absolute paths.
 
-cmake_ninja_workdir = C$:/Raytracing_developing_a_3D_renderer_from_zero/build/debug/
+cmake_ninja_workdir = /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/build/debug/
 
 #############################################
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Raytracing_developing_a_3D_renderer_from_zero\build\debug && "C:\Program Files\JetBrains\CLion 2022.3\bin\cmake\win\x64\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+  COMMAND = cd /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/build/debug && /snap/clion/284/bin/cmake/linux/x64/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
   DESC = No interactive CMake dialog available...
   restat = 1
 
@@ -56,7 +56,7 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 # Utility command for rebuild_cache
 
 build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Raytracing_developing_a_3D_renderer_from_zero\build\debug && "C:\Program Files\JetBrains\CLion 2022.3\bin\cmake\win\x64\bin\cmake.exe" --regenerate-during-build -SC:\Raytracing_developing_a_3D_renderer_from_zero -BC:\Raytracing_developing_a_3D_renderer_from_zero\build\debug"
+  COMMAND = cd /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/build/debug && /snap/clion/284/bin/cmake/linux/x64/bin/cmake --regenerate-during-build -S/home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero -B/home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/build/debug
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -65,7 +65,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
 # =============================================================================
 # Write statements declared in CMakeLists.txt:
-# C:/Raytracing_developing_a_3D_renderer_from_zero/CMakeLists.txt
+# /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/CMakeLists.txt
 # =============================================================================
 
 # =============================================================================
@@ -83,14 +83,14 @@ build cmake_object_order_depends_target_r3dfrom0: phony || libs/CMakeFiles/r3dfr
 
 
 #############################################
-# Link the static library C:\Raytracing_developing_a_3D_renderer_from_zero\bin\debug\libr3dfrom0.a
+# Link the static library /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a
 
-build C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a: CXX_STATIC_LIBRARY_LINKER__r3dfrom0_Debug
+build /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a: CXX_STATIC_LIBRARY_LINKER__r3dfrom0_Debug
   LANGUAGE_COMPILE_FLAGS = -g
-  OBJECT_DIR = libs\CMakeFiles\r3dfrom0.dir
-  POST_BUILD = cd .
-  PRE_LINK = cd .
-  TARGET_FILE = C:\Raytracing_developing_a_3D_renderer_from_zero\bin\debug\libr3dfrom0.a
+  OBJECT_DIR = libs/CMakeFiles/r3dfrom0.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a
   TARGET_PDB = r3dfrom0.a.dbg
 
 
@@ -98,7 +98,7 @@ build C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a:
 # Utility command for edit_cache
 
 build libs/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Raytracing_developing_a_3D_renderer_from_zero\build\debug\libs && "C:\Program Files\JetBrains\CLion 2022.3\bin\cmake\win\x64\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+  COMMAND = cd /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/build/debug/libs && /snap/clion/284/bin/cmake/linux/x64/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
   DESC = No interactive CMake dialog available...
   restat = 1
 
@@ -109,7 +109,7 @@ build libs/edit_cache: phony libs/CMakeFiles/edit_cache.util
 # Utility command for rebuild_cache
 
 build libs/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Raytracing_developing_a_3D_renderer_from_zero\build\debug\libs && "C:\Program Files\JetBrains\CLion 2022.3\bin\cmake\win\x64\bin\cmake.exe" --regenerate-during-build -SC:\Raytracing_developing_a_3D_renderer_from_zero -BC:\Raytracing_developing_a_3D_renderer_from_zero\build\debug"
+  COMMAND = cd /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/build/debug/libs && /snap/clion/284/bin/cmake/linux/x64/bin/cmake --regenerate-during-build -S/home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero -B/home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/build/debug
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -118,7 +118,7 @@ build libs/rebuild_cache: phony libs/CMakeFiles/rebuild_cache.util
 
 # =============================================================================
 # Write statements declared in CMakeLists.txt:
-# C:/Raytracing_developing_a_3D_renderer_from_zero/CMakeLists.txt
+# /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/CMakeLists.txt
 # =============================================================================
 
 # =============================================================================
@@ -130,12 +130,12 @@ build libs/rebuild_cache: phony libs/CMakeFiles/rebuild_cache.util
 
 build cmake_object_order_depends_target_r3df0_main: phony || cmake_object_order_depends_target_r3dfrom0
 
-build src/CMakeFiles/r3df0_main.dir/r3df0_main.cpp.obj: CXX_COMPILER__r3df0_main_unscanned_Debug C$:/Raytracing_developing_a_3D_renderer_from_zero/src/r3df0_main.cpp || cmake_object_order_depends_target_r3df0_main
-  DEP_FILE = src\CMakeFiles\r3df0_main.dir\r3df0_main.cpp.obj.d
+build src/CMakeFiles/r3df0_main.dir/r3df0_main.cpp.o: CXX_COMPILER__r3df0_main_unscanned_Debug /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/src/r3df0_main.cpp || cmake_object_order_depends_target_r3df0_main
+  DEP_FILE = src/CMakeFiles/r3df0_main.dir/r3df0_main.cpp.o.d
   FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
-  INCLUDES = -IC:/Raytracing_developing_a_3D_renderer_from_zero/libs
-  OBJECT_DIR = src\CMakeFiles\r3df0_main.dir
-  OBJECT_FILE_DIR = src\CMakeFiles\r3df0_main.dir
+  INCLUDES = -I/home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/libs
+  OBJECT_DIR = src/CMakeFiles/r3df0_main.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/r3df0_main.dir
 
 
 # =============================================================================
@@ -143,24 +143,23 @@ build src/CMakeFiles/r3df0_main.dir/r3df0_main.cpp.obj: CXX_COMPILER__r3df0_main
 
 
 #############################################
-# Link the executable C:\Raytracing_developing_a_3D_renderer_from_zero\bin\debug\r3df0_main.exe
+# Link the executable /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_main
 
-build C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_main.exe: CXX_EXECUTABLE_LINKER__r3df0_main_Debug src/CMakeFiles/r3df0_main.dir/r3df0_main.cpp.obj | C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a || C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a
+build /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_main: CXX_EXECUTABLE_LINKER__r3df0_main_Debug src/CMakeFiles/r3df0_main.dir/r3df0_main.cpp.o | /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a || /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a
   FLAGS = -g
-  LINK_LIBRARIES = C:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
-  OBJECT_DIR = src\CMakeFiles\r3df0_main.dir
-  POST_BUILD = cd .
-  PRE_LINK = cd .
-  TARGET_FILE = C:\Raytracing_developing_a_3D_renderer_from_zero\bin\debug\r3df0_main.exe
-  TARGET_IMPLIB = C:\Raytracing_developing_a_3D_renderer_from_zero\bin\debug\libr3df0_main.dll.a
-  TARGET_PDB = r3df0_main.exe.dbg
+  LINK_LIBRARIES = /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a
+  OBJECT_DIR = src/CMakeFiles/r3df0_main.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_main
+  TARGET_PDB = r3df0_main.dbg
 
 
 #############################################
 # Utility command for edit_cache
 
 build src/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Raytracing_developing_a_3D_renderer_from_zero\build\debug\src && "C:\Program Files\JetBrains\CLion 2022.3\bin\cmake\win\x64\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+  COMMAND = cd /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/build/debug/src && /snap/clion/284/bin/cmake/linux/x64/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
   DESC = No interactive CMake dialog available...
   restat = 1
 
@@ -171,7 +170,7 @@ build src/edit_cache: phony src/CMakeFiles/edit_cache.util
 # Utility command for rebuild_cache
 
 build src/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Raytracing_developing_a_3D_renderer_from_zero\build\debug\src && "C:\Program Files\JetBrains\CLion 2022.3\bin\cmake\win\x64\bin\cmake.exe" --regenerate-during-build -SC:\Raytracing_developing_a_3D_renderer_from_zero -BC:\Raytracing_developing_a_3D_renderer_from_zero\build\debug"
+  COMMAND = cd /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/build/debug/src && /snap/clion/284/bin/cmake/linux/x64/bin/cmake --regenerate-during-build -S/home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero -B/home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/build/debug
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -181,13 +180,11 @@ build src/rebuild_cache: phony src/CMakeFiles/rebuild_cache.util
 # =============================================================================
 # Target aliases.
 
-build libr3dfrom0.a: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a
+build libr3dfrom0.a: phony /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a
 
-build r3df0_main: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_main.exe
+build r3df0_main: phony /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_main
 
-build r3df0_main.exe: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_main.exe
-
-build r3dfrom0: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a
+build r3dfrom0: phony /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a
 
 # =============================================================================
 # Folder targets.
@@ -195,23 +192,23 @@ build r3dfrom0: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debu
 # =============================================================================
 
 #############################################
-# Folder: C:/Raytracing_developing_a_3D_renderer_from_zero/build/debug
+# Folder: /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/build/debug
 
 build all: phony libs/all src/all
 
 # =============================================================================
 
 #############################################
-# Folder: C:/Raytracing_developing_a_3D_renderer_from_zero/build/debug/libs
+# Folder: /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/build/debug/libs
 
-build libs/all: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a
+build libs/all: phony /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a
 
 # =============================================================================
 
 #############################################
-# Folder: C:/Raytracing_developing_a_3D_renderer_from_zero/build/debug/src
+# Folder: /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/build/debug/src
 
-build src/all: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_main.exe
+build src/all: phony /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_main
 
 # =============================================================================
 # Built-in targets
@@ -220,14 +217,14 @@ build src/all: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeRCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-Initialize.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/WindowsPaths.cmake C$:/Raytracing_developing_a_3D_renderer_from_zero/CMakeLists.txt C$:/Raytracing_developing_a_3D_renderer_from_zero/libs/CMakeLists.txt C$:/Raytracing_developing_a_3D_renderer_from_zero/src/CMakeLists.txt CMakeCache.txt CMakeFiles/3.28.1/CMakeCCompiler.cmake CMakeFiles/3.28.1/CMakeCXXCompiler.cmake CMakeFiles/3.28.1/CMakeRCCompiler.cmake CMakeFiles/3.28.1/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/CMakeLists.txt /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/libs/CMakeLists.txt /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/src/CMakeLists.txt /snap/clion/284/bin/cmake/linux/x64/share/cmake-3.28/Modules/CMakeCInformation.cmake /snap/clion/284/bin/cmake/linux/x64/share/cmake-3.28/Modules/CMakeCXXInformation.cmake /snap/clion/284/bin/cmake/linux/x64/share/cmake-3.28/Modules/CMakeCommonLanguageInclude.cmake /snap/clion/284/bin/cmake/linux/x64/share/cmake-3.28/Modules/CMakeGenericSystem.cmake /snap/clion/284/bin/cmake/linux/x64/share/cmake-3.28/Modules/CMakeInitializeConfigs.cmake /snap/clion/284/bin/cmake/linux/x64/share/cmake-3.28/Modules/CMakeLanguageInformation.cmake /snap/clion/284/bin/cmake/linux/x64/share/cmake-3.28/Modules/CMakeSystemSpecificInformation.cmake /snap/clion/284/bin/cmake/linux/x64/share/cmake-3.28/Modules/CMakeSystemSpecificInitialize.cmake /snap/clion/284/bin/cmake/linux/x64/share/cmake-3.28/Modules/Compiler/CMakeCommonCompilerMacros.cmake /snap/clion/284/bin/cmake/linux/x64/share/cmake-3.28/Modules/Compiler/GNU-C.cmake /snap/clion/284/bin/cmake/linux/x64/share/cmake-3.28/Modules/Compiler/GNU-CXX.cmake /snap/clion/284/bin/cmake/linux/x64/share/cmake-3.28/Modules/Compiler/GNU.cmake /snap/clion/284/bin/cmake/linux/x64/share/cmake-3.28/Modules/Platform/Linux-GNU-C.cmake /snap/clion/284/bin/cmake/linux/x64/share/cmake-3.28/Modules/Platform/Linux-GNU-CXX.cmake /snap/clion/284/bin/cmake/linux/x64/share/cmake-3.28/Modules/Platform/Linux-GNU.cmake /snap/clion/284/bin/cmake/linux/x64/share/cmake-3.28/Modules/Platform/Linux-Initialize.cmake /snap/clion/284/bin/cmake/linux/x64/share/cmake-3.28/Modules/Platform/Linux.cmake /snap/clion/284/bin/cmake/linux/x64/share/cmake-3.28/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.28.1/CMakeCCompiler.cmake CMakeFiles/3.28.1/CMakeCXXCompiler.cmake CMakeFiles/3.28.1/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeRCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-Initialize.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/WindowsPaths.cmake C$:/Raytracing_developing_a_3D_renderer_from_zero/CMakeLists.txt C$:/Raytracing_developing_a_3D_renderer_from_zero/libs/CMakeLists.txt C$:/Raytracing_developing_a_3D_renderer_from_zero/src/CMakeLists.txt CMakeCache.txt CMakeFiles/3.28.1/CMakeCCompiler.cmake CMakeFiles/3.28.1/CMakeCXXCompiler.cmake CMakeFiles/3.28.1/CMakeRCCompiler.cmake CMakeFiles/3.28.1/CMakeSystem.cmake: phony
+build /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/CMakeLists.txt /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/libs/CMakeLists.txt /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/src/CMakeLists.txt /snap/clion/284/bin/cmake/linux/x64/share/cmake-3.28/Modules/CMakeCInformation.cmake /snap/clion/284/bin/cmake/linux/x64/share/cmake-3.28/Modules/CMakeCXXInformation.cmake /snap/clion/284/bin/cmake/linux/x64/share/cmake-3.28/Modules/CMakeCommonLanguageInclude.cmake /snap/clion/284/bin/cmake/linux/x64/share/cmake-3.28/Modules/CMakeGenericSystem.cmake /snap/clion/284/bin/cmake/linux/x64/share/cmake-3.28/Modules/CMakeInitializeConfigs.cmake /snap/clion/284/bin/cmake/linux/x64/share/cmake-3.28/Modules/CMakeLanguageInformation.cmake /snap/clion/284/bin/cmake/linux/x64/share/cmake-3.28/Modules/CMakeSystemSpecificInformation.cmake /snap/clion/284/bin/cmake/linux/x64/share/cmake-3.28/Modules/CMakeSystemSpecificInitialize.cmake /snap/clion/284/bin/cmake/linux/x64/share/cmake-3.28/Modules/Compiler/CMakeCommonCompilerMacros.cmake /snap/clion/284/bin/cmake/linux/x64/share/cmake-3.28/Modules/Compiler/GNU-C.cmake /snap/clion/284/bin/cmake/linux/x64/share/cmake-3.28/Modules/Compiler/GNU-CXX.cmake /snap/clion/284/bin/cmake/linux/x64/share/cmake-3.28/Modules/Compiler/GNU.cmake /snap/clion/284/bin/cmake/linux/x64/share/cmake-3.28/Modules/Platform/Linux-GNU-C.cmake /snap/clion/284/bin/cmake/linux/x64/share/cmake-3.28/Modules/Platform/Linux-GNU-CXX.cmake /snap/clion/284/bin/cmake/linux/x64/share/cmake-3.28/Modules/Platform/Linux-GNU.cmake /snap/clion/284/bin/cmake/linux/x64/share/cmake-3.28/Modules/Platform/Linux-Initialize.cmake /snap/clion/284/bin/cmake/linux/x64/share/cmake-3.28/Modules/Platform/Linux.cmake /snap/clion/284/bin/cmake/linux/x64/share/cmake-3.28/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.28.1/CMakeCCompiler.cmake CMakeFiles/3.28.1/CMakeCXXCompiler.cmake CMakeFiles/3.28.1/CMakeSystem.cmake: phony
 
 
 #############################################

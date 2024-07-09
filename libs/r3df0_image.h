@@ -31,6 +31,7 @@ auto ppm_out(vector<vector<pixel_f>>& img_data, const string& fname){
     out << "P3\n" << columns << " " << rows << "\n255\n" <<endl;
     // ppm body render
     for (int i = 0; i < rows; i++){
+        clog << "\rScanlines remaining: " << (rows - i) << flush;
         for (int j = 0; j < columns; j++){
             auto r_i = int(255.999 * img_data[i][j].r);
             auto g_i = int(255.999 * img_data[i][j].g);
@@ -41,6 +42,7 @@ auto ppm_out(vector<vector<pixel_f>>& img_data, const string& fname){
         out << endl;
     }
     out.close();
+    clog << "\rDone                                 \n" << flush;
 } // ppm_out
 
 } // namespace r3dfrom0
