@@ -10,7 +10,7 @@
 #include <string>
 #include <fstream>
 #include <vector>
-#include <r3df0_math.h>
+#include <r3df0_color.h>
 
 using namespace std;
 using std::string;
@@ -33,11 +33,8 @@ auto ppm_out(vector<vector<pixel_f>>& img_data, const string& fname){
     for (int i = 0; i < rows; i++){
         clog << "\rScanlines remaining: " << (rows - i) << flush;
         for (int j = 0; j < columns; j++){
-            auto r_i = int(255.999 * img_data[i][j].r);
-            auto g_i = int(255.999 * img_data[i][j].g);
-            auto b_i = int(255.999 * img_data[i][j].b);
-
-            out << r_i << " " << g_i << " " << b_i << " ";
+            auto p_i = convert_pixel_i(img_data[i][j]);
+            out << p_i << " ";
         }
         out << endl;
     }

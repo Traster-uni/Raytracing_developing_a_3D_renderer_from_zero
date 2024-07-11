@@ -12,7 +12,7 @@ using namespace std;
 namespace r3dfrom0 {
     // float
     class vec3f{
-    public: // arguments
+    public: // attributes
         float x, y, z;
 
         // constructors
@@ -58,11 +58,11 @@ namespace r3dfrom0 {
 
     // Integration of Algebraic operators as util function and other
     // Easily print a vector
-    inline ostream& operator<<(ostream& out, const vec3f& v) {
-        return out << "<"<< v.x << ', ' << v.y << ', ' << v.z << ">";
+    inline ostream& operator<< (ostream& out, const vec3f& v) {
+        return out << v.x << ' ' << v.y << ' ' << v.z;
     }
 
-    // sum of two vectors
+    // sums of two vectors
     inline vec3f operator+ (vec3f& u, vec3f& v) {
         return {u.x + v.x, u.y + v.y, u.z + v.z};
     };
