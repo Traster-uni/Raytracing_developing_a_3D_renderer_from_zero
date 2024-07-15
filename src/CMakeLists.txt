@@ -6,4 +6,5 @@ function(add_src name)
     target_link_libraries(${name} PRIVATE r3dfrom0)
 endfunction()
 
-add_src(r3df0_main)
+add_src(r3df0_hello_world)
+add_src(r3df0_hello_sphere)

@@ -7,6 +7,7 @@
 
 // INCLUDES
 #include <cmath>
+#include <ostream>
 
 using namespace std;
 namespace r3dfrom0 {
@@ -54,7 +55,7 @@ namespace r3dfrom0 {
         float normalize() const {
             return sqrt(sqr_length());
         }
-    };
+    }; // vec3f
 
     // Integration of Algebraic operators as util function and other
     // Easily print a vector
@@ -63,30 +64,30 @@ namespace r3dfrom0 {
     }
 
     // sums of two vectors
-    inline vec3f operator+ (vec3f& u, vec3f& v) {
+    inline vec3f operator+ (const vec3f& u, const vec3f& v) {
         return {u.x + v.x, u.y + v.y, u.z + v.z};
     };
 
     // subtraction of two vectors
-    inline vec3f operator- (vec3f& u, vec3f& v) {
+    inline vec3f operator- (const vec3f& u, const vec3f& v) {
         return {u.x - v.x, u.y - v.y, u.z - v.z};
     };
 
-    inline vec3f operator* (vec3f& u, vec3f& v) {
+    inline vec3f operator* (const vec3f& u, const vec3f& v) {
         return {u.x * v.x, u.y * v.y, u.z * v.z};
     };
 
     // vector times a real value or "vettore per uno scalare"
-    inline vec3f operator* (float t, const vec3f& v) {
+    inline vec3f operator* (const float t, const vec3f& v) {
         return {t * v.x, t * v.y, t * v.z};
     };
 
     // as above but from the other side
-    inline vec3f operator* (const vec3f& v, float t) {
+    inline vec3f operator* (const vec3f& v, const float t) {
         return t * v;
     }
 
-    inline vec3f operator/ (const vec3f& v, float t) {
+    inline vec3f operator/ (const vec3f& v, const float t) {
         return (1/t) * v;
     }
 
@@ -116,7 +117,7 @@ namespace r3dfrom0 {
         vec3i() : x{0}, y{0}, z{0} {}; // default behaviour
         vec3i(int x, int y, int z) : x{x}, y{y}, z{z} {} // if args are defined
 
-    };
+    }; // vec3i
 
 } // namespace r3dfrom0
 

@@ -77,6 +77,12 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
 build cmake_object_order_depends_target_r3dfrom0: phony || libs/CMakeFiles/r3dfrom0.dir
 
+build libs/CMakeFiles/r3dfrom0.dir/__/src/r3df0_hello_sphere.cpp.o: CXX_COMPILER__r3dfrom0_unscanned_Debug /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/src/r3df0_hello_sphere.cpp || cmake_object_order_depends_target_r3dfrom0
+  DEP_FILE = libs/CMakeFiles/r3dfrom0.dir/__/src/r3df0_hello_sphere.cpp.o.d
+  FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
+  OBJECT_DIR = libs/CMakeFiles/r3dfrom0.dir
+  OBJECT_FILE_DIR = libs/CMakeFiles/r3dfrom0.dir/__/src
+
 
 # =============================================================================
 # Link build statements for STATIC_LIBRARY target r3dfrom0
@@ -85,7 +91,7 @@ build cmake_object_order_depends_target_r3dfrom0: phony || libs/CMakeFiles/r3dfr
 #############################################
 # Link the static library /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a
 
-build /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a: CXX_STATIC_LIBRARY_LINKER__r3dfrom0_Debug
+build /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a: CXX_STATIC_LIBRARY_LINKER__r3dfrom0_Debug libs/CMakeFiles/r3dfrom0.dir/__/src/r3df0_hello_sphere.cpp.o
   LANGUAGE_COMPILE_FLAGS = -g
   OBJECT_DIR = libs/CMakeFiles/r3dfrom0.dir
   POST_BUILD = :
@@ -122,37 +128,70 @@ build libs/rebuild_cache: phony libs/CMakeFiles/rebuild_cache.util
 # =============================================================================
 
 # =============================================================================
-# Object build statements for EXECUTABLE target r3df0_main
+# Object build statements for EXECUTABLE target r3df0_hello_world
 
 
 #############################################
-# Order-only phony target for r3df0_main
+# Order-only phony target for r3df0_hello_world
 
-build cmake_object_order_depends_target_r3df0_main: phony || cmake_object_order_depends_target_r3dfrom0
+build cmake_object_order_depends_target_r3df0_hello_world: phony || cmake_object_order_depends_target_r3dfrom0
 
-build src/CMakeFiles/r3df0_main.dir/r3df0_main.cpp.o: CXX_COMPILER__r3df0_main_unscanned_Debug /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/src/r3df0_main.cpp || cmake_object_order_depends_target_r3df0_main
-  DEP_FILE = src/CMakeFiles/r3df0_main.dir/r3df0_main.cpp.o.d
+build src/CMakeFiles/r3df0_hello_world.dir/r3df0_hello_world.cpp.o: CXX_COMPILER__r3df0_hello_world_unscanned_Debug /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/src/r3df0_hello_world.cpp || cmake_object_order_depends_target_r3df0_hello_world
+  DEP_FILE = src/CMakeFiles/r3df0_hello_world.dir/r3df0_hello_world.cpp.o.d
   FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
   INCLUDES = -I/home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/libs
-  OBJECT_DIR = src/CMakeFiles/r3df0_main.dir
-  OBJECT_FILE_DIR = src/CMakeFiles/r3df0_main.dir
+  OBJECT_DIR = src/CMakeFiles/r3df0_hello_world.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/r3df0_hello_world.dir
 
 
 # =============================================================================
-# Link build statements for EXECUTABLE target r3df0_main
+# Link build statements for EXECUTABLE target r3df0_hello_world
 
 
 #############################################
-# Link the executable /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_main
+# Link the executable /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_hello_world
 
-build /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_main: CXX_EXECUTABLE_LINKER__r3df0_main_Debug src/CMakeFiles/r3df0_main.dir/r3df0_main.cpp.o | /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a || /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a
+build /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_hello_world: CXX_EXECUTABLE_LINKER__r3df0_hello_world_Debug src/CMakeFiles/r3df0_hello_world.dir/r3df0_hello_world.cpp.o | /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a || /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a
   FLAGS = -g
   LINK_LIBRARIES = /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a
-  OBJECT_DIR = src/CMakeFiles/r3df0_main.dir
+  OBJECT_DIR = src/CMakeFiles/r3df0_hello_world.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_FILE = /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_main
-  TARGET_PDB = r3df0_main.dbg
+  TARGET_FILE = /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_hello_world
+  TARGET_PDB = r3df0_hello_world.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target r3df0_hello_sphere
+
+
+#############################################
+# Order-only phony target for r3df0_hello_sphere
+
+build cmake_object_order_depends_target_r3df0_hello_sphere: phony || cmake_object_order_depends_target_r3dfrom0
+
+build src/CMakeFiles/r3df0_hello_sphere.dir/r3df0_hello_sphere.cpp.o: CXX_COMPILER__r3df0_hello_sphere_unscanned_Debug /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/src/r3df0_hello_sphere.cpp || cmake_object_order_depends_target_r3df0_hello_sphere
+  DEP_FILE = src/CMakeFiles/r3df0_hello_sphere.dir/r3df0_hello_sphere.cpp.o.d
+  FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
+  INCLUDES = -I/home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/libs
+  OBJECT_DIR = src/CMakeFiles/r3df0_hello_sphere.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/r3df0_hello_sphere.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target r3df0_hello_sphere
+
+
+#############################################
+# Link the executable /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_hello_sphere
+
+build /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_hello_sphere: CXX_EXECUTABLE_LINKER__r3df0_hello_sphere_Debug src/CMakeFiles/r3df0_hello_sphere.dir/r3df0_hello_sphere.cpp.o | /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a || /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a
+  FLAGS = -g
+  LINK_LIBRARIES = /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a
+  OBJECT_DIR = src/CMakeFiles/r3df0_hello_sphere.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_hello_sphere
+  TARGET_PDB = r3df0_hello_sphere.dbg
 
 
 #############################################
@@ -182,7 +221,9 @@ build src/rebuild_cache: phony src/CMakeFiles/rebuild_cache.util
 
 build libr3dfrom0.a: phony /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a
 
-build r3df0_main: phony /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_main
+build r3df0_hello_sphere: phony /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_hello_sphere
+
+build r3df0_hello_world: phony /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_hello_world
 
 build r3dfrom0: phony /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a
 
@@ -208,7 +249,7 @@ build libs/all: phony /home/tommasomarialopedote/Raytracing_developing_a_3D_rend
 #############################################
 # Folder: /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/build/debug/src
 
-build src/all: phony /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_main
+build src/all: phony /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_hello_world /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_hello_sphere
 
 # =============================================================================
 # Built-in targets

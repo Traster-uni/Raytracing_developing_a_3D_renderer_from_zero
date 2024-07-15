@@ -9,7 +9,9 @@
 #include <cmath>
 
 using namespace std;
+
 namespace r3dfrom0{
+// pixel class
     // float
     class pixel_f{
     public: // attributes
@@ -48,6 +50,24 @@ namespace r3dfrom0{
         return out << p.r << ' ' << p.g << ' ' << p.b;
     }
 
+    inline pixel_f operator+ (const pixel_f& u, const pixel_f& v) {
+        return {u.r + v.r, u.g + v.g, u.b + v.b};
+    };
+
+    inline pixel_f operator* (const pixel_f& u, const pixel_f& v) {
+        return {u.r * v.r, u.g * v.g, u.b * v.b};
+    };
+
+    // vector times a real value or "vettore per uno scalare"
+    inline pixel_f operator* (const float t, const pixel_f& v) {
+        return {t * v.r, t * v.g, t * v.b};
+    };
+
+    // as above but from the other side
+    inline pixel_f operator* (const pixel_f& v, const float t) {
+        return t * v;
+    }
+
     // integers
     class pixel_i : public pixel_f{
     public:
@@ -72,14 +92,14 @@ namespace r3dfrom0{
         return {int(255.999 * p.r), int(255.999 * p.g), int(255.999 * p.b)};
     } // convert_pixel_i
 
+    inline pixel_f lerp_color(const float& _a, const pixel_f& start_color, const pixel_f& end_color){
+        /**
+         * Blends the float value _a from the start color, to the end color;
+         */
+        float a = 0.5 * (_a + 1.0);
+        return (1 - a) * start_color + a * end_color;
+    } // lerp_color
+
 } // namespace r3dfrom0
 
-namespace r3dfrom0 {
-    auto
-}
-
-namespace r3dfrom0 {
-    pixel_f linear_interpolation() {
-    }
-}
 #endif //R3DFROM0_R3DF0_COLOR_H

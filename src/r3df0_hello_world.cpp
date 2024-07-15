@@ -1,9 +1,6 @@
-#include <iostream>
 #include <vector>
-#include "r3df0_math.h"
 #include "r3df0_image.h"
 #include "r3df0_color.h"
-#include "r3df0_rays.h"
 using namespace std;
 using namespace r3dfrom0;
 
@@ -19,9 +16,5 @@ int main(){
 //        cout << "\n" << endl;
         img.push_back(row);
     }
-//    ppm_out(img, "hello_world.ppm");
-    vec3f a;
-    vec3f b;
-    ray(a, b);
-
+    ppm_out(img, "hello_world.ppm");
 }

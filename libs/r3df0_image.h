@@ -17,29 +17,34 @@ using std::string;
 using std::vector;
 
 namespace r3dfrom0{
+// camera
+// TODO: IMPLEMENT CAMERA CLASS
+}
 
-auto ppm_out(vector<vector<pixel_f>>& img_data, const string& fname){
-    /**
-     * PIXEL FORMAT: (float, float, float) => (red, green, blue)
-     * This function scales the float in an integer between 0 and 255
-     */
-    auto columns = int (img_data[0].size());
-    auto rows = int (img_data.size());
-    ofstream out;
-    out.open(fname);
-    // ppm header
-    out << "P3\n" << columns << " " << rows << "\n255\n" <<endl;
-    // ppm body render
-    for (int i = 0; i < rows; i++){
-        clog << "\rScanlines remaining: " << (rows - i) << flush;
-        for (int j = 0; j < columns; j++){
-            auto p_i = convert_pixel_i(img_data[i][j]);
-            out << p_i << " ";
+namespace r3dfrom0{
+// utility functions
+    auto ppm_out(vector<vector<pixel_f>>& img_data, const string& fname){
+        /**
+         * PIXEL FORMAT: (float, float, float) => (red, green, blue)
+         * This function scales the float in an integer between 0 and 255
+         */
+        auto columns = int (img_data[0].size());
+        auto rows = int (img_data.size());
+        ofstream out;
+        out.open(fname);
+        // ppm header
+        out << "P3\n" << columns << " " << rows << "\n255\n" <<endl;
+        // ppm body render
+        for (int i = 0; i < rows; i++){
+            clog << "\rScanlines remaining: " << (rows - i) << flush;
+            for (int j = 0; j < columns; j++){
+                auto p_i = convert_pixel_i(img_data[i][j]);
+                out << p_i << " ";
+            }
+            out << endl;
         }
-        out << endl;
-    }
-    out.close();
-    clog << "\rDone                                 \n" << flush;
+        out.close();
+        clog << "\rDone                                 \n" << flush;
 } // ppm_out
 
 } // namespace r3dfrom0
