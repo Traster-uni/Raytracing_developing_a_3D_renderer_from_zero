@@ -89,16 +89,24 @@ namespace r3dfrom0{
          * integer precision between 0 and 256.
          * Note: By converting from float to integer, the operation is not reversible.
          */
-        return {int(255.999 * p.r), int(255.999 * p.g), int(255.999 * p.b)};
+        return {int(255.999 * p.r),
+                int(255.999 * p.g),
+                int(255.999 * p.b)};
     } // convert_pixel_i
 
-    inline pixel_f lerp_color(const float& _a, const pixel_f& start_color, const pixel_f& end_color){
+    pixel_f lerp_color(const float& _a, const pixel_f& start_color, const pixel_f& end_color){
         /**
          * Blends the float value _a from the start color, to the end color;
          */
         float a = 0.5 * (_a + 1.0);
         return (1 - a) * start_color + a * end_color;
-    } // lerp_color
+    } // lerp_colorunit_vec_length.x +1
+
+    pixel_f color_map(const vec3f& unit_vec_length){
+        return 0.5 * pixel_f{unit_vec_length.x + 1,
+                             unit_vec_length.y + 1,
+                             unit_vec_length.z + 1};
+    }
 
 } // namespace r3dfrom0
 

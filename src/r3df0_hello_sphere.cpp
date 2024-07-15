@@ -7,22 +7,46 @@
 using namespace std;
 using namespace r3dfrom0;
 
-bool hit_sphere(const vec3f& sphere_center, const float& sphere_radius, const ray& r){
+float hit_sphere_old(const vec3f& sphere_center, const float& sphere_radius, const ray& r){
     auto c_q = sphere_center - r.origin();
     auto a = dot(r.direction(), r.direction());
     auto b = 2 * dot(r.direction(),c_q);
     auto c = dot(c_q, c_q) - (sphere_radius * sphere_radius);
     auto delta = b * b - 4 * (a * c);
-    return delta >= 0;
+    if (delta < 0){
+        return -1.0;
+    }else{
+        return (-b - sqrt(delta)) / float(2.0 * a);
+    }
 }
+
+float hit_sphere(const vec3f& sphere_center, const float& sphere_radius, const ray& r){
+    auto c_q = sphere_center - r.origin();
+    // optimized the dot function of a vector to itself is, sqr_length of said vector
+    auto a = r.direction().sqr_length();
+    // b in old func is now d * (C - Q)
+    auto h = dot(r.direction(), c_q);
+    // optimized the dot function of a vector to itself is, sqr_length of said vector
+    auto c = c_q.sqr_length() - (sphere_radius * sphere_radius);
+    // delta optimized by algebraic simplification
+    auto delta = h * h - a * c;
+    if (delta < 0){
+        return -1.0;
+    }else{
+        return (-h - sqrt(delta)) / a;
+    }
+}
+
 pixel_f ray_color(const ray& r){
     /**
      * test ray intersection and ray sampling code
      */
     auto c = vec3f{0,0,-1};
     float d = 5.0;
-    if (hit_sphere(c, d, r)){
-        return {1,0,0};    // returns red pixel
+    auto sph = hit_sphere(c, d, r);
+    if (sph > 0.0){
+        auto uv_length = unit(r.at(sph) - vec3f(0,0,-1.0));
+        return color_map(uv_length);
     }
 
     auto unit_vec = unit(r.direction()).y;
