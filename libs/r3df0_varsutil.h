@@ -5,16 +5,6 @@
 #ifndef R3DFROM0_R3DF0_VARSUTIL_H
 #define R3DFROM0_R3DF0_VARSUTIL_H
 
-#include <cmath>
-#include <iostream>
-#include <limits>
-#include <memory>
-
-// C++ Std Usings
-using std::make_shared;
-using std::shared_ptr;
-using std::sqrt;
-
 // Constants
 const double infinity = std::numeric_limits<double>::infinity();
 const float pi = 3.1415926535897932385;

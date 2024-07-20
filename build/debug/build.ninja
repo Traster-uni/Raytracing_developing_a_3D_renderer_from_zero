@@ -77,12 +77,6 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
 build cmake_object_order_depends_target_r3dfrom0: phony || libs/CMakeFiles/r3dfrom0.dir
 
-build libs/CMakeFiles/r3dfrom0.dir/__/src/r3df0_hello_sphere.cpp.o: CXX_COMPILER__r3dfrom0_unscanned_Debug /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/src/r3df0_hello_sphere.cpp || cmake_object_order_depends_target_r3dfrom0
-  DEP_FILE = libs/CMakeFiles/r3dfrom0.dir/__/src/r3df0_hello_sphere.cpp.o.d
-  FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
-  OBJECT_DIR = libs/CMakeFiles/r3dfrom0.dir
-  OBJECT_FILE_DIR = libs/CMakeFiles/r3dfrom0.dir/__/src
-
 
 # =============================================================================
 # Link build statements for STATIC_LIBRARY target r3dfrom0
@@ -91,7 +85,7 @@ build libs/CMakeFiles/r3dfrom0.dir/__/src/r3df0_hello_sphere.cpp.o: CXX_COMPILER
 #############################################
 # Link the static library /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a
 
-build /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a: CXX_STATIC_LIBRARY_LINKER__r3dfrom0_Debug libs/CMakeFiles/r3dfrom0.dir/__/src/r3df0_hello_sphere.cpp.o
+build /home/tommasomarialopedote/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a: CXX_STATIC_LIBRARY_LINKER__r3dfrom0_Debug
   LANGUAGE_COMPILE_FLAGS = -g
   OBJECT_DIR = libs/CMakeFiles/r3dfrom0.dir
   POST_BUILD = :

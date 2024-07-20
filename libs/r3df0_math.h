@@ -8,9 +8,10 @@
 // INCLUDES
 #include <cmath>
 #include <ostream>
+#include "r3df0_varsutil.h"
 
 using namespace std;
-namespace r3dfrom0 {
+namespace r3dfrom0 { // vectors and vector related functions
     // float
     class vec3f{
     public: // attributes
@@ -66,21 +67,21 @@ namespace r3dfrom0 {
     // sums of two vectors
     inline vec3f operator+ (const vec3f& u, const vec3f& v) {
         return {u.x + v.x, u.y + v.y, u.z + v.z};
-    };
+    }
 
     // subtraction of two vectors
     inline vec3f operator- (const vec3f& u, const vec3f& v) {
         return {u.x - v.x, u.y - v.y, u.z - v.z};
-    };
+    }
 
     inline vec3f operator* (const vec3f& u, const vec3f& v) {
         return {u.x * v.x, u.y * v.y, u.z * v.z};
-    };
+    }
 
     // vector times a real value or "vettore per uno scalare"
     inline vec3f operator* (const float t, const vec3f& v) {
         return {t * v.x, t * v.y, t * v.z};
-    };
+    }
 
     // as above but from the other side
     inline vec3f operator* (const vec3f& v, const float t) {
@@ -94,7 +95,7 @@ namespace r3dfrom0 {
     // dot product or "prodotto scalare"
     inline float dot(vec3f u, vec3f v) {
         return u.x * v.x + u.y * v.y + u.z * v.z;
-    };
+    }
 
     // cross product or "prodotto vettoriale"
     inline vec3f cross(vec3f u, vec3f v) {
@@ -118,6 +119,36 @@ namespace r3dfrom0 {
         vec3i(int x, int y, int z) : x{x}, y{y}, z{z} {} // if args are defined
 
     }; // vec3i
+
+} // namespace r3dfrom0
+
+namespace r3dfrom0 {
+    class interval{
+    public:
+        /**
+         * An interval class to define a continuos interval of real values
+         */
+        // attributes
+        double min, max;
+
+        // constructors
+        interval() : min(-infinity), max(+infinity) {}
+        interval(double m, double M) : min{m}, max{M} {}
+
+        bool size() const{
+            return max - min;
+        }
+
+        bool includes(double x) const{
+            return min <= x && x <= max;
+        }
+
+        bool excludes(double x) const{ // maybe redundant
+            return x < min || x > max;
+        }
+
+
+    };
 
 } // namespace r3dfrom0
 

@@ -33,8 +33,6 @@ namespace r3dfrom0{
     inline const ostream& operator<< (ostream& out, const ray& r) {
         return out << r.origin() << " " << r.direction();
     }
-
 }
-
 
 #endif //R3DFROM0_R3DF0_RAYS_H

@@ -1,4 +1,6 @@
 #include <vector>
+#include <cmath>
+#include "r3df0_math.h"
 #include "r3df0_image.h"
 #include "r3df0_color.h"
 using namespace std;
@@ -16,5 +18,6 @@ int main(){
 //        cout << "\n" << endl;
         img.push_back(row);
     }
-    ppm_out(img, "hello_world.ppm");
+//    ppm_out(img, "hello_world.ppm");
+
 }

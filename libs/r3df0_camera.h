@@ -13,12 +13,13 @@ namespace r3dfrom0{
     public: // public attributes
         int image_width = 1920; // defaults to fullHD, 1920w x 1080h
         float aspect_ratio = 1.7777777777777777; // defaults to 16:9
+
         // constructor
         camera() {}
 
         // public methods
-        double fov(){
-            return radians_to_degrees(2 * focal_length * atan(image_height / 2));
+        auto render(){
+
         }
 
     private: // private attributes
@@ -51,7 +52,7 @@ namespace r3dfrom0{
             viewport_u = {viewport_width, 0, 0};
             viewport_v = {0, -viewport_height, 0};
 
-            // pixel deltas
+            // pixel deltas, small vector that define a step to the next pixel of the viewport
             pixel_delta_r = viewport_u / float (image_width);
             pixel_delta_d = viewport_v / float (image_height);
 
