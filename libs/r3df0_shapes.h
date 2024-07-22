@@ -12,7 +12,7 @@
 using namespace std;
 
 namespace r3dfrom0{
-    class sphere : hittable{
+    class sphere : public hittable{
     public:
         // attributes
         vec3f center;
@@ -33,6 +33,9 @@ namespace r3dfrom0{
             auto c = c_q.sqr_length() - (radius * radius);
             // delta optimized by algebraic simplification
             auto delta = h * h - a * c;
+            if (delta < 0) {
+                return false;
+            }
             auto sqrt_delta = sqrt(delta);
             // roots of the quadratic equation
             auto roots = (h - sqrt_delta) / a;
