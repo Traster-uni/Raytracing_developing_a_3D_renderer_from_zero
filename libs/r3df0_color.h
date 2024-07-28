@@ -89,9 +89,9 @@ namespace r3dfrom0{
          * integer precision between 0 and 256.
          * Note: By converting from float to integer, the operation is not reversible.
          */
-        return {int(255.999 * p.r),
-                int(255.999 * p.g),
-                int(255.999 * p.b)};
+        return {int(255.999f * p.r),
+                int(255.999f * p.g),
+                int(255.999f * p.b)};
     } // convert_pixel_i
 
     pixel_f lerp_color(const float& _a, const pixel_f& start_color, const pixel_f& end_color){

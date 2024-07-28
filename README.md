@@ -8,5 +8,8 @@ The following code is developed following this essential series of books:
 - [_Ray Tracing in One Weekend_](https://raytracing.github.io/books/RayTracingInOneWeekend.html)
 - [_Ray Tracing: The Next Week_](https://raytracing.github.io/books/RayTracingTheNextWeek.html)
 
+and with the help of this wonderful collection of lessons:
+- [_Scratch Pixel_](https://www.scratchapixel.com/index.html)
+
 Many thanks to the authors of these books, that have release them for free and completely open source:
 _Peter Shirley, Trevor David Black, Steve Hollasch_

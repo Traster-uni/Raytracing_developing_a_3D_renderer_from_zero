@@ -135,6 +135,7 @@ namespace r3dfrom0 {
         interval() : min(-infinity), max(+infinity) {}
         interval(double m, double M) : min{m}, max{M} {}
 
+        // methods
         bool size() const{
             return max - min;
         }
@@ -147,8 +148,14 @@ namespace r3dfrom0 {
             return x < min || x > max;
         }
 
-
+        // constants
+        static const interval empty;
+        static const interval universe;
     };
+
+    // constants definitions
+    const interval interval::empty    = interval(+infinity, -infinity);
+    const interval interval::universe = interval(-infinity, +infinity);
 
 } // namespace r3dfrom0
 

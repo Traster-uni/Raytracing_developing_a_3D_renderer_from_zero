@@ -15,7 +15,9 @@ namespace r3dfrom0{
     class camera{
     public: // public attributes
         int image_width = 1920; // defaults to fullHD, 1920w x 1080h
-        float aspect_ratio = 16.0/9.0; // defaults to 16:9
+        // higher resolution generates stretching
+        float aspect_ratio = 16.0/9.0; // defaults to 1:1
+        // different aspect ratio changes point of reference
 
         // constructor
         camera() {}
@@ -42,7 +44,7 @@ namespace r3dfrom0{
             out << "P3\n" << image_width << " " << image_height << "\n255\n" <<endl;
             // ppm body render
             for (int i = 0; i < image_height; i++){
-                clog << "\rScanlines remaining: " << (image_height - i) << flush;
+                clog << "\rScanlines remaining: " << i << "/" << image_height << flush;
                 for (int j = 0; j < image_width; j++){
                     auto p_c = pixel_center(i,j);
                     auto ray_direction = p_c - eye_point;
@@ -69,8 +71,8 @@ namespace r3dfrom0{
         vec3f viewport_u;           // viewport vector, x axis, left to right
         vec3f viewport_v;           // viewport vector, -y axis, top to bottom
         vec3f pixel00_location;     // origin of the pixel grid
-        vec3f pixel_delta_r;        // pixel offset to the right
-        vec3f pixel_delta_d;        // pixel offset down
+        vec3f pixel_delta_u;        // pixel offset to the right
+        vec3f pixel_delta_v;        // pixel offset down
 
         // private methods
         void initialize(const vec3f& ep = {0,0,0}, const float& fl = 1.0){
@@ -82,7 +84,7 @@ namespace r3dfrom0{
             image_height = h < 1 ? 1 : h; // image_height must be at least 1
 
             // define viewport dimension
-            viewport_height = 2.0;  // TODO: MAKE VIEWPORT DIMENSIONS FULLY COMPUTABLE
+            viewport_height = 2.0f;  // TODO: MAKE VIEWPORT DIMENSIONS FULLY COMPUTABLE
             viewport_width = viewport_height * (float(image_width) / float (image_height));
 
             // viewport vectors
@@ -90,19 +92,20 @@ namespace r3dfrom0{
             viewport_v = {0, -viewport_height, 0};
 
             // pixel deltas, small vector that define a step to the next pixel of the viewport
-            pixel_delta_r = viewport_u / float (image_width);
-            pixel_delta_d = viewport_v / float (image_height);
+            pixel_delta_u = viewport_u / float (image_width);
+            pixel_delta_v = viewport_v / float (image_height);
 
             // location of upper left corner pixel
-            viewport_upper_left = eye_point - vec3f{0,0,focal_length} - viewport_u / 2 - viewport_v / 2;
-            pixel00_location = viewport_upper_left + (0.5 * (pixel_delta_r + pixel_delta_d));
+            viewport_upper_left = eye_point - vec3f{0,0,focal_length} - viewport_u/2 - viewport_v / 2;
+            cout << viewport_upper_left << endl;
+            pixel00_location = viewport_upper_left + 0.5 * (pixel_delta_u + pixel_delta_v);
         }
 
 
         vec3f pixel_center(const int& i, const int& j){
             // returns coordinates for center of pixel, used to cast rays from
             // said pixel
-            return pixel00_location + (i * pixel_delta_r) + (j * pixel_delta_d);
+            return pixel00_location + (i * pixel_delta_v) + (j * pixel_delta_u);
         }
 
     };

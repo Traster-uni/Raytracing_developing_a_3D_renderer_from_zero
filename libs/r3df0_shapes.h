@@ -22,6 +22,7 @@ namespace r3dfrom0{
         sphere() : center{0,0,0}, radius{1.0} {}; // default behavior
         sphere(const vec3f& c, const float& r ) : center{c}, radius{float (fmax(0,r))} {}; // if attrs are defined
 
+        // methods
         bool hit(const ray& r, interval i, hit_record& hit_record) const override{
             auto c_q = center - r.origin();
             // optimized the dot function of a vector by noticing that the dot function of
@@ -52,8 +53,8 @@ namespace r3dfrom0{
             auto n = (hit_record.position - center) / radius;
             hit_record.set_face_normals(r, n);
             return true;
-        }
-    };
+        } // hit method
+    }; // sphere class
 }
 
 #endif //R3DFROM0_R3DF0_SHAPES_H
