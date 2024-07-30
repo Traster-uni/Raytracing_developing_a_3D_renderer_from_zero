@@ -16,7 +16,7 @@ namespace r3dfrom0{
     public: // public attributes
         int image_width = 1920; // defaults to fullHD, 1920w x 1080h
         float aspect_ratio = 1.777778; // defaults to 16:9
-        int samples_number = 10; // number of sampling points within a single pixel
+        int samples_number = 100; // number of sampling points within a single pixel
 
         // constructor
         camera() {}
@@ -28,6 +28,7 @@ namespace r3dfrom0{
             interval i(0, infinity);
             if (worldList.hit(r, i, hitRecord)){
                 return color_map(hitRecord.normal);
+//                return {1.0,0,0};
             }
 
             auto unit_vec = 0.5f * (unit(r.direction()).y + 1.0f);
@@ -46,21 +47,19 @@ namespace r3dfrom0{
                 clog << "\rScanlines remaining: " << i << "/" << image_height << flush;
                 for (int j = 0; j < image_width; j++){
 
-//                    pixel_f color_sum(0.0f,0.0f,0.0f);
-//                    for (int s = 0; s < samples_number; s++){
-//                        ray r = get_ray(i,j);
-//                        color_sum += ray_color(r, world);
-//                    }
-//                    auto mean_color = color_sum * mean_factor; // (sum(colors rays))/number_of_rays)
+                    pixel_f color_sum(0.0f,0.0f,0.0f);
+                    for (int s = 0; s < samples_number; s++){
+                        ray r = get_ray(i,j);
+                        color_sum += ray_color(r, world);
+                    }
+                    auto mean_color = color_sum * mean_factor; // (sum(colors rays))/number_of_rays)
 //                    cout << "color_sum: " << color_sum << " | " << "mean_color: " << mean_color << endl;
 
                     // color sampling without antialiasing
-                    auto d = pixel_center(i, j) - eye_point;
-                    auto r = ray(eye_point, d);
-                    auto mean_color = ray_color(r, world);
-                    cout << mean_color << endl;
+//                    auto d = pixel_center(i, j) - eye_point;
+//                    auto r = ray(eye_point, d);
+//                    auto mean_color = ray_color(r, world);
                     auto p_i = convert_pixel_i(mean_color); // clamps colors and converts into integers
-                    cout << p_i << endl;
                     out << p_i << " ";
                 }
                 out << endl;
@@ -114,10 +113,9 @@ namespace r3dfrom0{
         ray get_ray(const int& i, const int& j) {
             auto offset = sample_square();
             // pixel_center with added random offsets
-            auto sampled_pixel = pixel00_location + ((i * offset.x) * pixel_delta_u) + ((j * offset.y) * pixel_delta_v);
-            auto ray_origin = eye_point;
-            auto ray_direction = sampled_pixel - ray_origin;
-            return {ray_origin, ray_direction};
+            auto sampled_pixel = pixel00_location + ((i+offset.y) * pixel_delta_v) + ((j+offset.x) * pixel_delta_u);
+            auto ray_direction = sampled_pixel - eye_point;
+            return {eye_point, ray_direction};
         }
 
         vec3f pixel_center(const int& i, const int& j){

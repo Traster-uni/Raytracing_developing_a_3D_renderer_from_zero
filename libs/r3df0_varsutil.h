@@ -26,7 +26,7 @@ inline float random_float(){
     // return a random float in [0, 1[
     static std::uniform_real_distribution<float> distribution(0.0, 1.0);
     static std::mt19937 generator;
-    generator.seed(std::rand());
+//    generator.seed(std::rand());
     return distribution(generator);
 }
 
