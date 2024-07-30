@@ -12,6 +12,7 @@
     <excludeRoots>
       <file path="$PROJECT_DIR$/bin" />
       <file path="$PROJECT_DIR$/build" />
+      <file path="$PROJECT_DIR$/old_renders" />
     </excludeRoots>
   </component>
 </project>

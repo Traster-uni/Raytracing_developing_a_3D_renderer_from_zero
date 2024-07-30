@@ -81,17 +81,16 @@ pixel_f ray_color(const ray& r, hittable_list& worldList){
 int main(){
     // Initialize world
     hittable_list world;
-    auto sph1 = sphere(vec3f{0,0,-1}, 0.5);
+    auto sph1 = sphere(vec3f{0,0,-1}, 1);
+//    auto sph1 = sphere(vec3f{-0.6,0,-3}, 1.5);
 //    auto sph2 = sphere(vec3f(100.5,0,-1), 100);
-    auto sph2 = sphere(vec3f{0,-100.5,-1}, 100);
+//    auto sph2 = sphere(vec3f{0.2,0,-1}, 0.3);
     // make_shared is a method to create a pointer of shared pointer array
     world.append(make_shared<sphere>(sph1));
-    world.append(make_shared<sphere>(sph2));
+//    world.append(make_shared<sphere>(sph2));
 
     // Initialize camera
     camera main_camera;
     main_camera.render("hello_sphere.pmm", world);
-
-//    cout << lerp_color
 }
 
