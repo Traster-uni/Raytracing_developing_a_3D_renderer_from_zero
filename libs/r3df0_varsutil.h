@@ -8,7 +8,7 @@
 #include <random>
 
 // Constants
-const double infinity = std::numeric_limits<double>::infinity();
+const float infinity = std::numeric_limits<float>::infinity();
 const float pi = 3.1415926535897932385;
 
 // Utility Functions
@@ -24,13 +24,13 @@ inline double radians_to_degrees(double radians) {
 
 inline float random_float(){
     // return a random float in [0, 1[
-    static std::uniform_real_distribution<float> distribution(0.0, 1.0);
-    static std::mt19937 generator;
+    static std::default_random_engine generator;
+    static std::normal_distribution<float> distribution(0.0, 1.0);
 //    generator.seed(std::rand());
     return distribution(generator);
 }
 
-inline float random(float min, float max){
+inline float random_float(float min, float max){
     // returns a random in [min, max]
     return min + (max - min) * random_float();
 }

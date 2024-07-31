@@ -14,21 +14,26 @@ namespace r3dfrom0{
 
     class camera{
     public: // public attributes
-        int image_width = 1920; // defaults to fullHD, 1920w x 1080h
-        float aspect_ratio = 1.777778; // defaults to 16:9
-        int samples_number = 100; // number of sampling points within a single pixel
+        int image_width = 1920;         // defaults to fullHD, 1920w x 1080h
+        float aspect_ratio = 1.777778;  // defaults to 16:9
+        int samples_number = 100;       // number of sampling points within a single pixel
+        int max_recursion_depth = 50;   // limits the number of recursive calls
 
         // constructor
         camera() {}
 
         // public methods
-        pixel_f ray_color(const ray& r, hittable_list& worldList){
+        pixel_f ray_color(const ray& r, hittable_list& worldList, const int& recursive_depth){
+            if (recursive_depth <= 0){ // end of recursion check
+                return {0, 0, 0};
+            }
+
             //initialize hit record
             hit_record hitRecord;
-            interval i(0, infinity);
+            interval i(0.001f, infinity);
             if (worldList.hit(r, i, hitRecord)){
-                return color_map(hitRecord.normal);
-//                return {1.0,0,0};
+                auto rdm_v_hemisphere = random_on_hemisphere(hitRecord.normal);
+                return 0.5 * ray_color(ray(hitRecord.position, rdm_v_hemisphere), worldList, recursive_depth-1);
             }
 
             auto unit_vec = 0.5f * (unit(r.direction()).y + 1.0f);
@@ -46,19 +51,12 @@ namespace r3dfrom0{
             for (int i = 0; i < image_height; i++){
                 clog << "\rScanlines remaining: " << i << "/" << image_height << flush;
                 for (int j = 0; j < image_width; j++){
-
                     pixel_f color_sum(0.0f,0.0f,0.0f);
                     for (int s = 0; s < samples_number; s++){
                         ray r = get_ray(i,j);
-                        color_sum += ray_color(r, world);
+                        color_sum += ray_color(r, world, max_recursion_depth);
                     }
                     auto mean_color = color_sum * mean_factor; // (sum(colors rays))/number_of_rays)
-//                    cout << "color_sum: " << color_sum << " | " << "mean_color: " << mean_color << endl;
-
-                    // color sampling without antialiasing
-//                    auto d = pixel_center(i, j) - eye_point;
-//                    auto r = ray(eye_point, d);
-//                    auto mean_color = ray_color(r, world);
                     auto p_i = convert_pixel_i(mean_color); // clamps colors and converts into integers
                     out << p_i << " ";
                 }

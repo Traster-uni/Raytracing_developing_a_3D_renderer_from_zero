@@ -56,6 +56,18 @@ namespace r3dfrom0 { // vectors and vector related functions
         float normalize() const {
             return sqrt(sqr_length());
         }
+
+        vec3f random(){
+            return {this->x = random_float(),
+                    this->y = random_float(),
+                    this->z = random_float()};
+        }
+
+        vec3f random(float min, float max){
+            return {this->x = random_float(min, max),
+                    this->y = random_float(min, max),
+                    this->z = random_float(min, max)};
+        }
     }; // vec3f
 
     // Integration of Algebraic operators as util function and other
@@ -109,6 +121,38 @@ namespace r3dfrom0 { // vectors and vector related functions
         return v / v.length();
     }
 
+    vec3f random_in_unit_sphere(){
+//        Using Gaussian distribution for all three coordinates of your point
+//        will ensure an uniform distribution on the surface of the sphere.
+//        You should proceed as follows:
+
+//        Generate three random numbers x,y,z
+//        using Gaussian distribution
+//        Multiply each number by 1/sqrt(x2+y2+z2)
+//        (a.k.a. Normalise) you should handle what happens if x=y=z=0
+//                Multiply each number by the radius of your sphere.
+        vec3f rdm_v;
+        rdm_v.random(-1, 1); // generate random vector and normalize said vector
+        if (rdm_v.x == rdm_v.y && rdm_v.y == rdm_v.z && rdm_v.z == 0 or rdm_v.sqr_length() < 1){
+            random_in_unit_sphere();
+        }
+        rdm_v.normalize();
+        return rdm_v;
+    }
+
+    vec3f random_unit_vector(){
+        return unit(random_in_unit_sphere());
+    }
+
+    vec3f random_on_hemisphere(const vec3f normal){
+        auto rdm_unit_v = random_unit_vector();
+        if (dot(rdm_unit_v, normal) > 0.0f){
+            return rdm_unit_v;
+        } else {
+            return -rdm_unit_v;
+        }
+    }
+
     // integer
     class vec3i : public vec3f{
     public:
@@ -129,11 +173,11 @@ namespace r3dfrom0 {
          * An interval class to define a continuos interval of real values
          */
         // attributes
-        double min, max;
+        float min, max;
 
         // constructors
         interval() : min(-infinity), max(+infinity) {}
-        interval(double m, double M) : min{m}, max{M} {}
+        interval(float m, float M) : min{m}, max{M} {}
 
         // methods
         bool size() const{
@@ -148,7 +192,7 @@ namespace r3dfrom0 {
             return x < min || x > max;
         }
 
-        double clamp(double x) const{
+        double clamp(float x) const{
             if (x < min) return min;
             else if (x > max) return max;
             return x;
