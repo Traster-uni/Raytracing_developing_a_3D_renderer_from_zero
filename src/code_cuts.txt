@@ -6,7 +6,7 @@ pixel_f ray_color(const ray& r, hittable_list& worldList){
         auto view_direction = -r.direction();
         auto dot_product = dot(hitRecord.normal, view_direction);
         interval c_interval(0.0, 1.0);
-        auto clamped_dot = float(c_interval.clamp(dot_product));z
+        auto clamped_dot = float(c_interval.clamp(dot_product));
         return {clamped_dot, clamped_dot, clamped_dot};
     }
 
