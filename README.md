@@ -12,4 +12,6 @@ and with the help of this wonderful collection of lessons:
 - [_Scratch Pixel_](https://www.scratchapixel.com/index.html)
 
 Many thanks to the authors of these books, that have release them for free and completely open source:
-_Peter Shirley, Trevor David Black, Steve Hollasch_
+_Peter Shirley, Trevor David Black, Steve Hollasch._
+
+![Matte shader](https://github.com/Traster-uni/Raytracing_developing_a_3D_renderer_from_zero/blob/main/old_renders/added_antialiasing.pmm)

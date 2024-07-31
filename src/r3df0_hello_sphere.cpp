@@ -49,7 +49,7 @@ float hit_sphere(const vec3f& sphere_center, const float& sphere_radius, const r
     }
 }
 
-pixel_f ray_color_old(const ray& r){
+pixel_f ray_color_oldest(const ray& r){
     /**
      * test ray intersection and ray sampling code
      * before hittable_list implementation
@@ -66,7 +66,7 @@ pixel_f ray_color_old(const ray& r){
     return lerp_color(unit_vec, pixel_f{0.0,0.0,0.0}, pixel_f{0.5, 0.7, 1.0});
 }
 
-pixel_f ray_color(const ray& r, hittable_list& worldList){
+pixel_f ray_color_old(const ray& r, hittable_list& worldList){
     //initialize hit record
     hit_record hitRecord;
     interval i(0, infinity);
@@ -91,6 +91,6 @@ int main(){
 
     // Initialize camera
     camera main_camera;
-    main_camera.render("first_matte_shader_render.pmm", world);
+    main_camera.render("hello_sphere.pmm", world);
 }
 

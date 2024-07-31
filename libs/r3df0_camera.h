@@ -15,7 +15,7 @@ namespace r3dfrom0{
     class camera{
     public: // public attributes
         int image_width = 1920;         // defaults to fullHD, 1920w x 1080h
-        float aspect_ratio = 1.777778;  // defaults to 16:9
+        float aspect_ratio = 1.777776;  // defaults to 16:9
         int samples_number = 100;       // number of sampling points within a single pixel
         int max_recursion_depth = 50;   // limits the number of recursive calls
 
