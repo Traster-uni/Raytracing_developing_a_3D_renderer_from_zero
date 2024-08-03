@@ -1,11 +1,10 @@
 #include <vector>
-#include "r3df0_math.h"
+#include "r3df0_varsutil.h"
 #include "r3df0_image.h"
-#include "r3df0_color.h"
-#include "r3df0_rays.h"
 #include "r3df0_camera.h"
 #include "r3df0_hittable.h"
 #include "r3df0_shapes.h"
+
 
 using namespace std;
 using namespace r3dfrom0;
@@ -17,7 +16,7 @@ float hit_sphere_old(const vec3f& sphere_center, const float& sphere_radius, con
      */
     auto c_q = sphere_center - r.origin();
     auto a = dot(r.direction(), r.direction());
-    auto b = 2 * dot(r.direction(),c_q);
+    auto b = -2.0f * dot(r.direction(),c_q);
     auto c = dot(c_q, c_q) - (sphere_radius * sphere_radius);
     auto delta = b * b - 4 * (a * c);
     if (delta < 0){
@@ -68,7 +67,7 @@ pixel_f ray_color_oldest(const ray& r){
 
 pixel_f ray_color_old(const ray& r, hittable_list& worldList){
     //initialize hit record
-    hit_record hitRecord;
+    r3dfrom0::hit_record hitRecord;
     interval i(0, infinity);
     if (worldList.hit(r, i, hitRecord)){
         return color_map(hitRecord.normal);
@@ -78,16 +77,19 @@ pixel_f ray_color_old(const ray& r, hittable_list& worldList){
     return lerp_color(unit_vec, pixel_f{0.0,0.0,0.0}, pixel_f{0.5, 0.7, 1.0});
 }
 
+
 int main(){
     // Initialize world
     hittable_list world;
-    auto sph1 = sphere(vec3f{0,0,-1}, 0.5);
-//    auto sph1 = sphere(vec3f{-0.6,0,-3}, 1.5);
-    auto sph2 = sphere(vec3f(0,-100.5,-1), 100);
-//    auto sph2 = sphere(vec3f{0.2,0,-1}, 0.3);
-    // make_shared is a method to create a pointer of shared pointer array
-    world.append(make_shared<sphere>(sph1));
-    world.append(make_shared<sphere>(sph2));
+    auto material_ground = make_shared<lambertian>(pixel_f(0.8, 0.8, 0.0));
+    auto material_center = make_shared<lambertian>(pixel_f(0.1, 0.2, 0.5));
+    auto material_left   = make_shared<metal>(pixel_f(0.8, 0.8, 0.8));
+    auto material_right  = make_shared<metal>(pixel_f(0.8, 0.6, 0.2));
+
+    world.append(make_shared<sphere>(vec3f( 0.0, -100.5, -1.0), 100.0, material_ground));
+    world.append(make_shared<sphere>(vec3f( 0.0,    0.0, -1.2),   0.5, material_center));
+    world.append(make_shared<sphere>(vec3f(-1.0,    0.0, -1.0),   0.5, material_left));
+    world.append(make_shared<sphere>(vec3f( 1.0,    0.0, -1.0),   0.5, material_right));
 
     // Initialize camera
     camera main_camera;

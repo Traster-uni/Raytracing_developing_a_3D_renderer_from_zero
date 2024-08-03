@@ -2,8 +2,8 @@
 // Created by trast on 01/07/2024.
 //
 
-#ifndef _R3DFROM0_MATH_H
-#define _R3DFROM0_MATH_H
+#ifndef _R3DFROM0_R3DF0_MATH_H
+#define _R3DFROM0_R3DF0_MATH_H
 
 // INCLUDES
 #include <cmath>
@@ -11,6 +11,54 @@
 #include "r3df0_varsutil.h"
 
 using namespace std;
+
+namespace r3dfrom0 {
+    class interval{
+    public:
+        /**
+         * An interval class to define a continuos interval of real values
+         */
+        // attributes
+        float min, max;
+
+        // constructors
+        interval() : min(-infinity), max(+infinity) {}
+        interval(float m, float M) : min{m}, max{M} {}
+
+        // methods
+        bool size() const{
+            return max - min;
+        }
+
+        bool includes_or_equals(float x) const{
+            return min <= x && x <= max;
+        }
+
+        bool includes(float x) const{ // maybe redundant
+            return min < x && x < max;
+        }
+
+        bool excludes(float x){
+            return x < min || x > max;
+        }
+
+        float clamp(float x) const{
+            if (x < min) return min;
+            else if (x > max) return max;
+            return x;
+        }
+
+        // constants
+        static const interval empty;
+        static const interval universe;
+    };
+
+    // constants definitions
+    const interval interval::empty    = interval(+infinity, -infinity);
+    const interval interval::universe = interval(-infinity, +infinity);
+
+} // namespace r3dfrom0
+
 namespace r3dfrom0 { // vectors and vector related functions
     // float
     class vec3f{
@@ -50,11 +98,12 @@ namespace r3dfrom0 { // vectors and vector related functions
         }
 
         float length() const { // length of a vector
-            return sqr_length();
+            return sqrt(sqr_length());
         }
 
-        float normalize() const {
-            return sqrt(sqr_length());
+        bool near_zero() const{
+            auto s = 1e-8;
+            return (fabs(this->x) < s) && (fabs(this->y) < s) && (fabs(this->z) < s);
         }
 
         vec3f random(){
@@ -68,7 +117,7 @@ namespace r3dfrom0 { // vectors and vector related functions
                     this->y = random_float(min, max),
                     this->z = random_float(min, max)};
         }
-    }; // vec3f
+    }; // vec3f class
 
     // Integration of Algebraic operators as util function and other
     // Easily print a vector
@@ -121,7 +170,17 @@ namespace r3dfrom0 { // vectors and vector related functions
         return v / v.length();
     }
 
-    vec3f random_in_unit_sphere(){
+
+    inline vec3f shitty_random_in_unit_sphere() {
+        while (true) {
+            vec3f p;
+            p.random(-1,1);
+            if (p.sqr_length() < 1)
+                return p;
+        }
+    }
+
+    inline vec3f random_in_unit_sphere(){
 //        Using Gaussian distribution for all three coordinates of your point
 //        will ensure an uniform distribution on the surface of the sphere.
 //        You should proceed as follows:
@@ -131,26 +190,34 @@ namespace r3dfrom0 { // vectors and vector related functions
 //        Multiply each number by 1/sqrt(x2+y2+z2)
 //        (a.k.a. Normalise) you should handle what happens if x=y=z=0
 //                Multiply each number by the radius of your sphere.
-        vec3f rdm_v;
-        rdm_v.random(-1, 1); // generate random vector and normalize said vector
-        if (rdm_v.x == rdm_v.y && rdm_v.y == rdm_v.z && rdm_v.z == 0 or rdm_v.sqr_length() < 1){
-            random_in_unit_sphere();
+        static mt19937 mt_gen;
+        static normal_distribution<float> distribution(0.0, 0.5);
+        vec3f rdm_v = {distribution(mt_gen),
+                       distribution(mt_gen),
+                       distribution(mt_gen)};
+        if (rdm_v.near_zero()){
+            return random_in_unit_sphere();
         }
-        rdm_v.normalize();
-        return rdm_v;
+        return unit(rdm_v);
     }
 
-    vec3f random_unit_vector(){
+    inline vec3f random_unit_vector(){
+        // normalizes vector in sphere, only direction no magnitude
         return unit(random_in_unit_sphere());
     }
 
-    vec3f random_on_hemisphere(const vec3f normal){
+    inline vec3f random_on_hemisphere(const vec3f normal){
         auto rdm_unit_v = random_unit_vector();
         if (dot(rdm_unit_v, normal) > 0.0f){
             return rdm_unit_v;
         } else {
             return -rdm_unit_v;
         }
+    }
+
+    inline vec3f reflect(const vec3f& v, const vec3f& n){
+        // vect_reflect = v + 2b where b is one of the cathetus of the triangle between surface and v
+        return v - 2 * dot(v,n) * n;
     }
 
     // integer
@@ -166,47 +233,4 @@ namespace r3dfrom0 { // vectors and vector related functions
 
 } // namespace r3dfrom0
 
-namespace r3dfrom0 {
-    class interval{
-    public:
-        /**
-         * An interval class to define a continuos interval of real values
-         */
-        // attributes
-        float min, max;
-
-        // constructors
-        interval() : min(-infinity), max(+infinity) {}
-        interval(float m, float M) : min{m}, max{M} {}
-
-        // methods
-        bool size() const{
-            return max - min;
-        }
-
-        bool includes(double x) const{
-            return min <= x && x <= max;
-        }
-
-        bool excludes(double x) const{ // maybe redundant
-            return x < min || x > max;
-        }
-
-        double clamp(float x) const{
-            if (x < min) return min;
-            else if (x > max) return max;
-            return x;
-        }
-
-        // constants
-        static const interval empty;
-        static const interval universe;
-    };
-
-    // constants definitions
-    const interval interval::empty    = interval(+infinity, -infinity);
-    const interval interval::universe = interval(-infinity, +infinity);
-
-} // namespace r3dfrom0
-
-#endif //_R3DFROM0_MATH_H
+#endif //_R3DFROM0_R3DF0_MATH_H

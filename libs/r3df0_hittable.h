@@ -7,22 +7,23 @@
 
 #include <vector>
 #include <memory>
-#include "r3df0_math.h"
-#include "r3df0_rays.h"
 
 using namespace std;
 
 namespace r3dfrom0{
+    class material;
+
     class hit_record{
         /**
-         * A record to save data at ray intersection
+         * A record to save miscellaneous data at ray intersection
          */
     public:
         // attributes
-        vec3f position;
-        vec3f normal;
-        double t;
-        bool front_face_hit;
+        vec3f position;                     // hit vector on the surface
+        vec3f normal;                       // normal on the surface
+        shared_ptr<material> material_ptr;  // pointer to material data of geometry
+        float t;                            // hit on surface (roots of quadratic equation)
+        bool front_face_hit;                // Is the object being hit on the front?
 
         // constructors
         hit_record() {};
@@ -56,6 +57,7 @@ namespace r3dfrom0{
     class hittable_list : hittable{
     public: // attributes
         vector<shared_ptr<hittable>> objects_list;
+        vector<shared_ptr<material>> material_list;
 
         // constructors
         hittable_list() {}; // default constructor
@@ -74,18 +76,21 @@ namespace r3dfrom0{
              */
             hit_record temp;
             bool hit_detected = false;
+            auto closest_hit_so_far = i.max;
 
             for (const auto& obj : objects_list){
-                if (obj->hit(r, i, temp)){
+                // update intersect interval to correctly calculate intersection order
+                // of hittable objects
+                auto updated_i = interval(i.min, closest_hit_so_far);
+                if (obj->hit(r, updated_i, temp)){
                     hit_detected = true;
                     // i.max is the closest value so far
-                    i.max = temp.t; // <-- may cause errors
-                    record = temp;
+                    closest_hit_so_far = temp.t; // sets max on interval to show the closest
+                    record = temp; // copies hit record from object to hit record of list.
                 }
             }
             return hit_detected;
         } // hit method
-
     }; // hittable_list class
 }
 

@@ -6,27 +6,23 @@
 #define R3DFROM0_R3DF0_SHAPES_H
 
 #include "r3df0_varsutil.h"
-#include "r3df0_math.h"
-#include "r3df0_hittable.h"
+#include "r3df0_material.h"
 
 using namespace std;
 
 namespace r3dfrom0{
     class sphere : public hittable{
     public:
-        // attributes
-        vec3f center;
-        float radius = 1.0;
-
         // constructors
         sphere() : center{0,0,0}, radius{1.0} {}; // default behavior
-        sphere(const vec3f& c, const float& r ) : center{c}, radius{float (fmax(0,r))} {}; // if attrs are defined
+        sphere(const vec3f& c, const float& r, shared_ptr<material> mat) :
+                center(c), radius(float (fmax(0,r))), material_ptr(mat) {};
 
         // methods
         bool hit(const ray& r, interval i, hit_record& hit_record) const override{
             auto c_q = center - r.origin();
-            // optimized the dot function of a vector by noticing that the dot function of
-            // a vector with itself is just the sqr_length of said vector.
+            // optimized the dot function of a vector by noticing that the dot function of a
+            // vector with itself is just the sqr_length of said vector.
             auto a = r.direction().sqr_length();
             // b in old func is now d * (C - Q)
             auto h = dot(r.direction(), c_q);
@@ -50,10 +46,17 @@ namespace r3dfrom0{
             // adding tuple to save the hit to the sphere object
             hit_record.t = roots;
             hit_record.position = r.at(hit_record.t);
-            auto n = (hit_record.position - center) / radius;
-            hit_record.set_face_normals(r, n);
+            auto normal = (hit_record.position - center) / radius; // calc normal on ray hit
+            hit_record.set_face_normals(r, normal);
+            hit_record.material_ptr = material_ptr;
             return true;
         } // hit method
+
+    private:
+        // attributes
+        vec3f center;
+        float radius = 1.0;
+        shared_ptr<material> material_ptr;
     }; // sphere class
 }
 

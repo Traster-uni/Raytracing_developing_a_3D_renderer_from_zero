@@ -7,6 +7,7 @@
 
 // INCLUDES
 #include <cmath>
+#include "r3df0_math.h"
 
 using namespace std;
 
@@ -86,20 +87,31 @@ namespace r3dfrom0{
     pixel_i convert_pixel_i(pixel_f p){
         /**
          * Converts a pixel in floating point precision into a pixel with
-         * integer precision between 0 and 256.
+         * integer precision between 0 and 255.
          * Note: By converting from float to integer, the operation is not reversible.
          */
-        static const interval intensity(0, 0.999);
+        return {int(255 * p.r),
+                int(255 * p.g),
+                int(255 * p.b)};
+    } // convert_pixel_i
+
+    pixel_i convert_pixel_i_clamp(pixel_f p, const float& min_c, const float& max_c){
+        /**
+         * Converts a pixel in floating point precision into a pixel with
+         * integer precision between 0 and 255.
+         * Note: By converting from float to integer, the operation is not reversible.
+         */
+        static const interval intensity(min_c, max_c);
         return {int(256 * intensity.clamp(p.r)),
                 int(256 * intensity.clamp(p.g)),
                 int(256 * intensity.clamp(p.b))};
     } // convert_pixel_i
 
-    pixel_f lerp_color(const float& _a, const pixel_f& start_color, const pixel_f& end_color){
+    pixel_f lerp_color(const float& unit_vec_length, const pixel_f& start_color, const pixel_f& end_color){
         /**
          * Blends the float value _a from the start color, to the end color;
          */
-        float a = 0.5 * (_a + 1.0);
+        float a = 0.5f * (unit_vec_length + 1.0f);
         return (1 - a) * start_color + a * end_color;
     }
 

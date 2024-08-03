@@ -6,6 +6,7 @@
 #define R3DFROM0_R3DF0_VARSUTIL_H
 
 #include <random>
+using namespace std;
 
 // Constants
 const float infinity = std::numeric_limits<float>::infinity();
@@ -21,12 +22,10 @@ inline double radians_to_degrees(double radians) {
     return radians * (180.0 / pi);
 }
 
-
 inline float random_float(){
+    static mt19937 generator;
     // return a random float in [0, 1[
-    static std::default_random_engine generator;
-    static std::normal_distribution<float> distribution(0.0, 1.0);
-//    generator.seed(std::rand());
+    static uniform_real_distribution<float> distribution(0.0f,1.0f);
     return distribution(generator);
 }
 

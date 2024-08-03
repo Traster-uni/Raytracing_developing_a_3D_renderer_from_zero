@@ -7,8 +7,10 @@
 
 #include <string>
 #include "r3df0_varsutil.h"
+#include "r3df0_rays.h"
 #include "r3df0_math.h"
 #include "r3df0_hittable.h"
+#include "r3df0_material.h"
 
 namespace r3dfrom0{
 
@@ -16,8 +18,8 @@ namespace r3dfrom0{
     public: // public attributes
         int image_width = 1920;         // defaults to fullHD, 1920w x 1080h
         float aspect_ratio = 1.777776;  // defaults to 16:9
-        int samples_number = 100;       // number of sampling points within a single pixel
-        int max_recursion_depth = 50;   // limits the number of recursive calls
+        int samples_number = 100;        // number of sampling points within a single pixel
+        int max_recursion_depth = 150;   // limits the number of recursive calls
 
         // constructor
         camera() {}
@@ -25,19 +27,22 @@ namespace r3dfrom0{
         // public methods
         pixel_f ray_color(const ray& r, hittable_list& worldList, const int& recursive_depth){
             if (recursive_depth <= 0){ // end of recursion check
-                return {0, 0, 0};
+                return {0,0,0};
             }
 
-            //initialize hit record
-            hit_record hitRecord;
-            interval i(0.001f, infinity);
+            hit_record hitRecord;                  // initialize hit record
+            interval i(0.01f, infinity);    // clamp rays too close to surface of object
             if (worldList.hit(r, i, hitRecord)){
-                auto rdm_v_hemisphere = random_on_hemisphere(hitRecord.normal);
-                return 0.5 * ray_color(ray(hitRecord.position, rdm_v_hemisphere), worldList, recursive_depth-1);
+                pixel_f attenuation;
+                ray scatter;
+                if (hitRecord.material_ptr->scatter(r, hitRecord, scatter, attenuation)){
+                    return attenuation * ray_color(scatter, worldList, recursive_depth-1);
+                }
+                return {0,0,0};
             }
 
-            auto unit_vec = 0.5f * (unit(r.direction()).y + 1.0f);
-            return lerp_color(unit_vec, pixel_f{0.0,0.0,0.0}, pixel_f{0.5, 0.7, 1.0});
+            auto unit_vec = unit(r.direction()).y;
+            return lerp_color(unit_vec, pixel_f{1.0,1.0,1.0}, pixel_f{0.5, 0.7, 1.0});
         }
 
         void render(const string& fname, hittable_list& world, const vec3f& ep = {0,0,0}, const float& fl = 1.0){
@@ -48,17 +53,17 @@ namespace r3dfrom0{
             // ppm header
             out << "P3\n" << image_width << " " << image_height << "\n255\n" <<endl;
             // ppm body render
-            for (int i = 0; i < image_height; i++){
+            for (int i = 0; i < image_height; i++){ // for each row
                 clog << "\rScanlines remaining: " << i << "/" << image_height << flush;
-                for (int j = 0; j < image_width; j++){
+                for (int j = 0; j < image_width; j++){ // for each column
                     pixel_f color_sum(0.0f,0.0f,0.0f);
-                    for (int s = 0; s < samples_number; s++){
+                    for (int s = 0; s < samples_number; s++){   // for random squares in pixel
                         ray r = get_ray(i,j);
                         color_sum += ray_color(r, world, max_recursion_depth);
+                        // TODO: LAMBERTIAN MATERIAL DOES NOT CASTS SHADOWS
                     }
                     auto mean_color = color_sum * mean_factor; // (sum(colors rays))/number_of_rays)
-                    auto p_i = convert_pixel_i(mean_color); // clamps colors and converts into integers
-                    out << p_i << " ";
+                    write_color(out, mean_color); // gamma, clamp and write on file
                 }
                 out << endl;
             }
