@@ -32,12 +32,12 @@ namespace r3dfrom0{
         void set_face_normals(const ray& r, const vec3f& outward_normal){
             if (dot(r.direction(), outward_normal) < 0.0){
                 // ray hitting from inside
-                normal = -outward_normal;
-                front_face_hit = false;
-            } else {
-                // ray hitting from outside
                 normal = outward_normal;
                 front_face_hit = true;
+            } else {
+                // ray hitting from outside
+                normal = -outward_normal;
+                front_face_hit = false;
             }
         } // set_face_normals method
     }; // hit_record class
@@ -84,8 +84,10 @@ namespace r3dfrom0{
                 auto updated_i = interval(i.min, closest_hit_so_far);
                 if (obj->hit(r, updated_i, temp)){
                     hit_detected = true;
-                    // i.max is the closest value so far
-                    closest_hit_so_far = temp.t; // sets max on interval to show the closest
+
+                    if (temp.t < closest_hit_so_far){
+                        closest_hit_so_far = temp.t; // update on closest so far
+                    }
                     record = temp; // copies hit record from object to hit record of list.
                 }
             }

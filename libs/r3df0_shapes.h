@@ -23,11 +23,11 @@ namespace r3dfrom0{
             auto c_q = center - r.origin();
             // optimized the dot function of a vector by noticing that the dot function of a
             // vector with itself is just the sqr_length of said vector.
-            auto a = r.direction().sqr_length();
+            auto a = r.direction().sqr_length(); // d^2
             // b in old func is now d * (C - Q)
-            auto h = dot(r.direction(), c_q);
+            auto h = dot(r.direction(), c_q); // d * (C-Q)
             // optimized the dot function of a vector to itself is, sqr_length of said vector
-            auto c = c_q.sqr_length() - (radius * radius);
+            auto c = c_q.sqr_length() - (radius * radius); // (C - Q)^2 - r^2
             // delta optimized by algebraic simplification
             auto delta = h * h - a * c;
             if (delta < 0) {
@@ -45,7 +45,7 @@ namespace r3dfrom0{
 
             // adding tuple to save the hit to the sphere object
             hit_record.t = roots;
-            hit_record.position = r.at(hit_record.t);
+            hit_record.position = r.at(hit_record.t); // at what point the ray intersected the sphere
             auto normal = (hit_record.position - center) / radius; // calc normal on ray hit
             hit_record.set_face_normals(r, normal);
             hit_record.material_ptr = material_ptr;

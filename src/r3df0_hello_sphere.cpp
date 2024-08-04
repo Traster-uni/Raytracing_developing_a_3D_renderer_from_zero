@@ -13,8 +13,9 @@ float hit_sphere_old(const vec3f& sphere_center, const float& sphere_radius, con
     /**
      * First implementation of the sphere hit function as described in the book checks only
      * if the ray is into the sphere
+     * P = Q - d*t with Q ray origin, d ray direction and t step
      */
-    auto c_q = sphere_center - r.origin();
+    auto c_q= sphere_center - r.origin(); // C - Q
     auto a = dot(r.direction(), r.direction());
     auto b = -2.0f * dot(r.direction(),c_q);
     auto c = dot(c_q, c_q) - (sphere_radius * sphere_radius);
@@ -44,7 +45,7 @@ float hit_sphere(const vec3f& sphere_center, const float& sphere_radius, const r
     if (delta < 0){
         return -1.0;
     }else{
-        return (-h - sqrt(delta)) / a;
+        return (h - sqrt(delta)) / a;
     }
 }
 
@@ -88,11 +89,11 @@ int main(){
 
     world.append(make_shared<sphere>(vec3f( 0.0, -100.5, -1.0), 100.0, material_ground));
     world.append(make_shared<sphere>(vec3f( 0.0,    0.0, -1.2),   0.5, material_center));
-    world.append(make_shared<sphere>(vec3f(-1.0,    0.0, -1.0),   0.5, material_left));
-    world.append(make_shared<sphere>(vec3f( 1.0,    0.0, -1.0),   0.5, material_right));
+//    world.append(make_shared<sphere>(vec3f(-1.0,    0.0, -1.0),   0.5, material_left));
+//    world.append(make_shared<sphere>(vec3f( 1.0,    0.0, -1.0),   0.5, material_right));
 
     // Initialize camera
     camera main_camera;
-    main_camera.render("hello_sphere.pmm", world);
+    main_camera.render("metal_lambertian.pmm", world);
 }
 
