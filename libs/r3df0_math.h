@@ -220,6 +220,21 @@ namespace r3dfrom0 { // vectors and vector related functions
         return v - 2 * dot(v,n) * n;
     }
 
+    inline vec3f refract(const vec3f& unit_vec_R, const vec3f& normal, float etai_over_etat){
+        // etai_over_etat being the fraction between the two coefficients
+        auto cos_theta = fmin(dot(-unit_vec_R, normal), 1.0f);
+        auto r_y = etai_over_etat * (cos_theta * normal + unit_vec_R); // r parallel component
+        auto r_x = -sqrt(fabs(1.0f - r_y.sqr_length())) * normal; // r perpendicular component
+        return r_y + r_x;
+    }
+
+    inline float schlick_approx(const float& cos_theta, const float& refraction_index){
+        // the Schlick approximation to simulate glass like reflectance
+        auto r0 = (1.0f - refraction_index) / (1.0f - refraction_index);
+        auto sqr_r0 = r0 * r0;
+        return sqr_r0 + (1.0f - sqr_r0) * pow(1 - cos_theta, 5);
+    }
+
     // integer
     class vec3i : public vec3f{
     public:

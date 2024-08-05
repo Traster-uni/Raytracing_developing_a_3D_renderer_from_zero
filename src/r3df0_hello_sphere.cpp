@@ -84,16 +84,18 @@ int main(){
     hittable_list world;
     auto material_ground = make_shared<lambertian>(pixel_f(0.8, 0.8, 0.0));
     auto material_center = make_shared<lambertian>(pixel_f(0.1, 0.2, 0.5));
-    auto material_left   = make_shared<metal>(pixel_f(0.8, 0.8, 0.8));
-    auto material_right  = make_shared<metal>(pixel_f(0.8, 0.6, 0.2));
+    auto material_left   = make_shared<dielectrics>(1.50f);     // air bubble! 1.0f theta of air, 1.33f theta of water
+    auto material_bubble = make_shared<dielectrics>(1.0/1.3333);
+    auto material_right  = make_shared<metal>(pixel_f(0.8, 0.6, 0.2), 0.7);
 
     world.append(make_shared<sphere>(vec3f( 0.0, -100.5, -1.0), 100.0, material_ground));
     world.append(make_shared<sphere>(vec3f( 0.0,    0.0, -1.2),   0.5, material_center));
-//    world.append(make_shared<sphere>(vec3f(-1.0,    0.0, -1.0),   0.5, material_left));
-//    world.append(make_shared<sphere>(vec3f( 1.0,    0.0, -1.0),   0.5, material_right));
+    world.append(make_shared<sphere>(vec3f(-1.0,    0.0, -1.0),   0.5, material_left));
+    world.append(make_shared<sphere>(vec3f(-1.0,    0.0, -1.0),   0.4, material_bubble));
+    world.append(make_shared<sphere>(vec3f( 1.0,    0.0, -1.0),   0.5, material_right));
 
     // Initialize camera
     camera main_camera;
-    main_camera.render("metal_lambertian.pmm", world);
+    main_camera.render("dielectrics_airBubble.pmm", world);
 }
 

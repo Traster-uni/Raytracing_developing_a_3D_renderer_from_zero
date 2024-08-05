@@ -36,6 +36,7 @@ namespace r3dfrom0{
                 pixel_f attenuation;
                 ray scatter;
                 if (hitRecord.material_ptr->scatter(r, hitRecord, scatter, attenuation)){
+                    // attenuation is used to reduce the light reflected by said object, related to albedo
                     return attenuation * ray_color(scatter, worldList, recursive_depth-1);
                 }
                 return {0,0,0};
@@ -60,7 +61,6 @@ namespace r3dfrom0{
                     for (int s = 0; s < samples_number; s++){   // for random squares in pixel
                         ray r = get_ray(i,j);
                         color_sum += ray_color(r, world, max_recursion_depth);
-                        // TODO: LAMBERTIAN MATERIAL DOES NOT CASTS SHADOWS
                     }
                     auto mean_color = color_sum * mean_factor; // (sum(colors rays))/number_of_rays)
                     write_color(out, mean_color); // gamma, clamp and write on file
