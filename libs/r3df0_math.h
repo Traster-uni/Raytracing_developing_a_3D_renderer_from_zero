@@ -230,7 +230,7 @@ namespace r3dfrom0 { // vectors and vector related functions
 
     inline float schlick_approx(const float& cos_theta, const float& refraction_index){
         // the Schlick approximation to simulate glass like reflectance
-        auto r0 = (1.0f - refraction_index) / (1.0f - refraction_index);
+        auto r0 = (1.0f - refraction_index) / (1.0f + refraction_index);
         auto sqr_r0 = r0 * r0;
         return sqr_r0 + (1.0f - sqr_r0) * pow(1 - cos_theta, 5);
     }

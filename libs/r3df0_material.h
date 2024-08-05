@@ -91,8 +91,7 @@ namespace r3dfrom0{
             auto sin_theta = sqrt(1.0f - cos_theta * cos_theta);
             vec3f direction;
             // you want glass behavior? throw in there the schlick approximation
-            // TODO: SCHLICK APPROX STRANGE BEHEAVIOR, LIKE IT'S NOT THERE
-            if (ri * sin_theta > 1.0f){ // || schlick_approx(cos_theta, ri) > random_float()){
+            if (ri * sin_theta > 1.0f|| schlick_approx(cos_theta, ri) > random_float()){
                 direction = reflect(uv_ray_in, hitRecord.normal);
             } else {
                 direction = refract(uv_ray_in, hitRecord.normal, ri);
