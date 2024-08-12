@@ -73,9 +73,9 @@ namespace r3dfrom0{
         float fuzziness;
     }; // metal class
 
-    class dielectrics : public material{
+    class dielectric : public material{
     public:
-        dielectrics(float rf_index) : refraction_index(rf_index) {}
+        dielectric(float rf_index) : refraction_index(rf_index) {}
 
         bool scatter
         (const ray& ray_in, hit_record& hitRecord, ray& scatter_ray, pixel_f& attenuation)
@@ -109,7 +109,7 @@ namespace r3dfrom0{
          * 1.0f/1.33f
          */
         float refraction_index; // eta on eta1
-    }; // dielectrics class
+    }; // dielectric class
 }
 
 

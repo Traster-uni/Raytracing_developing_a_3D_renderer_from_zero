@@ -25,7 +25,7 @@ inline double radians_to_degrees(double radians) {
 inline float random_float(){
     static mt19937 generator;
     // return a random float in [0, 1[
-    static uniform_real_distribution<float> distribution(0.0f,1.0f);
+    static uniform_real_distribution<float> distribution(0.0,1.0f);
     return distribution(generator);
 }
 

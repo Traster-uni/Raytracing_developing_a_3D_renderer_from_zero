@@ -59,3 +59,11 @@ pixel_f ray_color(const ray& r, hittable_list& worldList, const int& recursive_d
     auto unit_vec = unit(r.direction()).y;
     return lerp_color(unit_vec, pixel_f{1.0,1.0,1.0}, pixel_f{0.5, 0.7, 1.0});
 }
+
+inline vec3 random_in_unit_disk() {
+    while (true) {
+        auto p = vec3f(random_float(-1,1), random_float(-1,1), 0);
+        if (p.sqr_length() < 1)
+            return p;
+    }
+}

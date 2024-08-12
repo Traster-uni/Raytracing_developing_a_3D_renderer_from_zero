@@ -44,6 +44,18 @@ namespace r3dfrom0{
         pixel_f& operator/=(const float t) {
             return *this *= (1/t);
         }
+
+        pixel_f random(){
+            return {this->r = random_float(),
+                    this->g = random_float(),
+                    this->b = random_float()};
+        }
+
+        pixel_f random(float min, float max){
+            return {this->r = random_float(min, max),
+                    this->g = random_float(min, max),
+                    this->b = random_float(min, max)};
+        }
     }; // pixel_f
 
     // Easily print a pixel

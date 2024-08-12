@@ -18,9 +18,18 @@ namespace r3dfrom0{
     public: // public attributes
         int image_width = 1920;         // defaults to fullHD, 1920w x 1080h
         float aspect_ratio = 1.777776;  // defaults to 16:9
-        int samples_number = 100;        // number of sampling points within a single pixel
-        int max_recursion_depth = 150;   // limits the number of recursive calls
 
+        int samples_number = 100;        // number of sampling points within a single pixel
+        int max_recursion_depth = 50;   // limits the number of recursive calls
+        // added 6/08: vertical fov, camera_frame(u,v,w), looking_frame
+        int vfov = 90;
+        // looking frame
+        vec3f look_from;    // camera reference
+        vec3f look_at;      // objective reference
+        vec3f view_up;      // vertical reference
+
+        float focus_dist = 10.0f;       // distance between camera eye and focus plane
+        float defocus_angle = 0;     // angle of variation from each pixels
         // constructor
         camera() {}
 
@@ -46,8 +55,8 @@ namespace r3dfrom0{
             return lerp_color(unit_vec, pixel_f{1.0,1.0,1.0}, pixel_f{0.5, 0.7, 1.0});
         }
 
-        void render(const string& fname, hittable_list& world, const vec3f& ep = {0,0,0}, const float& fl = 1.0){
-            initialize(ep, fl);
+        void render(const string& fname, hittable_list& world){
+            initialize();
 
             ofstream out;
             out.open(fname);
@@ -74,51 +83,80 @@ namespace r3dfrom0{
     private: // private attributes
         int image_height;
         vec3f eye_point;            // origin of the camera
-        float focal_length;         // distance from origin to viewport
+//        float focal_length;         // REDACTED: distance from origin to viewport
+
         float viewport_width;
         float viewport_height;
+
         vec3f viewport_upper_left;  // coordinates of the most upper left corner
         vec3f viewport_u;           // viewport vector, x axis, left to right
         vec3f viewport_v;           // viewport vector, -y axis, top to bottom
+
         vec3f pixel00_location;     // origin of the pixel grid
         vec3f pixel_delta_u;        // pixel offset to the right
         vec3f pixel_delta_v;        // pixel offset down
+
+        vec3f defocus_disk_u;       // defocus disk vector horizontal
+        vec3f defocus_disk_v;       // defocus disk vector vertical
         float mean_factor;
+        // camera frame
+        vec3f u, v, w;
 
         // private methods
-        void initialize(const vec3f& ep = {0,0,0}, const float& fl = 1.0){
-            eye_point = ep;
-            focal_length = fl;
+        void initialize(){
+            eye_point = look_from;
+//            focal_length = (look_from - look_at).length(); // REDACTED
 
             mean_factor = 1.0f / samples_number;
 
             // define image resolution
-            auto h = int(float (image_width) / aspect_ratio); // h = w * (1/aspect_ratio)
-            image_height = h < 1 ? 1 : h; // image_height must be at least 1
+            auto img_h = int(float (image_width) / aspect_ratio); // h = w * (1/aspect_ratio)
+            image_height = img_h < 1 ? 1 : img_h; // image_height must be at least 1
 
-            // define viewport dimension
-            viewport_height = 2.0f;  // TODO: MAKE VIEWPORT DIMENSIONS FULLY COMPUTABLE
+            // define viewport dimensions
+            float vfov_rad = degrees_to_radians(vfov);
+            float h = tan(vfov_rad/2);
+            viewport_height = 2.0f * h * focus_dist;
             viewport_width = viewport_height * (float(image_width) / float (image_height));
 
+            // define camera frame
+            w = unit(look_from-look_at);        // z axis
+            u = unit(cross(view_up, w));  // y axis
+            v = cross(w,u);                  // x axis
+
             // viewport vectors
-            viewport_u = {viewport_width, 0, 0};
-            viewport_v = {0, -viewport_height, 0};
+            viewport_u = viewport_width * u;
+            viewport_v = viewport_height * -v;
 
             // pixel deltas, small vector that define a step to the next pixel of the viewport
             pixel_delta_u = viewport_u / float (image_width);
             pixel_delta_v = viewport_v / float (image_height);
 
             // location of upper left corner pixel
-            viewport_upper_left = eye_point - vec3f{0,0,focal_length} - viewport_u/2 - viewport_v / 2;
+            viewport_upper_left = eye_point - (focus_dist * w) - viewport_u/2 - viewport_v/2;
             pixel00_location = viewport_upper_left + 0.5 * (pixel_delta_u + pixel_delta_v);
+
+            // calculate the defocus disk dimensions;
+            float defocus_radius = focus_dist * tan(degrees_to_radians(defocus_angle/2));
+            defocus_disk_u = u * defocus_radius;
+            defocus_disk_v = v * defocus_radius;
         }
 
         ray get_ray(const int& i, const int& j) {
             auto offset = sample_square();
             // pixel_center with added random offsets
             auto sampled_pixel = pixel00_location + ((i+offset.y) * pixel_delta_v) + ((j+offset.x) * pixel_delta_u);
-            auto ray_direction = sampled_pixel - eye_point;
-            return {eye_point, ray_direction};
+            // origin sampling for fringe lens effect
+            auto ray_origin = defocus_angle <= 0 ? eye_point : defocus_disk_sample();
+            auto ray_direction = sampled_pixel - ray_origin;
+            return {ray_origin, ray_direction};
+        }
+
+        vec3f defocus_disk_sample(){
+            // https://www.reddit.com/r/GraphicsProgramming/comments/c35jmw/ray_tracing_in_a_weekend_depth_of_field/
+            // DEFOCUS BLUR: http://users.eecs.northwestern.edu/~ollie/eecs395/HW6/HW6.htm
+            auto rdm = random_in_unit_disk();
+            return eye_point + (rdm.x * defocus_disk_u) + (rdm.y * defocus_disk_v);
         }
 
         vec3f pixel_center(const int& i, const int& j){

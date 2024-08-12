@@ -48,7 +48,7 @@ namespace r3dfrom0 {
             return x;
         }
 
-        // constants
+        // constants declaration
         static const interval empty;
         static const interval universe;
     };
@@ -180,6 +180,7 @@ namespace r3dfrom0 { // vectors and vector related functions
         }
     }
 
+
     inline vec3f random_in_unit_sphere(){
 //        Using Gaussian distribution for all three coordinates of your point
 //        will ensure an uniform distribution on the surface of the sphere.
@@ -197,6 +198,17 @@ namespace r3dfrom0 { // vectors and vector related functions
                        distribution(mt_gen)};
         if (rdm_v.near_zero()){
             return random_in_unit_sphere();
+        }
+        return unit(rdm_v);
+    }
+
+
+    inline vec3f random_in_unit_disk(){
+        static mt19937 mt_gen;
+        static uniform_real_distribution<float> distribution(0, 1);
+        vec3f rdm_v {distribution(mt_gen), distribution(mt_gen), 0};
+        if (rdm_v.near_zero()){
+            return random_in_unit_disk();
         }
         return unit(rdm_v);
     }

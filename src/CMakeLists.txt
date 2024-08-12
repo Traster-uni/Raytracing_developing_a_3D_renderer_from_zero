@@ -8,3 +8,5 @@ endfunction()
 
 add_src(r3df0_hello_world)
 add_src(r3df0_hello_sphere)
+add_src(r3df0_main1)
+add_src(r3df0_firstHalf_finalRender)
