@@ -71,7 +71,24 @@ namespace r3dfrom0{
             }
             return true;
         }
+
+        int longest_axis() const{
+            // checks which axis is the longest in the bounding box
+            // return an index between [0,2]
+            if (x.size() > y.size()){
+                return x.size() > z.size() ? 0 : 2;
+            } else {
+                return y.size() > z.size() ? 1 : 2;
+            }
+        }
+
+        // constants declarations
+        static const axisAlignBbox empty, universe;
     }; // class axisAlignBbox
+
+    // constants implementation
+    const axisAlignBbox axisAlignBbox::empty    = axisAlignBbox(interval::empty,    interval::empty,    interval::empty);
+    const axisAlignBbox axisAlignBbox::universe = axisAlignBbox(interval::universe, interval::universe, interval::universe);
 }
 
 #endif //R3DFROM0_R3DF0_AXISALIGNEDBOUNDINGBOXES_H

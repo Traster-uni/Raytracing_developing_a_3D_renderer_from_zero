@@ -7,7 +7,7 @@
 #include "r3df0_camera.h"
 #include "r3df0_hittable.h"
 #include "r3df0_shapes.h"
-
+#include "r3df0_bvh.h"
 
 using namespace std;
 using namespace r3dfrom0;
@@ -58,11 +58,11 @@ int main(){
     auto material3 = make_shared<metal>(pixel_f(0.7, 0.6, 0.5), 0.0);
     world.append(make_shared<sphere>(vec3f(4, 1, 0), 1.0, material3));
 
+    // bvh
+    world = hittable_list(make_shared<bvh_node>(world));
     // camera setting
     camera main_camera;
 
-    main_camera.aspect_ratio        = 16.0 / 9.0;
-    main_camera.image_width         = 1920;
     main_camera.samples_number      = 500;
     main_camera.max_recursion_depth = 50;
 
