@@ -11,18 +11,7 @@ using namespace std;
 
 namespace r3dfrom0{
 
-    class material{ // interface
-    public:
-        // constructor
-        virtual ~material() = default;
 
-        // methods
-        virtual bool scatter
-            (const ray& ray_in, hit_record& hitRecord, ray& scatter_ray, pixel_f& attenuation)
-             const{
-            return false;
-        }
-    }; // material interface
 
     class lambertian : public material {
     public:

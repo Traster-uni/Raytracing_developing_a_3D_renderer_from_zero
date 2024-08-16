@@ -32,13 +32,13 @@ int main(){
                     // diffuse
                     pixel_f rdm_albedo = {random_float(), random_float(), random_float()};
                     rdm_material = make_shared<lambertian>(rdm_albedo);
-                    world.append(make_shared<sphere>(center, 0.3, rdm_material));
+                    world.append(make_shared<sphere>(center, 0.2, rdm_material));
                 } else if (rdm_selector < 0.95f){
                     // metal
                     float rdm_fuzz = random_float(0.5, 1);
                     pixel_f rdm_albedo = {random_float(0,0.5), random_float(0,0.5), random_float(0,0.5)};
                     rdm_material = make_shared<metal>(rdm_albedo, rdm_fuzz);
-                    world.append(make_shared<sphere>(center, 0.3, rdm_material));
+                    world.append(make_shared<sphere>(center, 0.2, rdm_material));
                 } else {
                     // glass
                     rdm_material = make_shared<dielectric>(1.5);

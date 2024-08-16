@@ -34,4 +34,9 @@ inline float random_float(float min, float max){
     return min + (max - min) * random_float();
 }
 
+#include "r3df0_math.h"
+#include "r3df0_rays.h"
+#include "r3df0_hittable_interface.h"
+#include "r3df0_material_interface.h"
+
 #endif //R3DFROM0_R3DF0_VARSUTIL_H

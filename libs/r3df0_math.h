@@ -24,6 +24,10 @@ namespace r3dfrom0 {
         // constructors
         interval() : min(-infinity), max(+infinity) {}
         interval(float m, float M) : min{m}, max{M} {}
+        interval(interval _x, interval _y){
+            min = _x.min <= _y.min ? _x.min : _y.min;
+            max = _x.max >= _y.max ? _x.max : _y.max;
+        }
 
         // methods
         bool size() const{
@@ -46,6 +50,11 @@ namespace r3dfrom0 {
             if (x < min) return min;
             else if (x > max) return max;
             return x;
+        }
+
+        interval expand(float delta){
+            float half_delta = delta / 2.0f;
+            return interval(min-half_delta, max+half_delta);
         }
 
         // constants declaration
@@ -104,6 +113,12 @@ namespace r3dfrom0 { // vectors and vector related functions
         bool near_zero() const{
             auto s = 1e-8;
             return (fabs(this->x) < s) && (fabs(this->y) < s) && (fabs(this->z) < s);
+        }
+
+        const float& vec_iter(int n) const{
+            if (n==0) return this->x;
+            else if (n == 1) return this->y;
+            else if (n == 2) return this->z;
         }
 
         vec3f random(){

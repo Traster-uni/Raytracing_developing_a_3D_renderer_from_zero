@@ -7,11 +7,11 @@
 
 #include <vector>
 #include <memory>
+#include "r3df0_bvh.h"
 
 using namespace std;
 
 namespace r3dfrom0{
-    class material;
 
     class hit_record{
         /**
@@ -43,17 +43,6 @@ namespace r3dfrom0{
     }; // hit_record class
 
 
-    class hittable{ // interface
-        /**
-         * All world objects implement this hittable interface
-         */
-    public:
-        virtual ~hittable() = default;
-
-        virtual bool hit(const ray& r, interval i, hit_record& record) const = 0;
-    }; // hittable interface
-
-
     class hittable_list : hittable{
     public: // attributes
         vector<shared_ptr<hittable>> objects_list;
@@ -66,6 +55,7 @@ namespace r3dfrom0{
         // methods
         void append(shared_ptr<hittable> obj) {
             objects_list.push_back(obj);
+            bbox1 = axisAlignBbox(bbox1, obj->bbox());
         }
 
         bool hit(const ray& r, interval i, hit_record& record) const override{
@@ -93,6 +83,13 @@ namespace r3dfrom0{
             }
             return hit_detected;
         } // hit method
+
+        axisAlignBbox bbox() const override{
+            return bbox1;
+        }
+
+    private:
+        axisAlignBbox bbox1;
     }; // hittable_list class
 }
 
