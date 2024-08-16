@@ -7,7 +7,7 @@
 
 #include <vector>
 #include <memory>
-#include "r3df0_bvh.h"
+#include "r3df0_axisAlignedBoundingBoxes.h"
 
 using namespace std;
 
@@ -43,8 +43,9 @@ namespace r3dfrom0{
     }; // hit_record class
 
 
-    class hittable_list : hittable{
-    public: // attributes
+    class hittable_list : public hittable{
+    public:
+        // public attributes
         vector<shared_ptr<hittable>> objects_list;
         vector<shared_ptr<material>> material_list;
 

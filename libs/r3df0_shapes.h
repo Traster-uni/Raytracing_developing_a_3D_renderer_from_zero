@@ -7,7 +7,7 @@
 
 #include "r3df0_varsutil.h"
 #include "r3df0_material.h"
-#include "r3df0_bvh.h"
+#include "r3df0_axisAlignedBoundingBoxes.h"
 
 using namespace std;
 

@@ -5,16 +5,10 @@
 #ifndef R3DFROM0_R3DF0_IMAGE_H
 #define R3DFROM0_R3DF0_IMAGE_H
 
-// includes
-#include <iostream>
-#include <string>
-#include <fstream>
-#include <vector>
-#include <r3df0_color.h>
+#include "r3df0_varsutil.h"
+#include "r3df0_color.h"
 
 using namespace std;
-using std::string;
-using std::vector;
 
 namespace r3dfrom0{
     // utility functions

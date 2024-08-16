@@ -6,6 +6,11 @@
 #define R3DFROM0_R3DF0_VARSUTIL_H
 
 #include <random>
+#include <memory>
+#include <string>
+#include <iostream>
+#include <vector>
+#include <fstream>
 using namespace std;
 
 // Constants
@@ -32,6 +37,10 @@ inline float random_float(){
 inline float random_float(float min, float max){
     // returns a random in [min, max]
     return min + (max - min) * random_float();
+}
+
+inline int random_int(int min, int max){
+    return int(random_float(min, max+1));
 }
 
 #include "r3df0_math.h"

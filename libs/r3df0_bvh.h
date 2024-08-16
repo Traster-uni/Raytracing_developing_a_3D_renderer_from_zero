@@ -1,86 +1,92 @@
 //
-// Created by tommasomarialopedote on 14/08/24.
+// Created by trast on 16/08/2024.
 //
 
 #ifndef R3DFROM0_R3DF0_BVH_H
 #define R3DFROM0_R3DF0_BVH_H
 
-#include "r3df0_varsutil.h"
 
-using namespace std;
+#include "r3df0_varsutil.h"
+#include "r3df0_hittable.h"
+#include <algorithm>
 
 namespace r3dfrom0{
-    class hittable_list;
-
-    class axisAlignBbox{
-    public:
-        // arguments
-        interval x, y, z;
-
-        // constructor
-        axisAlignBbox() {};  // this constructor has a reason to exist because, intervals are
-                            // defined by default empty
-        axisAlignBbox(interval x, interval y, interval z) : x(x), y(y), z(z) {}
-
-        axisAlignBbox(const vec3f& a, const vec3f& b){
-            // defines bbox from 2 points
-            x = (a.x <= b.x) ? interval(a.x, b.x) : interval(b.x, a.x);
-            y = (a.y <= b.y) ? interval(a.y, b.y) : interval(b.y, a.y);
-            z = (a.z <= b.z) ? interval(a.z, b.z) : interval(b.z, a.z);
-        }
-
-        axisAlignBbox(const axisAlignBbox& bbox1, const axisAlignBbox& bbox2){
-            // define bbox from 2 bbox
-            x = interval(bbox1.x, bbox2.x);
-            y = interval(bbox1.y, bbox2.y);
-            z = interval(bbox1.z, bbox2.z);
-        }
-
-        // methods
-        const interval& axis_interval(int n) const{
-            // n should be a number between 0 and 2 inclusive
-            if (n == 0) return x;
-            else if (n == 1) return y;
-            else if (n == 2) return z;
-        };
-
-        bool hit(const ray& r, interval i){
-            // check for hit, updates intervals
-            const vec3f ray_origin = r.origin();
-            const vec3f ray_dir = r.direction();
-
-            for (int j=0; j < 3; j++){
-                const interval axis = axis_interval(j);
-                const double div = 1.0f / ray_dir.vec_iter(j);
-                // t0 and t1 are the intersects points with the bbox
-                auto t0 = (axis.min - ray_origin.vec_iter(j)) * div;
-                auto t1 = (axis.max - ray_origin.vec_iter(j)) * div;
-
-                if (t0 < t1){
-                    if (t0 > axis.min) i.min = t0;
-                    if (t1 < axis.max) i.max = t1;
-                } else {
-                    if (t1 < axis.min) i.min = t1;
-                    if (t0 > axis.max) i.max = t0;
-                }
-
-                if (i.max <= i.min) return false;
-            }
-            return true;
-        }
-    }; // class axisAlignBbox
 
     class bvh_node : public hittable{
     public:
         // constructor
-        bvh_node(hittable_list hittableList) : bvh_node(hittableList.list, 0, hittableList.list.size()) {}
+        bvh_node(hittable_list hittableList) :
+            bvh_node(hittableList.objects_list, 0, hittableList.objects_list.size()) {};
+
+        bvh_node(vector<shared_ptr<r3dfrom0::hittable>>& hittableList, size_t start_index, size_t end_index) {
+            int rdm_axis = random_int(0,2);
+
+            switch (rdm_axis == 0) {
+                auto comp = box_x_compare;
+            } case (rdm_axis == 1) {
+                auto comp = box_y_compare;
+            } case (rdm_axis == 2) {
+                auto comp = box_z_compare;
+            }
+
+            size_t delta = end_index - start_index;
+            if (delta == 1){
+                left = right = hittableList[start_index];
+            } else if (delta == 2) {
+                left = hittableList[start_index];
+                right = hittableList[start_index + 1]
+            } else {
+                // sort hittableList by x,y,z axis randomly
+                std::sort(begin(hittableList) + start_index, begin(hittableList) + end_index, comp);
+
+                auto m = start + delta/2;
+                left = make_shared<bvh_node>(hittableList, start_index, m);
+                right = make_shared<bvh_node>(hittableList, m, end_index);
+            }
+            // create bbox for the given node from the left and right bounding box; recursive call.
+            bbox = axisAlignBbox(left->bounding_box(), right->bounding_box())
+        }
 
         // methods
+        bool hit(const ray& r, interval i, hit_record& record) const override{
+            if (!bbox.hit(r, i)) {
+                return false;
+            }
+
+            bool hit_right = right->hit(r, i, record);
+            // if right hit was a success reduce interval for hit recording, no need to record two time the same spot
+            interval reduced_interval = {i.min, hit_record ? record.t : i.max};
+            bool hit_left = left->hit(r, reduced_interval, record);
+            return hit_right || hit_left;
+        } // hit method
+
+        axisAlignBbox bounding_box() const override { return bbox; }
     private:
+        // private arguments
         shared_ptr<bvh_node> right;
         shared_ptr<bvh_node> left;
         axisAlignBbox bbox;
-    };
+
+        // methods
+        //      comparing methods
+        static inline bool box_compare(shared_ptr<hittable> a shared_ptr<hittable> b, int axis_index){
+
+        }
+
+        static inline bool box_x_compare(shared_ptr<hittable> a, shared_ptr<hittable> b){
+            return box_compare(a, b, 0)
+        }
+
+        static inline bool box_y_compare(shared_ptr<hittable> a, shared_ptr<hittable> b){
+            return box_compare(a, b, 1);
+        }
+
+        static inline bool box_z_compare(shared_ptr<hittable> a, shared_ptr<hittable> b){
+            return box_compare(a, b, 2);
+        }
+
+    }; // bvh_node definition
+
 }
 
 #endif //R3DFROM0_R3DF0_BVH_H
