@@ -15,8 +15,8 @@ using namespace r3dfrom0;
 int main(){
     hittable_list world;
     // set ground
-    auto ground_material = make_shared<lambertian>(pixel_f(0.5,0.5,0.5));
-    auto ground = make_shared<sphere>(vec3f(0,-1000,0), 1000, ground_material);
+    auto ground_texture = make_shared<checker_texture>(0.32, pixel_f(.2, .3, .1), pixel_f(.9, .9, .9));
+    auto ground = make_shared<sphere>(vec3f(0,-1000,0), 1000, make_shared<lambertian>(ground_texture));
     world.append(ground);
 
     // set random sphere in world
@@ -58,7 +58,7 @@ int main(){
     auto material3 = make_shared<metal>(pixel_f(0.7, 0.6, 0.5), 0.0);
     world.append(make_shared<sphere>(vec3f(4, 1, 0), 1.0, material3));
 
-    // bvh
+    // adding bvh
     world = hittable_list(make_shared<bvh_node>(world));
     // camera setting
     camera main_camera;
@@ -74,5 +74,6 @@ int main(){
     main_camera.defocus_angle       = 0.6;
     main_camera.focus_dist          = 10.0;
 
-    main_camera.render("final_render.pmm",world);
+    main_camera.render("final_render.ppm",world);
+    return 0;
 }

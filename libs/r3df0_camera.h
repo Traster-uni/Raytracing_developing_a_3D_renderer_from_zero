@@ -6,6 +6,7 @@
 #define R3DFROM0_R3DF0_CAMERA_H
 
 #include <string>
+#include <chrono>
 #include "r3df0_varsutil.h"
 #include "r3df0_rays.h"
 #include "r3df0_math.h"
@@ -58,6 +59,7 @@ namespace r3dfrom0{
         void render(const string& fname, hittable_list& world){
             initialize();
 
+            auto const start_timer{std::chrono::steady_clock::now()};
             ofstream out;
             out.open(fname);
             // ppm header
@@ -77,7 +79,10 @@ namespace r3dfrom0{
                 out << endl;
             }
             out.close();
-            clog << "\r< -------------- Done -------------- >\n" << flush;
+            auto const end_timer {std::chrono::steady_clock::now()};
+            std::chrono::duration<float> elapsed_time {end_timer - start_timer};
+
+            clog << "\r RENDERING DONE IN: " << elapsed_time.count() << "secs" <<flush;
         }
 
     private: // private attributes

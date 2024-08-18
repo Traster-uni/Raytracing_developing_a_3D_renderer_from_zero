@@ -101,24 +101,26 @@ namespace r3dfrom0 { // vectors and vector related functions
             return *this *= (1/t);
         }
 
+        float operator[](const int n) const {
+            if (n==0) return this->x;
+            else if (n == 1) return this->y;
+            else return this->z;
+        }
+
         // methods
         float sqr_length() const {
+            // each of the vector component is squared
             return x*x + y*y + z*z;
         }
 
-        float length() const { // length of a vector
+        float length() const {
+            // length of a vector which is the sqrt of the square length
             return sqrt(sqr_length());
         }
 
         bool near_zero() const{
             auto s = 1e-8;
             return (fabs(this->x) < s) && (fabs(this->y) < s) && (fabs(this->z) < s);
-        }
-
-        const float& vec_iter(int n) const{
-            if (n==0) return this->x;
-            else if (n == 1) return this->y;
-            else if (n == 2) return this->z;
         }
 
         vec3f random(){
@@ -140,13 +142,13 @@ namespace r3dfrom0 { // vectors and vector related functions
         return out << v.x << ' ' << v.y << ' ' << v.z;
     }
 
-    // sums of two vectors
     inline vec3f operator+ (const vec3f& u, const vec3f& v) {
+        // sums of two vectors
         return {u.x + v.x, u.y + v.y, u.z + v.z};
     }
 
-    // subtraction of two vectors
     inline vec3f operator- (const vec3f& u, const vec3f& v) {
+        // subtraction of two vectors
         return {u.x - v.x, u.y - v.y, u.z - v.z};
     }
 
@@ -154,13 +156,13 @@ namespace r3dfrom0 { // vectors and vector related functions
         return {u.x * v.x, u.y * v.y, u.z * v.z};
     }
 
-    // vector times a real value or "vettore per uno scalare"
     inline vec3f operator* (const float t, const vec3f& v) {
+        // vector times a real value or "vettore per uno scalare"
         return {t * v.x, t * v.y, t * v.z};
     }
 
-    // as above but from the other side
     inline vec3f operator* (const vec3f& v, const float t) {
+        // like operator* previous implementation but from the other side
         return t * v;
     }
 
@@ -168,20 +170,20 @@ namespace r3dfrom0 { // vectors and vector related functions
         return (1/t) * v;
     }
 
-    // dot product or "prodotto scalare"
     inline float dot(vec3f u, vec3f v) {
+        // dot product or "prodotto scalare"
         return u.x * v.x + u.y * v.y + u.z * v.z;
     }
 
-    // cross product or "prodotto vettoriale"
     inline vec3f cross(vec3f u, vec3f v) {
+        // cross product or "prodotto vettoriale"
         return {u.y * v.z - u.z * v.y,
                 u.z * v.x - u.x * v.z,
                 u.x * v.y - u.y * v.x};
     }
 
-    // unit vector or versor
     inline vec3f unit(const vec3f& v) {
+        // unit vector or versor
         return v / v.length();
     }
 
@@ -248,6 +250,7 @@ namespace r3dfrom0 { // vectors and vector related functions
     }
 
     inline vec3f refract(const vec3f& unit_vec_R, const vec3f& normal, float etai_over_etat){
+        // refract function to simulate water refraction
         // etai_over_etat being the fraction between the two coefficients
         auto cos_theta = fmin(dot(-unit_vec_R, normal), 1.0f);
         auto r_y = etai_over_etat * (cos_theta * normal + unit_vec_R); // r parallel component

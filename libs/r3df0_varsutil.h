@@ -44,6 +44,7 @@ inline int random_int(int min, int max){
 }
 
 #include "r3df0_math.h"
+#include "r3df0_color.h"
 #include "r3df0_rays.h"
 #include "r3df0_hittable_interface.h"
 #include "r3df0_material_interface.h"

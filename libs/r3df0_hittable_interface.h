@@ -20,7 +20,7 @@ namespace r3dfrom0{
 
         virtual bool hit(const ray& r, interval i, hit_record& record) const = 0;
 
-        virtual axisAlignBbox bbox() const = 0;
+        virtual axisAlignBbox bounding_box() const = 0;
     }; // hittable interface
 }
 

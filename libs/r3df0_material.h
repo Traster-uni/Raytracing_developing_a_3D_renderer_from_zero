@@ -6,6 +6,7 @@
 #define R3DFROM0_R3DF0_MATERIAL_H
 
 #include "r3df0_hittable.h"
+#include "r3df0_texture.h"
 
 using namespace std;
 
@@ -16,7 +17,8 @@ namespace r3dfrom0{
     class lambertian : public material {
     public:
         // constructor
-        lambertian(pixel_f albedo) : albedo(albedo) {}
+        lambertian(shared_ptr<texture>& albedo) : albedo_texture(albedo) {}
+        lambertian(pixel_f albedo) : albedo_texture(make_shared<spacial_texture>(albedo)) {}
 
         // method
         bool scatter
@@ -28,12 +30,12 @@ namespace r3dfrom0{
                 direction = hitRecord.normal;
             }
             scatter_ray = ray(hitRecord.position, direction);
-            attenuation = albedo;
+            attenuation = albedo_texture->color(hitRecord.u, hitRecord.v, hitRecord.position);
             return true;
         }
 
     private:
-        pixel_f albedo;
+        shared_ptr<texture> albedo_texture;
     }; // lambertian class
 
 

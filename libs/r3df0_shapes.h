@@ -7,7 +7,7 @@
 
 #include "r3df0_varsutil.h"
 #include "r3df0_material.h"
-#include "r3df0_axisAlignedBoundingBoxes.h"
+#include "r3df0_axisAlignBBoxes.h"
 
 using namespace std;
 
@@ -16,10 +16,11 @@ namespace r3dfrom0{
     public:
         // constructors
         sphere() : center{0,0,0}, radius{1.0} {}; // default behavior
-        sphere(const vec3f& c, const float& r, shared_ptr<material> mat) :
+        sphere(const vec3f& c, const float& r, shared_ptr<material>& mat) :
                 center(c), radius(float (fmax(0,r))), material_ptr(mat) {
+            // build bvh
             auto temp_v = vec3f{radius, radius, radius};
-            bbox1 = axisAlignBbox{center - temp_v, center + temp_v};
+            bbox = axisAlignBbox{center - temp_v, center + temp_v};
         };
 
         // methods
@@ -56,8 +57,8 @@ namespace r3dfrom0{
             return true;
         } // hit method
 
-        axisAlignBbox bbox() const override{
-            return bbox1;
+        axisAlignBbox bounding_box() const override{
+            return bbox;
         }
 
     private:
@@ -65,7 +66,7 @@ namespace r3dfrom0{
         vec3f center;
         float radius = 1.0;
         shared_ptr<material> material_ptr;
-        axisAlignBbox bbox1;
+        axisAlignBbox bbox;
     }; // sphere class
 }
 

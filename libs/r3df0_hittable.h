@@ -7,7 +7,7 @@
 
 #include <vector>
 #include <memory>
-#include "r3df0_axisAlignedBoundingBoxes.h"
+#include "r3df0_axisAlignBBoxes.h"
 
 using namespace std;
 
@@ -23,6 +23,8 @@ namespace r3dfrom0{
         vec3f normal;                       // normal on the surface
         shared_ptr<material> material_ptr;  // pointer to material data of geometry
         float t;                            // hit on surface (roots of quadratic equation)
+        float u;                            // vertical u texture component     (u,v)
+        float v;                            // horizontal v texture component   (u,v)
         bool front_face_hit;                // Is the object being hit on the front?
 
         // constructors
@@ -56,7 +58,7 @@ namespace r3dfrom0{
         // methods
         void append(shared_ptr<hittable> obj) {
             objects_list.push_back(obj);
-            bbox1 = axisAlignBbox(bbox1, obj->bbox());
+            bbox = axisAlignBbox(bbox, obj->bounding_box());
         }
 
         bool hit(const ray& r, interval i, hit_record& record) const override{
@@ -85,12 +87,12 @@ namespace r3dfrom0{
             return hit_detected;
         } // hit method
 
-        axisAlignBbox bbox() const override{
-            return bbox1;
+        axisAlignBbox bounding_box() const override{
+            return bbox;
         }
 
     private:
-        axisAlignBbox bbox1;
+        axisAlignBbox bbox;
     }; // hittable_list class
 }
 
