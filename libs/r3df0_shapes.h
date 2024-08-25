@@ -86,11 +86,25 @@ namespace r3dfrom0{
             v1 = Q + u;     // lower right
             v2 = Q + u + v; // upper right
             v3 = Q + v;     // upper left
+
+            edge1 = v1 - Q;
+            edge2 = v2 - v1;
+            edge3 = v3 - v2;
+            edge4 = Q - v3;
+
+            set_bounding_box();
         }
         quad (const vec3f& q, const vec3f& v1, const vec3f& v2, const vec3f& v3, shared_ptr<material> material) :
             Q(q), v1(v1), v2(v2), v3(v3), material(material) {
             u = v1 - Q;
             v = v3 - Q;
+
+            edge1 = v1 - Q;
+            edge2 = v2 - v1;
+            edge3 = v3 - v2;
+            edge4 = Q - v3;
+
+            set_bounding_box();
         }
 
         // methods
@@ -108,29 +122,46 @@ namespace r3dfrom0{
             }
             auto intersect = r.at(t);
 
+            auto c1 = intersect - Q;
+            auto c2 = intersect - v1;
+            auto c3 = intersect - v2;
+            auto c4 = intersect - v3;
+            if(dot(normal, cross(edge1, c1)) <= 0 ||
+                dot(normal, cross(edge2, c2)) <= 0 ||
+                dot(normal, cross(edge3, c3)) <= 0 ||
+                dot(normal, cross(edge4, c4)) <= 0 ){
+                return false;
+            }
             // save data in hit_record
             hit_record.position = intersect;
             hit_record.t = t;
             hit_record.set_face_normals(r, normal);
             hit_record.material_ptr = material;
-            hit_record.u = get_quad_uv(hit_record.normal, );
+//            get_quad_uv(hit_record.normal, hit_record.u, hit_record.v);
+            return true;
+        }
 
+        virtual void set_bounding_box() {
+            auto bbox1 = axisAlignBbox(Q, v2);
+            auto bbox2 = axisAlignBbox(v1, v3);
+            bbox = axisAlignBbox(bbox1, bbox2);
+        }
+
+        axisAlignBbox bounding_box() const override{
+            return bbox;
         }
 
         static void get_quad_uv(vec3f& p, float& u, float& v){
-            float phi = atan2(p.z, p.x) + 2*pi;
-            float theta = acos(-p.y);
-            u = phi / (2 * pi);
-            v = theta / pi;
+            // TODO: COMPLETE 2D UV FOR TEXTURES;
         }
+
     private:
         // attributes
         vec3f u, v;                         // horizontal and vertical vectors respectfully
         vec3f Q, v1, v2, v3;                // coordinates of the vertices of the quad in counter clock-wise order;
         vec3f edge1, edge2, edge3, edge4;   // vector edges of the quad in conter clock-wise order;
         shared_ptr<material> material;
-        vec3f intersection
-
+        axisAlignBbox bbox;
     }; // quad class
 
 
