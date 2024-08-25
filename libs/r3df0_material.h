@@ -5,19 +5,17 @@
 #ifndef R3DFROM0_R3DF0_MATERIAL_H
 #define R3DFROM0_R3DF0_MATERIAL_H
 
+#include "r3df0_varsutil.h"
 #include "r3df0_hittable.h"
 #include "r3df0_texture.h"
 
 using namespace std;
 
 namespace r3dfrom0{
-
-
-
     class lambertian : public material {
     public:
         // constructor
-        lambertian(shared_ptr<texture>& albedo) : albedo_texture(albedo) {}
+        lambertian(shared_ptr<texture> tex) : albedo_texture(tex) {}
         lambertian(pixel_f albedo) : albedo_texture(make_shared<spacial_texture>(albedo)) {}
 
         // method
@@ -48,7 +46,7 @@ namespace r3dfrom0{
         bool scatter
             /**
              * Fuzzy metal, fuzz values are real an in the interval [0,1] where 0 is mirrorball like finish
-             * and 1 is as fuzzy as it can get
+             * and 1 is as fuzzy as it can get, almost looks plasticky
              */
             (const ray& ray_in, hit_record& hitRecord, ray& scatter_ray, pixel_f& attenuation)
             const override{

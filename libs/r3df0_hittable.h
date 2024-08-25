@@ -23,8 +23,8 @@ namespace r3dfrom0{
         vec3f normal;                       // normal on the surface
         shared_ptr<material> material_ptr;  // pointer to material data of geometry
         float t;                            // hit on surface (roots of quadratic equation)
-        float u;                            // vertical u texture component     (u,v)
-        float v;                            // horizontal v texture component   (u,v)
+        float u;                            // horizontal z, x texture component (u,v)
+        float v;                            // vertical y texture component (u,v)
         bool front_face_hit;                // Is the object being hit on the front?
 
         // constructors

@@ -15,7 +15,7 @@ using namespace r3dfrom0;
 int main(){
     hittable_list world;
     // set ground
-    auto ground_texture = make_shared<checker_texture>(0.32, pixel_f(.2, .3, .1), pixel_f(.9, .9, .9));
+    auto ground_texture = make_shared<checker_texture>(0.32, pixel_f(.2f,.3f,.1f), pixel_f(.9f,.9f,.9f));
     auto ground = make_shared<sphere>(vec3f(0,-1000,0), 1000, make_shared<lambertian>(ground_texture));
     world.append(ground);
 
@@ -63,7 +63,7 @@ int main(){
     // camera setting
     camera main_camera;
 
-    main_camera.samples_number      = 500;
+    main_camera.samples_number      = 100;
     main_camera.max_recursion_depth = 50;
 
     main_camera.vfov                = 20;

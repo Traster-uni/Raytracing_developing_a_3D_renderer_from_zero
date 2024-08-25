@@ -24,6 +24,7 @@ namespace r3dfrom0{
         axisAlignBbox() {};  // this constructor has a reason to exist because, intervals are
                             // defined by default empty
         axisAlignBbox(interval x, interval y, interval z) : x(x), y(y), z(z) {
+            minimum_padding();
         }
 
         axisAlignBbox(const vec3f& a, const vec3f& b){
@@ -31,6 +32,8 @@ namespace r3dfrom0{
             x = (a.x <= b.x) ? interval(a.x, b.x) : interval(b.x, a.x);
             y = (a.y <= b.y) ? interval(a.y, b.y) : interval(b.y, a.y);
             z = (a.z <= b.z) ? interval(a.z, b.z) : interval(b.z, a.z);
+
+            minimum_padding();
         }
 
         axisAlignBbox(const axisAlignBbox& bbox1, const axisAlignBbox& bbox2){
@@ -38,6 +41,8 @@ namespace r3dfrom0{
             x = interval(bbox1.x, bbox2.x);
             y = interval(bbox1.y, bbox2.y);
             z = interval(bbox1.z, bbox2.z);
+
+            minimum_padding();
         }
 
         // methods
@@ -84,6 +89,16 @@ namespace r3dfrom0{
 
         // constants declarations
         static const axisAlignBbox empty, universe;
+
+    private:
+        // private methods
+        void minimum_padding(){
+            float delta = 0.0001f;
+
+            if (x.size() < delta) x.expand(delta);
+            if (y.size() < delta) y.expand(delta);
+            if (z.size() < delta) z.expand(delta);
+        }
     }; // class axisAlignBbox
 
     // constants implementation

@@ -45,6 +45,12 @@ namespace r3dfrom0{
             return *this *= (1/t);
         }
 
+        float operator[](const int n) const {
+            if (n==0) return this->r;
+            else if (n == 1) return this->g;
+            else return this->b;
+        }
+
         pixel_f random(){
             return {this->r = random_float(),
                     this->g = random_float(),
@@ -82,13 +88,19 @@ namespace r3dfrom0{
     }
 
     // integers
-    class pixel_i : public pixel_f{
+    class pixel_i {
     public:
         int r, g, b;
 
         // constructors
         pixel_i() : r{0}, g{0}, b{0} {} // default behaviour
         pixel_i(int r, int g, int b) : r{r}, g{g}, b{b} {} // if args are defined
+
+        int operator[](const int n) const{
+            if (n==0) return this->r;
+            else if (n == 1) return this->g;
+            else return this->b;
+        }
 
     }; // pixel_i
 
@@ -100,24 +112,33 @@ namespace r3dfrom0{
         /**
          * Converts a pixel in floating point precision into a pixel with
          * integer precision between 0 and 255.
-         * Note: By converting from float to integer, the operation is not reversible.
          */
         return {int(255 * p.r),
                 int(255 * p.g),
                 int(255 * p.b)};
     } // convert_pixel_i
 
-    pixel_i convert_pixel_i_clamp(pixel_f p, const float& min_c, const float& max_c){
+    pixel_i convert_pixel_i_clamp(pixel_f p){
         /**
-         * Converts a pixel in floating point precision into a pixel with
-         * integer precision between 0 and 255.
-         * Note: By converting from float to integer, the operation is not reversible.
+         * Converts a pixel from floating point precision into a pixel with
+         * integer precision between 0 and 255, by clamping the float value beforehand.
          */
-        static const interval intensity(min_c, max_c);
-        return {int(256 * intensity.clamp(p.r)),
-                int(256 * intensity.clamp(p.g)),
-                int(256 * intensity.clamp(p.b))};
+        static const interval intensity(0.0f, 0.999f);
+        return { int(256 * intensity.clamp(p.r)),
+                 int(256 * intensity.clamp(p.g)),
+                 int(256 * intensity.clamp(p.b))};
     } // convert_pixel_i
+
+    pixel_f convert_pixel_f_clamp(const pixel_i& p){
+        /**
+         * Converts a pixel from integer precision into a pixel with
+         * float precision between 0.0f and 1.0f, by clamping the float value after execution.
+         */
+        static const interval interval(0.0f, 1.0f);
+        return {interval.clamp(p.r/255),
+                interval.clamp(p.g/255),
+                interval.clamp(p.b/255)};
+    }
 
     pixel_f lerp_color(const float& unit_vec_length, const pixel_f& start_color, const pixel_f& end_color){
         /**

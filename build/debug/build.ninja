@@ -68,6 +68,94 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 # C:/Raytracing_developing_a_3D_renderer_from_zero/CMakeLists.txt
 # =============================================================================
 
+
+#############################################
+# Utility command for edit_cache
+
+build ext/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Raytracing_developing_a_3D_renderer_from_zero\build\debug\ext && "C:\Program Files\JetBrains\CLion 2022.3\bin\cmake\win\x64\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build ext/edit_cache: phony ext/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build ext/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Raytracing_developing_a_3D_renderer_from_zero\build\debug\ext && "C:\Program Files\JetBrains\CLion 2022.3\bin\cmake\win\x64\bin\cmake.exe" --regenerate-during-build -SC:\Raytracing_developing_a_3D_renderer_from_zero -BC:\Raytracing_developing_a_3D_renderer_from_zero\build\debug"
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build ext/rebuild_cache: phony ext/CMakeFiles/rebuild_cache.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# C:/Raytracing_developing_a_3D_renderer_from_zero/ext/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target stb_image
+
+
+#############################################
+# Order-only phony target for stb_image
+
+build cmake_object_order_depends_target_stb_image: phony || ext/stb_image/CMakeFiles/stb_image.dir
+
+build ext/stb_image/CMakeFiles/stb_image.dir/stb_image/stb_image_runner.cpp.obj: CXX_COMPILER__stb_image_unscanned_Debug C$:/Raytracing_developing_a_3D_renderer_from_zero/ext/stb_image/stb_image/stb_image_runner.cpp || cmake_object_order_depends_target_stb_image
+  DEP_FILE = ext\stb_image\CMakeFiles\stb_image.dir\stb_image\stb_image_runner.cpp.obj.d
+  FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
+  INCLUDES = -IC:/Raytracing_developing_a_3D_renderer_from_zero/ext/stb_image/. -IC:/Raytracing_developing_a_3D_renderer_from_zero/ext/stb_image/stb_image
+  OBJECT_DIR = ext\stb_image\CMakeFiles\stb_image.dir
+  OBJECT_FILE_DIR = ext\stb_image\CMakeFiles\stb_image.dir\stb_image
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target stb_image
+
+
+#############################################
+# Link the static library C:\Raytracing_developing_a_3D_renderer_from_zero\bin\debug\libstb_image.a
+
+build C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libstb_image.a: CXX_STATIC_LIBRARY_LINKER__stb_image_Debug ext/stb_image/CMakeFiles/stb_image.dir/stb_image/stb_image_runner.cpp.obj
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = ext\stb_image\CMakeFiles\stb_image.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = C:\Raytracing_developing_a_3D_renderer_from_zero\bin\debug\libstb_image.a
+  TARGET_PDB = stb_image.a.dbg
+
+
+#############################################
+# Utility command for edit_cache
+
+build ext/stb_image/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Raytracing_developing_a_3D_renderer_from_zero\build\debug\ext\stb_image && "C:\Program Files\JetBrains\CLion 2022.3\bin\cmake\win\x64\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build ext/stb_image/edit_cache: phony ext/stb_image/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build ext/stb_image/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D C:\Raytracing_developing_a_3D_renderer_from_zero\build\debug\ext\stb_image && "C:\Program Files\JetBrains\CLion 2022.3\bin\cmake\win\x64\bin\cmake.exe" --regenerate-during-build -SC:\Raytracing_developing_a_3D_renderer_from_zero -BC:\Raytracing_developing_a_3D_renderer_from_zero\build\debug"
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build ext/stb_image/rebuild_cache: phony ext/stb_image/CMakeFiles/rebuild_cache.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# C:/Raytracing_developing_a_3D_renderer_from_zero/CMakeLists.txt
+# =============================================================================
+
 # =============================================================================
 # Object build statements for STATIC_LIBRARY target r3dfrom0
 
@@ -75,7 +163,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 #############################################
 # Order-only phony target for r3dfrom0
 
-build cmake_object_order_depends_target_r3dfrom0: phony || libs/CMakeFiles/r3dfrom0.dir
+build cmake_object_order_depends_target_r3dfrom0: phony || cmake_object_order_depends_target_stb_image
 
 
 # =============================================================================
@@ -85,7 +173,7 @@ build cmake_object_order_depends_target_r3dfrom0: phony || libs/CMakeFiles/r3dfr
 #############################################
 # Link the static library C:\Raytracing_developing_a_3D_renderer_from_zero\bin\debug\libr3dfrom0.a
 
-build C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a: CXX_STATIC_LIBRARY_LINKER__r3dfrom0_Debug
+build C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a: CXX_STATIC_LIBRARY_LINKER__r3dfrom0_Debug || C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libstb_image.a
   LANGUAGE_COMPILE_FLAGS = -g
   OBJECT_DIR = libs\CMakeFiles\r3dfrom0.dir
   POST_BUILD = cd .
@@ -128,12 +216,12 @@ build libs/rebuild_cache: phony libs/CMakeFiles/rebuild_cache.util
 #############################################
 # Order-only phony target for r3df0_hello_world
 
-build cmake_object_order_depends_target_r3df0_hello_world: phony || cmake_object_order_depends_target_r3dfrom0
+build cmake_object_order_depends_target_r3df0_hello_world: phony || cmake_object_order_depends_target_r3dfrom0 cmake_object_order_depends_target_stb_image
 
 build src/CMakeFiles/r3df0_hello_world.dir/r3df0_hello_world.cpp.obj: CXX_COMPILER__r3df0_hello_world_unscanned_Debug C$:/Raytracing_developing_a_3D_renderer_from_zero/src/r3df0_hello_world.cpp || cmake_object_order_depends_target_r3df0_hello_world
   DEP_FILE = src\CMakeFiles\r3df0_hello_world.dir\r3df0_hello_world.cpp.obj.d
   FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
-  INCLUDES = -IC:/Raytracing_developing_a_3D_renderer_from_zero/libs
+  INCLUDES = -IC:/Raytracing_developing_a_3D_renderer_from_zero/libs -IC:/Raytracing_developing_a_3D_renderer_from_zero/libs/..
   OBJECT_DIR = src\CMakeFiles\r3df0_hello_world.dir
   OBJECT_FILE_DIR = src\CMakeFiles\r3df0_hello_world.dir
 
@@ -145,9 +233,9 @@ build src/CMakeFiles/r3df0_hello_world.dir/r3df0_hello_world.cpp.obj: CXX_COMPIL
 #############################################
 # Link the executable C:\Raytracing_developing_a_3D_renderer_from_zero\bin\debug\r3df0_hello_world.exe
 
-build C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_hello_world.exe: CXX_EXECUTABLE_LINKER__r3df0_hello_world_Debug src/CMakeFiles/r3df0_hello_world.dir/r3df0_hello_world.cpp.obj | C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a || C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a
+build C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_hello_world.exe: CXX_EXECUTABLE_LINKER__r3df0_hello_world_Debug src/CMakeFiles/r3df0_hello_world.dir/r3df0_hello_world.cpp.obj | C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libstb_image.a || C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libstb_image.a
   FLAGS = -g
-  LINK_LIBRARIES = C:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  LINK_LIBRARIES = C:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a  C:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libstb_image.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = src\CMakeFiles\r3df0_hello_world.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
@@ -162,12 +250,12 @@ build C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_hello_wo
 #############################################
 # Order-only phony target for r3df0_hello_sphere
 
-build cmake_object_order_depends_target_r3df0_hello_sphere: phony || cmake_object_order_depends_target_r3dfrom0
+build cmake_object_order_depends_target_r3df0_hello_sphere: phony || cmake_object_order_depends_target_r3dfrom0 cmake_object_order_depends_target_stb_image
 
 build src/CMakeFiles/r3df0_hello_sphere.dir/r3df0_hello_sphere.cpp.obj: CXX_COMPILER__r3df0_hello_sphere_unscanned_Debug C$:/Raytracing_developing_a_3D_renderer_from_zero/src/r3df0_hello_sphere.cpp || cmake_object_order_depends_target_r3df0_hello_sphere
   DEP_FILE = src\CMakeFiles\r3df0_hello_sphere.dir\r3df0_hello_sphere.cpp.obj.d
   FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
-  INCLUDES = -IC:/Raytracing_developing_a_3D_renderer_from_zero/libs
+  INCLUDES = -IC:/Raytracing_developing_a_3D_renderer_from_zero/libs -IC:/Raytracing_developing_a_3D_renderer_from_zero/libs/..
   OBJECT_DIR = src\CMakeFiles\r3df0_hello_sphere.dir
   OBJECT_FILE_DIR = src\CMakeFiles\r3df0_hello_sphere.dir
 
@@ -179,9 +267,9 @@ build src/CMakeFiles/r3df0_hello_sphere.dir/r3df0_hello_sphere.cpp.obj: CXX_COMP
 #############################################
 # Link the executable C:\Raytracing_developing_a_3D_renderer_from_zero\bin\debug\r3df0_hello_sphere.exe
 
-build C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_hello_sphere.exe: CXX_EXECUTABLE_LINKER__r3df0_hello_sphere_Debug src/CMakeFiles/r3df0_hello_sphere.dir/r3df0_hello_sphere.cpp.obj | C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a || C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a
+build C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_hello_sphere.exe: CXX_EXECUTABLE_LINKER__r3df0_hello_sphere_Debug src/CMakeFiles/r3df0_hello_sphere.dir/r3df0_hello_sphere.cpp.obj | C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libstb_image.a || C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libstb_image.a
   FLAGS = -g
-  LINK_LIBRARIES = C:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  LINK_LIBRARIES = C:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a  C:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libstb_image.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = src\CMakeFiles\r3df0_hello_sphere.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
@@ -196,12 +284,12 @@ build C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_hello_sp
 #############################################
 # Order-only phony target for r3df0_main1
 
-build cmake_object_order_depends_target_r3df0_main1: phony || cmake_object_order_depends_target_r3dfrom0
+build cmake_object_order_depends_target_r3df0_main1: phony || cmake_object_order_depends_target_r3dfrom0 cmake_object_order_depends_target_stb_image
 
 build src/CMakeFiles/r3df0_main1.dir/r3df0_main1.cpp.obj: CXX_COMPILER__r3df0_main1_unscanned_Debug C$:/Raytracing_developing_a_3D_renderer_from_zero/src/r3df0_main1.cpp || cmake_object_order_depends_target_r3df0_main1
   DEP_FILE = src\CMakeFiles\r3df0_main1.dir\r3df0_main1.cpp.obj.d
   FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
-  INCLUDES = -IC:/Raytracing_developing_a_3D_renderer_from_zero/libs
+  INCLUDES = -IC:/Raytracing_developing_a_3D_renderer_from_zero/libs -IC:/Raytracing_developing_a_3D_renderer_from_zero/libs/..
   OBJECT_DIR = src\CMakeFiles\r3df0_main1.dir
   OBJECT_FILE_DIR = src\CMakeFiles\r3df0_main1.dir
 
@@ -213,9 +301,9 @@ build src/CMakeFiles/r3df0_main1.dir/r3df0_main1.cpp.obj: CXX_COMPILER__r3df0_ma
 #############################################
 # Link the executable C:\Raytracing_developing_a_3D_renderer_from_zero\bin\debug\r3df0_main1.exe
 
-build C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_main1.exe: CXX_EXECUTABLE_LINKER__r3df0_main1_Debug src/CMakeFiles/r3df0_main1.dir/r3df0_main1.cpp.obj | C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a || C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a
+build C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_main1.exe: CXX_EXECUTABLE_LINKER__r3df0_main1_Debug src/CMakeFiles/r3df0_main1.dir/r3df0_main1.cpp.obj | C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libstb_image.a || C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libstb_image.a
   FLAGS = -g
-  LINK_LIBRARIES = C:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  LINK_LIBRARIES = C:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a  C:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libstb_image.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = src\CMakeFiles\r3df0_main1.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
@@ -230,12 +318,12 @@ build C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_main1.ex
 #############################################
 # Order-only phony target for r3df0_firstHalf_finalRender
 
-build cmake_object_order_depends_target_r3df0_firstHalf_finalRender: phony || cmake_object_order_depends_target_r3dfrom0
+build cmake_object_order_depends_target_r3df0_firstHalf_finalRender: phony || cmake_object_order_depends_target_r3dfrom0 cmake_object_order_depends_target_stb_image
 
 build src/CMakeFiles/r3df0_firstHalf_finalRender.dir/r3df0_firstHalf_finalRender.cpp.obj: CXX_COMPILER__r3df0_firstHalf_finalRender_unscanned_Debug C$:/Raytracing_developing_a_3D_renderer_from_zero/src/r3df0_firstHalf_finalRender.cpp || cmake_object_order_depends_target_r3df0_firstHalf_finalRender
   DEP_FILE = src\CMakeFiles\r3df0_firstHalf_finalRender.dir\r3df0_firstHalf_finalRender.cpp.obj.d
   FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
-  INCLUDES = -IC:/Raytracing_developing_a_3D_renderer_from_zero/libs
+  INCLUDES = -IC:/Raytracing_developing_a_3D_renderer_from_zero/libs -IC:/Raytracing_developing_a_3D_renderer_from_zero/libs/..
   OBJECT_DIR = src\CMakeFiles\r3df0_firstHalf_finalRender.dir
   OBJECT_FILE_DIR = src\CMakeFiles\r3df0_firstHalf_finalRender.dir
 
@@ -247,15 +335,83 @@ build src/CMakeFiles/r3df0_firstHalf_finalRender.dir/r3df0_firstHalf_finalRender
 #############################################
 # Link the executable C:\Raytracing_developing_a_3D_renderer_from_zero\bin\debug\r3df0_firstHalf_finalRender.exe
 
-build C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_firstHalf_finalRender.exe: CXX_EXECUTABLE_LINKER__r3df0_firstHalf_finalRender_Debug src/CMakeFiles/r3df0_firstHalf_finalRender.dir/r3df0_firstHalf_finalRender.cpp.obj | C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a || C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a
+build C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_firstHalf_finalRender.exe: CXX_EXECUTABLE_LINKER__r3df0_firstHalf_finalRender_Debug src/CMakeFiles/r3df0_firstHalf_finalRender.dir/r3df0_firstHalf_finalRender.cpp.obj | C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libstb_image.a || C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libstb_image.a
   FLAGS = -g
-  LINK_LIBRARIES = C:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  LINK_LIBRARIES = C:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a  C:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libstb_image.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = src\CMakeFiles\r3df0_firstHalf_finalRender.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
   TARGET_FILE = C:\Raytracing_developing_a_3D_renderer_from_zero\bin\debug\r3df0_firstHalf_finalRender.exe
   TARGET_IMPLIB = C:\Raytracing_developing_a_3D_renderer_from_zero\bin\debug\libr3df0_firstHalf_finalRender.dll.a
   TARGET_PDB = r3df0_firstHalf_finalRender.exe.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target r3df0_texture_render
+
+
+#############################################
+# Order-only phony target for r3df0_texture_render
+
+build cmake_object_order_depends_target_r3df0_texture_render: phony || cmake_object_order_depends_target_r3dfrom0 cmake_object_order_depends_target_stb_image
+
+build src/CMakeFiles/r3df0_texture_render.dir/r3df0_texture_render.cpp.obj: CXX_COMPILER__r3df0_texture_render_unscanned_Debug C$:/Raytracing_developing_a_3D_renderer_from_zero/src/r3df0_texture_render.cpp || cmake_object_order_depends_target_r3df0_texture_render
+  DEP_FILE = src\CMakeFiles\r3df0_texture_render.dir\r3df0_texture_render.cpp.obj.d
+  FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
+  INCLUDES = -IC:/Raytracing_developing_a_3D_renderer_from_zero/libs -IC:/Raytracing_developing_a_3D_renderer_from_zero/libs/..
+  OBJECT_DIR = src\CMakeFiles\r3df0_texture_render.dir
+  OBJECT_FILE_DIR = src\CMakeFiles\r3df0_texture_render.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target r3df0_texture_render
+
+
+#############################################
+# Link the executable C:\Raytracing_developing_a_3D_renderer_from_zero\bin\debug\r3df0_texture_render.exe
+
+build C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_texture_render.exe: CXX_EXECUTABLE_LINKER__r3df0_texture_render_Debug src/CMakeFiles/r3df0_texture_render.dir/r3df0_texture_render.cpp.obj | C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libstb_image.a || C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libstb_image.a
+  FLAGS = -g
+  LINK_LIBRARIES = C:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a  C:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libstb_image.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = src\CMakeFiles\r3df0_texture_render.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = C:\Raytracing_developing_a_3D_renderer_from_zero\bin\debug\r3df0_texture_render.exe
+  TARGET_IMPLIB = C:\Raytracing_developing_a_3D_renderer_from_zero\bin\debug\libr3df0_texture_render.dll.a
+  TARGET_PDB = r3df0_texture_render.exe.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target loadfile_test
+
+
+#############################################
+# Order-only phony target for loadfile_test
+
+build cmake_object_order_depends_target_loadfile_test: phony || cmake_object_order_depends_target_r3dfrom0 cmake_object_order_depends_target_stb_image
+
+build src/CMakeFiles/loadfile_test.dir/loadfile_test.cpp.obj: CXX_COMPILER__loadfile_test_unscanned_Debug C$:/Raytracing_developing_a_3D_renderer_from_zero/src/loadfile_test.cpp || cmake_object_order_depends_target_loadfile_test
+  DEP_FILE = src\CMakeFiles\loadfile_test.dir\loadfile_test.cpp.obj.d
+  FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
+  INCLUDES = -IC:/Raytracing_developing_a_3D_renderer_from_zero/libs -IC:/Raytracing_developing_a_3D_renderer_from_zero/libs/..
+  OBJECT_DIR = src\CMakeFiles\loadfile_test.dir
+  OBJECT_FILE_DIR = src\CMakeFiles\loadfile_test.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target loadfile_test
+
+
+#############################################
+# Link the executable C:\Raytracing_developing_a_3D_renderer_from_zero\bin\debug\loadfile_test.exe
+
+build C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/loadfile_test.exe: CXX_EXECUTABLE_LINKER__loadfile_test_Debug src/CMakeFiles/loadfile_test.dir/loadfile_test.cpp.obj | C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libstb_image.a || C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libstb_image.a
+  FLAGS = -g
+  LINK_LIBRARIES = C:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a  C:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libstb_image.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = src\CMakeFiles\loadfile_test.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = C:\Raytracing_developing_a_3D_renderer_from_zero\bin\debug\loadfile_test.exe
+  TARGET_IMPLIB = C:\Raytracing_developing_a_3D_renderer_from_zero\bin\debug\libloadfile_test.dll.a
+  TARGET_PDB = loadfile_test.exe.dbg
 
 
 #############################################
@@ -285,6 +441,12 @@ build src/rebuild_cache: phony src/CMakeFiles/rebuild_cache.util
 
 build libr3dfrom0.a: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a
 
+build libstb_image.a: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libstb_image.a
+
+build loadfile_test: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/loadfile_test.exe
+
+build loadfile_test.exe: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/loadfile_test.exe
+
 build r3df0_firstHalf_finalRender: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_firstHalf_finalRender.exe
 
 build r3df0_firstHalf_finalRender.exe: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_firstHalf_finalRender.exe
@@ -301,7 +463,13 @@ build r3df0_main1: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/d
 
 build r3df0_main1.exe: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_main1.exe
 
+build r3df0_texture_render: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_texture_render.exe
+
+build r3df0_texture_render.exe: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_texture_render.exe
+
 build r3dfrom0: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a
+
+build stb_image: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libstb_image.a
 
 # =============================================================================
 # Folder targets.
@@ -311,7 +479,21 @@ build r3dfrom0: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debu
 #############################################
 # Folder: C:/Raytracing_developing_a_3D_renderer_from_zero/build/debug
 
-build all: phony libs/all src/all
+build all: phony ext/all libs/all src/all
+
+# =============================================================================
+
+#############################################
+# Folder: C:/Raytracing_developing_a_3D_renderer_from_zero/build/debug/ext
+
+build ext/all: phony ext/stb_image/all
+
+# =============================================================================
+
+#############################################
+# Folder: C:/Raytracing_developing_a_3D_renderer_from_zero/build/debug/ext/stb_image
+
+build ext/stb_image/all: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libstb_image.a
 
 # =============================================================================
 
@@ -325,7 +507,7 @@ build libs/all: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debu
 #############################################
 # Folder: C:/Raytracing_developing_a_3D_renderer_from_zero/build/debug/src
 
-build src/all: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_hello_world.exe C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_hello_sphere.exe C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_main1.exe C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_firstHalf_finalRender.exe
+build src/all: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_hello_world.exe C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_hello_sphere.exe C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_main1.exe C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_firstHalf_finalRender.exe C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_texture_render.exe C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/loadfile_test.exe
 
 # =============================================================================
 # Built-in targets
@@ -334,14 +516,14 @@ build src/all: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeRCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-Initialize.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/WindowsPaths.cmake C$:/Raytracing_developing_a_3D_renderer_from_zero/CMakeLists.txt C$:/Raytracing_developing_a_3D_renderer_from_zero/libs/CMakeLists.txt C$:/Raytracing_developing_a_3D_renderer_from_zero/src/CMakeLists.txt CMakeCache.txt CMakeFiles/3.28.1/CMakeCCompiler.cmake CMakeFiles/3.28.1/CMakeCXXCompiler.cmake CMakeFiles/3.28.1/CMakeRCCompiler.cmake CMakeFiles/3.28.1/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeRCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-Initialize.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/WindowsPaths.cmake C$:/Raytracing_developing_a_3D_renderer_from_zero/CMakeLists.txt C$:/Raytracing_developing_a_3D_renderer_from_zero/ext/CMakeLists.txt C$:/Raytracing_developing_a_3D_renderer_from_zero/ext/stb_image/CMakeLists.txt C$:/Raytracing_developing_a_3D_renderer_from_zero/libs/CMakeLists.txt C$:/Raytracing_developing_a_3D_renderer_from_zero/src/CMakeLists.txt CMakeCache.txt CMakeFiles/3.28.1/CMakeCCompiler.cmake CMakeFiles/3.28.1/CMakeCXXCompiler.cmake CMakeFiles/3.28.1/CMakeRCCompiler.cmake CMakeFiles/3.28.1/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeRCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-Initialize.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/WindowsPaths.cmake C$:/Raytracing_developing_a_3D_renderer_from_zero/CMakeLists.txt C$:/Raytracing_developing_a_3D_renderer_from_zero/libs/CMakeLists.txt C$:/Raytracing_developing_a_3D_renderer_from_zero/src/CMakeLists.txt CMakeCache.txt CMakeFiles/3.28.1/CMakeCCompiler.cmake CMakeFiles/3.28.1/CMakeCXXCompiler.cmake CMakeFiles/3.28.1/CMakeRCCompiler.cmake CMakeFiles/3.28.1/CMakeSystem.cmake: phony
+build C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeRCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Compiler/GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-Initialize.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/Windows.cmake C$:/Program$ Files/JetBrains/CLion$ 2022.3/bin/cmake/win/x64/share/cmake-3.28/Modules/Platform/WindowsPaths.cmake C$:/Raytracing_developing_a_3D_renderer_from_zero/CMakeLists.txt C$:/Raytracing_developing_a_3D_renderer_from_zero/ext/CMakeLists.txt C$:/Raytracing_developing_a_3D_renderer_from_zero/ext/stb_image/CMakeLists.txt C$:/Raytracing_developing_a_3D_renderer_from_zero/libs/CMakeLists.txt C$:/Raytracing_developing_a_3D_renderer_from_zero/src/CMakeLists.txt CMakeCache.txt CMakeFiles/3.28.1/CMakeCCompiler.cmake CMakeFiles/3.28.1/CMakeCXXCompiler.cmake CMakeFiles/3.28.1/CMakeRCCompiler.cmake CMakeFiles/3.28.1/CMakeSystem.cmake: phony
 
 
 #############################################

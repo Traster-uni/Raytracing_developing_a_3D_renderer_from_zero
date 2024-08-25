@@ -13,6 +13,8 @@
 #include "r3df0_hittable.h"
 #include "r3df0_material.h"
 
+using namespace std::chrono;
+
 namespace r3dfrom0{
 
     class camera{
@@ -56,10 +58,10 @@ namespace r3dfrom0{
             return lerp_color(unit_vec, pixel_f{1.0,1.0,1.0}, pixel_f{0.5, 0.7, 1.0});
         }
 
-        void render(const string& fname, hittable_list& world){
+        void render_ppm(const string& fname, hittable_list& world){
             initialize();
 
-            auto const start_timer{std::chrono::steady_clock::now()};
+            auto const start_timer{steady_clock::now()};
             ofstream out;
             out.open(fname);
             // ppm header
@@ -74,15 +76,44 @@ namespace r3dfrom0{
                         color_sum += ray_color(r, world, max_recursion_depth);
                     }
                     auto mean_color = color_sum * mean_factor; // (sum(colors rays))/number_of_rays)
-                    write_color(out, mean_color); // gamma, clamp and write on file
+                    write_color_ppm(out, mean_color); // gamma, clamp and write on file
                 }
                 out << endl;
             }
             out.close();
+            // clock
             auto const end_timer {std::chrono::steady_clock::now()};
-            std::chrono::duration<float> elapsed_time {end_timer - start_timer};
-
+            duration elapsed_time = end_timer - start_timer ;
+            // TODO: CONVERT SECONDS IN HH:MM:SS FORMAT
             clog << "\r RENDERING DONE IN: " << elapsed_time.count() << "secs" <<flush;
+        }
+
+        void render_png(const string& fname, hittable_list& world) {
+            initialize();
+
+            auto const start_timer{steady_clock::now()};
+            vector<vector<pixel_i>> tuple_image = {};
+            for (int i = 0; i < image_height; i++){ // for each row
+                clog << "\rScanlines remaining: " << i << "/" << image_height << flush;
+                vector<pixel_i> scanline = {};
+                tuple_image.push_back(scanline);
+                for (int j = 0; j < image_width; j++){ // for each column
+                    pixel_f color_sum(0.0f,0.0f,0.0f);
+                    for (int s = 0; s < samples_number; s++){   // for random squares in pixel
+                        ray r = get_ray(i,j);
+                        color_sum += ray_color(r, world, max_recursion_depth);
+                    }
+                    auto mean_color = color_sum * mean_factor; // (sum(colors rays))/number_of_rays)
+                    auto correct_color = correct_color_gamma(mean_color);
+                    tuple_image[i].push_back(correct_color);
+                }
+            }
+            write_png(fname, image_width, image_height, tuple_image);
+            // clock
+            auto const end_timer {std::chrono::steady_clock::now()};
+            duration elapsed_time = end_timer - start_timer ;
+            // TODO: CONVERT SECONDS IN HH:MM:SS FORMAT
+            clog << "\r RENDERING DONE IN: " << elapsed_time.count() << " s" <<flush;
         }
 
     private: // private attributes
