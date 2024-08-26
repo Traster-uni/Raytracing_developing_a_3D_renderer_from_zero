@@ -210,40 +210,6 @@ build libs/rebuild_cache: phony libs/CMakeFiles/rebuild_cache.util
 # =============================================================================
 
 # =============================================================================
-# Object build statements for EXECUTABLE target r3df0_hello_world
-
-
-#############################################
-# Order-only phony target for r3df0_hello_world
-
-build cmake_object_order_depends_target_r3df0_hello_world: phony || cmake_object_order_depends_target_r3dfrom0 cmake_object_order_depends_target_stb_image
-
-build src/CMakeFiles/r3df0_hello_world.dir/r3df0_hello_world.cpp.obj: CXX_COMPILER__r3df0_hello_world_unscanned_Debug C$:/Raytracing_developing_a_3D_renderer_from_zero/src/r3df0_hello_world.cpp || cmake_object_order_depends_target_r3df0_hello_world
-  DEP_FILE = src\CMakeFiles\r3df0_hello_world.dir\r3df0_hello_world.cpp.obj.d
-  FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
-  INCLUDES = -IC:/Raytracing_developing_a_3D_renderer_from_zero/libs -IC:/Raytracing_developing_a_3D_renderer_from_zero/libs/..
-  OBJECT_DIR = src\CMakeFiles\r3df0_hello_world.dir
-  OBJECT_FILE_DIR = src\CMakeFiles\r3df0_hello_world.dir
-
-
-# =============================================================================
-# Link build statements for EXECUTABLE target r3df0_hello_world
-
-
-#############################################
-# Link the executable C:\Raytracing_developing_a_3D_renderer_from_zero\bin\debug\r3df0_hello_world.exe
-
-build C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_hello_world.exe: CXX_EXECUTABLE_LINKER__r3df0_hello_world_Debug src/CMakeFiles/r3df0_hello_world.dir/r3df0_hello_world.cpp.obj | C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libstb_image.a || C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libstb_image.a
-  FLAGS = -g
-  LINK_LIBRARIES = C:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a  C:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libstb_image.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
-  OBJECT_DIR = src\CMakeFiles\r3df0_hello_world.dir
-  POST_BUILD = cd .
-  PRE_LINK = cd .
-  TARGET_FILE = C:\Raytracing_developing_a_3D_renderer_from_zero\bin\debug\r3df0_hello_world.exe
-  TARGET_IMPLIB = C:\Raytracing_developing_a_3D_renderer_from_zero\bin\debug\libr3df0_hello_world.dll.a
-  TARGET_PDB = r3df0_hello_world.exe.dbg
-
-# =============================================================================
 # Object build statements for EXECUTABLE target r3df0_hello_sphere
 
 
@@ -380,38 +346,38 @@ build C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_texture_
   TARGET_PDB = r3df0_texture_render.exe.dbg
 
 # =============================================================================
-# Object build statements for EXECUTABLE target loadfile_test
+# Object build statements for EXECUTABLE target r3df0_quadBox_test
 
 
 #############################################
-# Order-only phony target for loadfile_test
+# Order-only phony target for r3df0_quadBox_test
 
-build cmake_object_order_depends_target_loadfile_test: phony || cmake_object_order_depends_target_r3dfrom0 cmake_object_order_depends_target_stb_image
+build cmake_object_order_depends_target_r3df0_quadBox_test: phony || cmake_object_order_depends_target_r3dfrom0 cmake_object_order_depends_target_stb_image
 
-build src/CMakeFiles/loadfile_test.dir/loadfile_test.cpp.obj: CXX_COMPILER__loadfile_test_unscanned_Debug C$:/Raytracing_developing_a_3D_renderer_from_zero/src/loadfile_test.cpp || cmake_object_order_depends_target_loadfile_test
-  DEP_FILE = src\CMakeFiles\loadfile_test.dir\loadfile_test.cpp.obj.d
+build src/CMakeFiles/r3df0_quadBox_test.dir/r3df0_quadBox_test.cpp.obj: CXX_COMPILER__r3df0_quadBox_test_unscanned_Debug C$:/Raytracing_developing_a_3D_renderer_from_zero/src/r3df0_quadBox_test.cpp || cmake_object_order_depends_target_r3df0_quadBox_test
+  DEP_FILE = src\CMakeFiles\r3df0_quadBox_test.dir\r3df0_quadBox_test.cpp.obj.d
   FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
   INCLUDES = -IC:/Raytracing_developing_a_3D_renderer_from_zero/libs -IC:/Raytracing_developing_a_3D_renderer_from_zero/libs/..
-  OBJECT_DIR = src\CMakeFiles\loadfile_test.dir
-  OBJECT_FILE_DIR = src\CMakeFiles\loadfile_test.dir
+  OBJECT_DIR = src\CMakeFiles\r3df0_quadBox_test.dir
+  OBJECT_FILE_DIR = src\CMakeFiles\r3df0_quadBox_test.dir
 
 
 # =============================================================================
-# Link build statements for EXECUTABLE target loadfile_test
+# Link build statements for EXECUTABLE target r3df0_quadBox_test
 
 
 #############################################
-# Link the executable C:\Raytracing_developing_a_3D_renderer_from_zero\bin\debug\loadfile_test.exe
+# Link the executable C:\Raytracing_developing_a_3D_renderer_from_zero\bin\debug\r3df0_quadBox_test.exe
 
-build C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/loadfile_test.exe: CXX_EXECUTABLE_LINKER__loadfile_test_Debug src/CMakeFiles/loadfile_test.dir/loadfile_test.cpp.obj | C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libstb_image.a || C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libstb_image.a
+build C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_quadBox_test.exe: CXX_EXECUTABLE_LINKER__r3df0_quadBox_test_Debug src/CMakeFiles/r3df0_quadBox_test.dir/r3df0_quadBox_test.cpp.obj | C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libstb_image.a || C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libstb_image.a
   FLAGS = -g
   LINK_LIBRARIES = C:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libr3dfrom0.a  C:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libstb_image.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
-  OBJECT_DIR = src\CMakeFiles\loadfile_test.dir
+  OBJECT_DIR = src\CMakeFiles\r3df0_quadBox_test.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
-  TARGET_FILE = C:\Raytracing_developing_a_3D_renderer_from_zero\bin\debug\loadfile_test.exe
-  TARGET_IMPLIB = C:\Raytracing_developing_a_3D_renderer_from_zero\bin\debug\libloadfile_test.dll.a
-  TARGET_PDB = loadfile_test.exe.dbg
+  TARGET_FILE = C:\Raytracing_developing_a_3D_renderer_from_zero\bin\debug\r3df0_quadBox_test.exe
+  TARGET_IMPLIB = C:\Raytracing_developing_a_3D_renderer_from_zero\bin\debug\libr3df0_quadBox_test.dll.a
+  TARGET_PDB = r3df0_quadBox_test.exe.dbg
 
 
 #############################################
@@ -443,10 +409,6 @@ build libr3dfrom0.a: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin
 
 build libstb_image.a: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/libstb_image.a
 
-build loadfile_test: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/loadfile_test.exe
-
-build loadfile_test.exe: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/loadfile_test.exe
-
 build r3df0_firstHalf_finalRender: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_firstHalf_finalRender.exe
 
 build r3df0_firstHalf_finalRender.exe: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_firstHalf_finalRender.exe
@@ -455,13 +417,13 @@ build r3df0_hello_sphere: phony C$:/Raytracing_developing_a_3D_renderer_from_zer
 
 build r3df0_hello_sphere.exe: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_hello_sphere.exe
 
-build r3df0_hello_world: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_hello_world.exe
-
-build r3df0_hello_world.exe: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_hello_world.exe
-
 build r3df0_main1: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_main1.exe
 
 build r3df0_main1.exe: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_main1.exe
+
+build r3df0_quadBox_test: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_quadBox_test.exe
+
+build r3df0_quadBox_test.exe: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_quadBox_test.exe
 
 build r3df0_texture_render: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_texture_render.exe
 
@@ -507,7 +469,7 @@ build libs/all: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debu
 #############################################
 # Folder: C:/Raytracing_developing_a_3D_renderer_from_zero/build/debug/src
 
-build src/all: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_hello_world.exe C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_hello_sphere.exe C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_main1.exe C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_firstHalf_finalRender.exe C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_texture_render.exe C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/loadfile_test.exe
+build src/all: phony C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_hello_sphere.exe C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_main1.exe C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_firstHalf_finalRender.exe C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_texture_render.exe C$:/Raytracing_developing_a_3D_renderer_from_zero/bin/debug/r3df0_quadBox_test.exe
 
 # =============================================================================
 # Built-in targets

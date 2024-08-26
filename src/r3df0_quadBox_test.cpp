@@ -14,7 +14,11 @@ using namespace r3dfrom0;
 
 int main(){
     hittable_list world;
-
+    // RED = pixel_f(1.0, 0.2, 0.2)
+    // GREEN = pixel_f(0.2, 1.0, 0.2)
+    // BLUE = pixel_f(0.2, 0.2, 1.0)
+    // ORANGE = pixel_f(1.0, 0.5, 0.0)
+    // LIGHT BLUE = pixel_f(0.2, 0.8, 0.8)
     // Materials
     auto left_red     = make_shared<lambertian>(pixel_f(1.0, 0.2, 0.2));
     auto back_green   = make_shared<lambertian>(pixel_f(0.2, 1.0, 0.2));
@@ -30,13 +34,12 @@ int main(){
     world.append(make_shared<quad>(vec3f(-2,-3, 5), vec3f(4, 0, 0), vec3f(0, 0,-4), lower_teal));
 
     camera cam;
-
-    cam.aspect_ratio      = 1.0;
-    cam.vfov     = 80;
+    cam.image_width     = 1000;
+    cam.aspect_ratio    = 1.0;
+    cam.vfov            = 80;
     cam.look_from = vec3f(0,0,9);
     cam.look_at   = vec3f(0,0,0);
     cam.view_up   = vec3f(0,1,0);
 
-    cam.render_png(world);
-}
+    cam.render_png("quadBox_test.png",world);
 }

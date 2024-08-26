@@ -92,7 +92,6 @@ namespace r3dfrom0{
         int bytes_scanline = width * bytes_pixel;
         int bytes_total = width * height * bytes_pixel;
 
-
         auto *pixels_ptr = new unsigned char[bytes_total];
         auto l = 0;
         for (int i = 0; i < height; i++){
