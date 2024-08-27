@@ -81,16 +81,17 @@ namespace r3dfrom0{
     class quad : public hittable {
     public:
         // constructors
-        quad(const vec3f& v1, const vec3f& u, const vec3f& v, shared_ptr<material> material) :
-            v1(v1), u(u), v(v), material(material) {
+        quad(const vec3f& v1, const vec3f& u, const vec3f& v, shared_ptr<material> material, bool ss = false) :
+            v1(v1), u(u), v(v), material(material), single_side(ss) {
             v2 = v1 + u;     // lower right     4_______3
             v3 = v1 + u + v; // upper right    /       /
             v4 = v1 + v;     // upper left   1/_______/2
 
             set_bounding_box();
         }
-        quad (const vec3f& q, const vec3f& v1, const vec3f& v2, const vec3f& v3, shared_ptr<material> material) :
-            v1(v1), v2(v2), v3(v3), v4(v4), material(material) {
+
+        quad (const vec3f& v1, const vec3f& v2, const vec3f& v3, const vec3f& v4, shared_ptr<material> material, bool ss = false) :
+            v1(v1), v2(v2), v3(v3), v4(v4), material(material), single_side(ss) {
             u = v2 - v1;
             v = v4 - v1;
 
@@ -103,6 +104,11 @@ namespace r3dfrom0{
             auto denominator = dot(normal, r.direction());
             auto D = dot(v1, normal);
             if (fabs(denominator) < 1e-8) { // check if ray is parallel to the surface
+                return false;
+            }
+
+            // check facing angle
+            if (fabs(denominator) > 0 && single_side) {
                 return false;
             }
 
@@ -151,20 +157,88 @@ namespace r3dfrom0{
         // attributes
         vec3f u, v;                         // horizontal and vertical vectors respectfully
         vec3f v1, v2, v3, v4;                // coordinates of the vertices of the quad in counter clock-wise order;
-        vec3f edge1, edge2, edge3, edge4;   // vector edges of the quad in conter clock-wise order;
         shared_ptr<material> material;
         axisAlignBbox bbox;
+        bool single_side;
     }; // quad class
 
 
     class triangle : public hittable {
     public:
         // constructors
+//        triangle(const vec3f& v1, const vec3f& u, const vec3f& v, shared_ptr<material> material) :
+//                v1(v1), u(u), v(v), material(material) {
+//            // lower left + 2 vectors to find the other 2 vertices definition
+//            v2 = v1 + u;     // lower right
+//            v3 = v1 + v;     // upper left
+//
+//            set_bounding_box();
+//        }
+
+        triangle(const vec3f& v1, const vec3f& v2, const vec3f& v3, shared_ptr<material> material, bool ss = false) :
+                v1(v1), v2(v2), v3(v3), material(material), single_side(ss) {
+            // 3 vertices definition
+            u = v2 - v1;
+            v = v3 - v1;
+
+            set_bounding_box();
+        }
 
         // methods
+        bool hit(const ray& r, interval i, hit_record& hit_record) const override {
+            auto normal = unit(cross(u,v));
+            auto denominator = dot(normal, r.direction());
+            auto D = dot(v1, normal);
+            if (fabs(denominator) < 1e-8) { // check if ray is parallel to the surface
+                return false;
+            }
+
+            // check facing angle
+            if (fabs(denominator) > 0 && single_side) {
+                return false;
+            }
+
+            auto t = (D - dot(normal, r.origin())) / denominator;
+            if (!i.includes(t)) { // check if t intersection point is behind the surface
+                return false;
+            }
+            auto intersect = r.at(t);
+
+            auto c1 = intersect - v1;
+            auto c2 = intersect - v2;
+            auto c3 = intersect - v3;
+            if( dot(normal, cross(v2 - v1, c1)) < 0 ||
+                dot(normal, cross(v3 - v2, c2)) < 0 ||
+                dot(normal, cross(v1 - v3, c3)) < 0 ){
+                return false;
+            }
+
+            // save data in hit_record
+            hit_record.position = intersect;
+            hit_record.t = t;
+            hit_record.set_face_normals(r, normal);
+            hit_record.material_ptr = material;
+//            get_triangle_uv(hit_record.normal, hit_record.u, hit_record.v);
+            return true;
+        }
+
+        virtual void set_bounding_box() {
+            auto bbox1 = axisAlignBbox(v1, v3);
+            auto bbox2 = axisAlignBbox(v1, v2);
+            bbox = axisAlignBbox(bbox1, bbox2);
+        }
+
+        axisAlignBbox bounding_box() const override{
+            return bbox;
+        }
+
     private:
         // attributes
-
+        vec3f u, v;                         // horizontal and vertical vectors respectfully
+        vec3f v1, v2, v3;                   // coordinates of the vertices of the quad in counter clock-wise order;
+        shared_ptr<material> material;
+        axisAlignBbox bbox;
+        bool single_side;
     }; // triangle class
 }
 
