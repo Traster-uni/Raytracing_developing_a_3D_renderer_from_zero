@@ -16,8 +16,12 @@ namespace r3dfrom0{
          * All world objects implement this hittable interface
          */
     public:
+        // attributes
+        frame44f object_to_world;
+        frame44f object_to_camera;
+        // constructor
         virtual ~hittable() = default;
-
+        // methods
         virtual bool hit(const ray& r, interval i, hit_record& record) const = 0;
 
         virtual axisAlignBbox bounding_box() const = 0;

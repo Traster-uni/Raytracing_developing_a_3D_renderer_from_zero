@@ -230,10 +230,12 @@ namespace r3dfrom0 { // vectors and vector related functions
         return unit(rdm_v);
     }
 
+
     inline vec3f random_unit_vector(){
         // normalizes vector in sphere, only direction no magnitude
         return unit(random_in_unit_sphere());
     }
+
 
     inline vec3f random_on_hemisphere(const vec3f normal){
         auto rdm_unit_v = random_unit_vector();
@@ -244,10 +246,12 @@ namespace r3dfrom0 { // vectors and vector related functions
         }
     }
 
+
     inline vec3f reflect(const vec3f& v, const vec3f& n){
         // vect_reflect = v + 2b where b is one of the cathetus of the triangle between surface and v
         return v - 2 * dot(v,n) * n;
     }
+
 
     inline vec3f refract(const vec3f& unit_vec_R, const vec3f& normal, float etai_over_etat){
         // refract function to simulate water refraction
@@ -275,6 +279,23 @@ namespace r3dfrom0 { // vectors and vector related functions
         vec3i(int x, int y, int z) : x{x}, y{y}, z{z} {} // if args are defined
 
     }; // vec3i
+
+    class frame44f {
+    public:
+        vec3f x, y, z, t; // row major convention matrix
+
+        // constructor
+        frame44f () : x{vec3f(0,0,0)}, y{vec3f(0,0,0)}, z{vec3f(0,0,0)}, t{vec3f(0,0,0)} {};
+        frame44f (vec3f x, vec3f y, vec3f z, vec3f t) : x{x}, y{y}, z{z}, t{t} {};
+
+        // methods
+        vec3f operator[](const int n) const {
+            if (n==0) return this->x;
+            else if (n == 1) return this->y;
+            else if (n == 2) return this->z;
+            else return this->t;
+        }
+    };
 
 } // namespace r3dfrom0
 
