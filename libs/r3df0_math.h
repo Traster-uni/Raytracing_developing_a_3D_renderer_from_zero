@@ -269,24 +269,26 @@ namespace r3dfrom0 { // vectors and vector related functions
         return sqr_r0 + (1.0f - sqr_r0) * pow(1 - cos_theta, 5);
     }
 
-    // integer
-    class vec3i : public vec3f{
+    // 4 dimentional vectors
+    class vec4f : public vec3f{
     public:
-        int x, y, z;
+        float x, y, z, o;
 
         // constructors
-        vec3i() : x{0}, y{0}, z{0} {}; // default behaviour
-        vec3i(int x, int y, int z) : x{x}, y{y}, z{z} {} // if args are defined
+        vec4f() : x{0}, y{0}, z{0}, o{0} {}; // default behaviour
+        vec4f(float x, float y, float z, float o) : x{x}, y{y}, z{z}, o{o} {} // if args are defined
 
     }; // vec3i
 
     class frame44f {
     public:
-        vec3f x, y, z, t; // row major convention matrix
+        vec4f x = {1,0,0,0};
+        vec4f y = {0,1,0,0};
+        vec4f z = {0,0,1,0};
+        vec4f t = {0,0,0,1};
 
         // constructor
-        frame44f () : x{vec3f(0,0,0)}, y{vec3f(0,0,0)}, z{vec3f(0,0,0)}, t{vec3f(0,0,0)} {};
-        frame44f (vec3f x, vec3f y, vec3f z, vec3f t) : x{x}, y{y}, z{z}, t{t} {};
+        frame44f (vec4f x, vec4f y, vec4f z, vec4f t) : x{x}, y{y}, z{z}, t{t} {};
 
         // methods
         vec3f operator[](const int n) const {
