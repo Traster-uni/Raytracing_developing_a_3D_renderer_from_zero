@@ -23,6 +23,10 @@ namespace r3dfrom0{
         pixel_f(float r, float g, float b) : r{r}, g{g}, b{b} {} // if args are defined
 
         // custom operators
+        float operator[](const int i) const {
+            return (&r)[i];
+        }
+
         pixel_f operator-() const{ // negative
             return {-r, -g, -b};
         };
@@ -43,12 +47,6 @@ namespace r3dfrom0{
 
         pixel_f& operator/=(const float t) {
             return *this *= (1/t);
-        }
-
-        float operator[](const int n) const {
-            if (n==0) return this->r;
-            else if (n == 1) return this->g;
-            else return this->b;
         }
 
         pixel_f random(){
@@ -96,10 +94,8 @@ namespace r3dfrom0{
         pixel_i() : r{0}, g{0}, b{0} {} // default behaviour
         pixel_i(int r, int g, int b) : r{r}, g{g}, b{b} {} // if args are defined
 
-        int operator[](const int n) const{
-            if (n==0) return this->r;
-            else if (n == 1) return this->g;
-            else return this->b;
+        int operator[](const int i) const{
+            return (&r)[i];
         }
 
     }; // pixel_i

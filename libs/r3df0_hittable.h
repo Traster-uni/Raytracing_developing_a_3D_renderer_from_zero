@@ -53,7 +53,9 @@ namespace r3dfrom0{
 
         // constructors
         hittable_list() {}; // default constructor
-        hittable_list(shared_ptr<hittable> obj) { objects_list.push_back(obj); };
+        hittable_list(shared_ptr<hittable> obj) {
+            objects_list.push_back(obj);
+        };
 
         // methods
         void append(shared_ptr<hittable> obj) {

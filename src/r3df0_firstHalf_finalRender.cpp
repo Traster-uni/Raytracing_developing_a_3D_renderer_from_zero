@@ -74,6 +74,6 @@ int main(){
     main_camera.defocus_angle       = 0.6;
     main_camera.focus_dist          = 10.0;
 
-    main_camera.render("final_render.ppm",world);
+    main_camera.render_png("final_render.png",world);
     return 0;
 }

@@ -17,8 +17,8 @@ namespace r3dfrom0{
          */
     public:
         // attributes
-        frame44f object_to_world;
-        frame44f object_to_camera;
+        matrix44f object_to_world;
+        matrix44f object_to_camera;
         // constructor
         virtual ~hittable() = default;
         // methods
