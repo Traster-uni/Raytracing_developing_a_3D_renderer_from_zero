@@ -79,7 +79,7 @@ namespace r3dfrom0 { // vectors and vector related functions
         vec3f(float x, float y, float z) : x{x}, y{y}, z{z} {} // if args are defined
 
         // custom operators
-        float operator[](const int i) const {
+        float const operator[](const int i) const {
             return (&x)[i];
         }
 
@@ -278,15 +278,15 @@ namespace r3dfrom0 { // vectors and vector related functions
         vec4f(float x, float y, float z, float w) : x{x}, y{y}, z{z}, w{w} {} // if args are defined
 
         // operators
-        inline float& operator[](int i) {
+        inline const float& operator[](int i) const {
             return (&x)[i];
         }
 
-        vec4f operator-() const{ // negative
+        inline vec4f operator-() const { // negative
             return {-x, -y, -z, -w};
         };
 
-        vec4f& operator+=(const vec4f v) {
+        inline vec4f& operator+=(const vec4f& v) {
             x += v.x;
             y += v.y;
             z += v.z;
@@ -294,7 +294,15 @@ namespace r3dfrom0 { // vectors and vector related functions
             return *this;
         };
 
-        vec4f& operator*=(const float t) {
+        inline vec4f& operator-=(const vec4f& v){
+            x -= v.x;
+            y -= v.y;
+            z -= v.z;
+            w -= v.w;
+            return *this;
+        }
+
+        inline vec4f& operator*=(const float& t) {
             x *= t;
             y *= t;
             z *= t;
@@ -302,7 +310,7 @@ namespace r3dfrom0 { // vectors and vector related functions
             return *this;
         }
 
-        vec4f& operator/=(const float t) {
+        vec4f& operator/=(const float& t) {
             return *this *= (1/t);
         }
 
@@ -394,44 +402,62 @@ namespace r3dfrom0 { // vectors and vector related functions
         matrix44f(vec4f x, vec4f y, vec4f z, vec4f t) : x{x}, y{y}, z{z}, t{t} {};
 
         // methods
-        inline vec4f &operator[](int i) {
+        inline const vec4f &operator[](int i) const {
             return (&x)[i];
         }
 
-        void operator+=(matrix44f &f) {
-            this->x += f.x;
-            this->y += f.y;
-            this->z += f.z;
-            this->t += f.t;
+        inline void operator+=(matrix44f &f) {
+            x += f.x;
+            y += f.y;
+            z += f.z;
+            t += f.t;
         }
 
-        void operator*=(matrix44f &f) {
-            this->x = x * f.x;
-            this->y = y * f.y;
-            this->z = z * f.z;
-            this->t = t * f.t;
+        inline void operator-=(matrix44f &f) {
+            x -= f.x;
+            y -= f.y;
+            z -= f.z;
+            t -= f.t;
         }
 
-        void operator*=(float f) {
-            this->x *= f;
-            this->y *= f;
-            this->z *= f;
-            this->t *= f;
+        inline void operator*=(matrix44f &f) {
+            x = x * f.x;
+            y = y * f.y;
+            z = z * f.z;
+            t = t * f.t;
         }
 
-        matrix44f diagonal() {
-            return {vec4f{x.x, 0, 0, 0},
-                    vec4f{0, y.y, 0, 0},
-                    vec4f{0, 0, z.z, 0},
-                    vec4f{0, 0, 0, t.w}};
+        inline void operator*=(float f) {
+            x *= f;
+            y *= f;
+            z *= f;
+            t *= f;
         }
 
-        matrix44f transpose(const matrix44f &a) {
+        float determinant() const{
+            return x.x * (y.y*z.z*t.w + y.z*z.w*t.y + y.w*z.y*t.z
+                            - y.w*z.z*t.y - y.z*z.y*t.w - y.y*z.w*t.z)
+                   - y.x * (x.y*z.z*t.w + x.z*z.w*t.y + x.w*z.y*t.z
+                            - x.w*z.z*t.y - x.z*z.y*t.w - x.y*y.w*t.w)
+                   + z.x * (x.y*y.z*t.w + x.z*y.w*t.y + x.w*y.y*t.z
+                            - x.w*y.z*t.y - x.z*y.y*t.w - x.y*y.w*t.z)
+                   - t.x * (x.y*y.z*z.w + x.z*y.w*z.y + x.w*y.y*z.z
+                            - x.w*y.z*z.y - x.z*y.y*z.w - x.y*y.w*z.z);
+        }
+
+        matrix44f diagonal() const {
+            return {vec4f{this->x.x, 0, 0, 0},
+                    vec4f{0, this->y.y, 0, 0},
+                    vec4f{0, 0, this->z.z, 0},
+                    vec4f{0, 0, 0, this->t.w}};
+        }
+
+        matrix44f transpose() const {
             return {
-                    {a.x.x, a.y.x, a.z.x, a.t.x},
-                    {a.x.y, a.y.y, a.z.y, a.t.y},
-                    {a.x.z, a.y.z, a.z.z, a.t.z},
-                    {a.x.w, a.y.w, a.z.w, a.t.w}
+                    {this->x.x, this->y.x, this->z.x, this->t.x},
+                    {this->x.y, this->y.y, this->z.y, this->t.y},
+                    {this->x.z, this->y.z, this->z.z, this->t.z},
+                    {this->x.w, this->y.w, this->z.w, this->t.w}
                     };
         }
     }; // class matrix44f
@@ -465,35 +491,113 @@ namespace r3dfrom0 { // vectors and vector related functions
         return {a * b.x, a * b.y, a * b.z, a * b.t};
     }
 
-    matrix44f inverse(const matrix44f& m) {
-        return {{},
-                {},
-                {},
-                {0,0,0,1}};
-    }
-
-    matrix44f rotation_matrix(const vec4f& q) {
+    // https://math.stackexchange.com/questions/152462/inverse-of-transformation-matrix
+    // ROTATIONS
+    inline matrix44f make_rotation_matrix(const vec4f& q) {
         return {{1 - (q.y * q.y + q.z * q.z) * 2, (q.x * q.y - q.z * q.w) * 2, (q.x * q.z + q.w * q.y) * 2, 0},
                 {(q.x * q.y + q.w * q.z) * 2, 1 - (q.x * q.x + q.z * q.z) * 2, (q.y * q.z - q.w * q.x) * 2, 0},
                 {(q.x * q.z - q.w * q.y) * 2, (q.y * q.z + q.w * q.x) * 2, 1 - (q.x * q.x + q.y * q.y) * 2, 0},
-                {0, 0, 0, 1}
-               }; // colum major
-//        return {{1 - (q.y * q.y + q.z * q.z) * 2, (q.x * q.y + q.z * q.w) * 2, (q.x * q.z - q.w * q.y) * 2, 0},
-//                {(q.x * q.y - q.w * q.z) * 2, 1 - (q.x * q.x + q.z * q.z) * 2, (q.y * q.z + q.w * q.x) * 2, 0},
-//                {(q.x * q.z + q.w * q.y) * 2, (q.y * q.z - q.w * q.x) * 2, 1 - (q.x * q.x + q.y * q.y) * 2, 0},
-//                {0, 0, 0, 1}
-//               }; // row major
-        // TODO: TEST THIS FUNCTION, MAY NEED TO BE INVERTED TO ROW MAJOR
+                {0, 0, 0, 1}}; // colum major <- it has no meaning
     }
 
+    bool is_rotation_matrix(const matrix44f& m){
+        auto identity_matrix = matrix44f();
+        auto determinant_identity = identity_matrix.determinant();
+        auto determinant_input = m.determinant();
+        auto m_t = m.transpose();
+        if (m * m_t != identity_matrix && determinant_input != determinant_identity){
+            return false;
+        }
+        return true;
+    }
+
+    inline matrix44f rotation_inverse(const matrix44f& m) {
+            return m.transpose();
+    }
+
+    // TRANSLATIONS
+    inline matrix44f make_translation_matrix(const vec4f& t) {
+        return { {1, 0, 0, 0},
+                 {0, 1, 0, 0},
+                 {0, 0, 1, 0},
+                 {t.x, t.y, t.z, 1}};
+    }
+
+    bool is_translation_matrix(const matrix44f& t) {
+        return t.t.x + t.t.y + t.t.z + t.t.w > 1;
+    }
+
+    inline matrix44f translation_inverse(const matrix44f& t) {
+        return {{1,0,0,0},
+                {0,1,0,0},
+                {0,0,1,0},
+                {-t.t.x,-t.t.y,-t.t.z,1}};
+    }
+
+    // SCALING
+    matrix44f make_scaling_matrix_xyz (const vec4f& s) {
+        return {{s.x, 0, 0, 0},
+                {0, s.y, 0, 0},
+                {0, 0, s.z, 0},
+                {0, 0, 0, 1}};
+    }
+
+    matrix44f make_scaling_matrix (const float& s) {
+        return make_scaling_matrix_xyz(vec4f{s, s, s, 1});
+    }
+
+    bool is_scaling_matrix (const matrix44f& s) {
+        auto non_diag_sum = 0.0f;
+        for (int i=0; i < 4; i++){
+            for (int j=0; j < 4; j++){
+                if (i != j) {
+                    non_diag_sum += s[i][j];
+                }
+            }
+        }
+        if (non_diag_sum > 0){
+            return false;
+        }
+        return true;
+    }
+
+    matrix44f scaling_inverse(const matrix44f& s) {
+        return {{1/s.x.x, 0, 0, 0},
+                {0, 1/s.y.y, 0, 0},
+                {0, 0, 1/s.z.z, 0},
+                {0, 0, 0, 1}};
+    }
+
+    matrix44f invert(const matrix44f& H){
+        // check if matrix is invertible
+        if (H.determinant() == 0) {
+            return {}; // returns default Identity matrix
+        }
+        // https://math.stackexchange.com/questions/237369/given-this-transformation-matrix-how-do-i-decompose-it-into-translation-rotati
+        matrix44f t = {{1,0,0,0},{0,1,0,0},{0,0,1,0},{H.t}};
+        matrix44f s = {{H.x.length(), 0, 0, 0},
+                       {0, H.y.length(), 0, 0},
+                       {0, 0, H.z.length(), 0},
+                       {0, 0, 0, 1}};
+        matrix44f r = {{H.x.x / s.x.x, H.x.y / s.y.y, H.x.z / s.z.z, 0},
+                      {H.y.x / s.x.x, H.y.y / s.y.y, H.y.z / s.z.z, 0},
+                      {H.z.x / s.x.x, H.z.y / s.y.y, H.z.z / s.z.z, 0},
+                      {0, 0, 0, 1}};
+        return s.transpose() * r.transpose() * t.transpose();
+
+    }
     vec3f local_to_world(vec3f &p_local, matrix44f &m) {
         return {p_local.x * m.x.x + p_local.y * m.y.x + p_local.z * m.z.x + m.t.x,
                 p_local.y * m.x.y + p_local.y * m.y.y + p_local.z * m.z.y + m.t.y,
                 p_local.z * m.x.z + p_local.y * m.y.z + p_local.z * m.z.z + m.t.z};
     }
 
-//    vec3f world_to_local(vec3f &p_world, matrix44f &m) {
-//    }
+    vec3f world_to_local(vec3f &p_world, matrix44f &m) {
+        auto invert_m = invert(m);
+        return local_to_world(p_world,invert_m);
+    }
+
+    // TODO: TEST MATRIX FUNCTIONS
 } // namespace r3dfrom0
 
 #endif //_R3DFROM0_R3DF0_MATH_H

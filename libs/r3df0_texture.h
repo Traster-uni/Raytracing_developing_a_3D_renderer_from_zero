@@ -68,7 +68,7 @@ namespace r3dfrom0{
 //        cout << "(" << x << ", " << y << ") " << width << " | " << height << "\n(" << u << ", " << v << ")" << endl;
 
         if (x < width && y < height) {
-            return convert_pixel_f_clamp(tuple_img[y][x]); // ERROR IN TUPLE_IMG ACCESS
+            return convert_pixel_f_clamp(tuple_img[y][x]); //TODO: ERROR IN TUPLE_IMG ACCESS
         } else {
             return convert_pixel_f_clamp(NEON_GREEN);
         }
