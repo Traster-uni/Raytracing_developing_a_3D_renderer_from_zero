@@ -11,7 +11,10 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <chrono>
+
 using namespace std;
+using namespace std::chrono;
 
 // Constants
 const float infinity = std::numeric_limits<float>::infinity();
@@ -36,7 +39,9 @@ inline float random_float(){
 
 inline float random_float(float min, float max){
     // returns a random in [min, max]
-    return min + (max - min) * random_float();
+    static mt19937 generator;
+    static uniform_real_distribution<float> distribution(min,max);
+    return distribution(generator);
 }
 
 inline int random_int(int min, int max){

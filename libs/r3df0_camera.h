@@ -5,24 +5,20 @@
 #ifndef R3DFROM0_R3DF0_CAMERA_H
 #define R3DFROM0_R3DF0_CAMERA_H
 
-#include <string>
-#include <chrono>
 #include "r3df0_varsutil.h"
-#include "r3df0_rays.h"
-#include "r3df0_math.h"
 #include "r3df0_hittable.h"
 #include "r3df0_material.h"
 
-using namespace std::chrono;
 
 namespace r3dfrom0{
 
     class camera{
-    public: // public attributes
+    public:
+        // public attributes
         int image_width = 1920;         // defaults to fullHD, 1920w x 1080h
         float aspect_ratio = 1.777776;  // defaults to 16:9
 
-        int samples_number = 100;        // number of sampling points within a single pixel
+        int samples_number = 100;       // number of sampling points within a single pixel
         int max_recursion_depth = 50;   // limits the number of recursive calls
         // added 6/08: vertical fov, camera_frame(u,v,w), looking_frame
         int vfov = 90;
@@ -30,9 +26,12 @@ namespace r3dfrom0{
         vec3f look_from;    // camera reference
         vec3f look_at;      // objective reference
         vec3f view_up;      // vertical reference
-
+        // lens
         float focus_dist = 10.0f;       // distance between camera eye and focus plane
-        float defocus_angle = 0;     // angle of variation from each pixels
+        float defocus_angle = 0;        // angle of variation from each pixels
+        // transform
+        matrix44f camera_to_world;
+
         // constructor
         camera() {}
 
@@ -82,10 +81,9 @@ namespace r3dfrom0{
             }
             out.close();
             // clock
-            auto const end_timer {std::chrono::steady_clock::now()};
-            duration elapsed_time = end_timer - start_timer ;
-            // TODO: CONVERT SECONDS IN HH:MM:SS FORMAT
-            clog << "\r RENDERING DONE IN: " << elapsed_time.count() << "secs" <<flush;
+            auto const end_timer {steady_clock::now()};
+            const duration<float> elapsed_time {end_timer - start_timer};
+            clog << "\rRENDERING DONE IN: " << int(elapsed_time.count()) << " seconds" << flush;
         }
 
         void render_png(const string& fname, hittable_list& world) {
@@ -111,9 +109,8 @@ namespace r3dfrom0{
             write_png(fname, image_width, image_height, tuple_image);
             // clock
             auto const end_timer {std::chrono::steady_clock::now()};
-            duration elapsed_time = end_timer - start_timer ;
-            // TODO: CONVERT SECONDS IN HH:MM:SS FORMAT
-            clog << "\r RENDERING DONE IN: " << elapsed_time.count() << " s" <<flush;
+            const duration<float> elapsed_time {end_timer - start_timer};
+            clog << "\rRENDERING DONE IN: " << int(elapsed_time.count()) << " seconds" << flush;
         }
 
     private: // private attributes
@@ -144,6 +141,9 @@ namespace r3dfrom0{
 //            focal_length = (look_from - look_at).length(); // REDACTED
 
             mean_factor = 1.0f / samples_number;
+
+            // invert transform matrix
+            camera_to_world = invert(camera_to_world);
 
             // define image resolution
             auto img_h = int(float (image_width) / aspect_ratio); // h = w * (1/aspect_ratio)

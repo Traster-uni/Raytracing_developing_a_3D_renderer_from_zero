@@ -39,7 +39,7 @@ int main(){
     world.append(make_shared<triangle>(vec3f(-2.5, -2, 1), vec3f(2.5, -2, 1), vec3f(0, -2, 5), lower_teal));
     world.append(make_shared<triangle>(vec3f(-2.5, 2, 1), vec3f(2.5, 2, 1), vec3f(0, 2, 5), upper_orange));
     camera cam;
-    cam.image_width     = 1920;
+    cam.image_width     = 800;
     cam.aspect_ratio    = 1.0;
     cam.vfov            = 80;
     cam.look_from = vec3f(0,0,9);

@@ -144,7 +144,7 @@ namespace r3dfrom0 { // vectors and vector related functions
         return a.x != b.x || a.y != b.y || a.z != b.z;
     }
 
-    inline ostream& operator<< (ostream& out, const vec3f& v) {
+    inline ostream& operator<< (ostream& out, const vec3f v) {
         return out << v.x << ' ' << v.y << ' ' << v.z;
     }
 
@@ -269,21 +269,21 @@ namespace r3dfrom0 { // vectors and vector related functions
     }
 
     // 4 dimensional vectors known as quaternions
-    class vec4f : public vec3f{
+    class vec4f {
     public:
         float x, y, z, w;
 
         // constructors
         vec4f() : x{0}, y{0}, z{0}, w{0} {}; // default behaviour
         vec4f(float x, float y, float z, float w) : x{x}, y{y}, z{z}, w{w} {} // if args are defined
-
+        vec4f(vec3f v, float s) : x{v.x}, y{v.y}, z{v.z}, w{s} {}
         // operators
         inline const float& operator[](int i) const {
             return (&x)[i];
         }
 
         inline vec4f operator-() const { // negative
-            return {-x, -y, -z, -w};
+            return {-x, -y, -z, w};
         };
 
         inline vec4f& operator+=(const vec4f& v) {
@@ -317,7 +317,7 @@ namespace r3dfrom0 { // vectors and vector related functions
         // methods
         float sqr_length() const {
             // each of the vector component is squared
-            return x*x + y*y + z*z + w*w;
+            return (vector() * vector()).sqr_length() + w*w;
         }
 
         float length() const {
@@ -327,9 +327,17 @@ namespace r3dfrom0 { // vectors and vector related functions
 
         bool near_zero() const{
             auto s = 1e-8;
-            return (fabs(this->x) < s) && (fabs(this->y) < s) && (fabs(this->z) < s) && (fabs(this->w) < s);
+            return (fabs(x) < s) && (fabs(y) < s) && (fabs(z) < s) && (fabs(w) < s);
         }
-    }; // vec3i
+
+        vec3f vector() const {
+            return {x, y, z};
+        }
+
+        float scalar() const {
+            return w;
+        }
+    }; // vec4f
 
     inline bool operator==(const vec4f& a, const vec4f& b) {
         return a.x == b.x && a.y == b.y && a.z == b.z && a.w == b.w;
@@ -339,22 +347,23 @@ namespace r3dfrom0 { // vectors and vector related functions
         return a.x != b.x || a.y != b.y || a.z != b.z || a.w != b.w;
     }
 
-    inline ostream& operator<< (ostream& out, const vec4f& v) {
+    inline ostream& operator<< (ostream& out, const vec4f v) {
         return out << v.x << ' ' << v.y << ' ' << v.z << ' ' << v.w;
     }
 
     inline vec4f operator+ (const vec4f& u, const vec4f& v) {
-        // sums of two vectors
+        // sums of two quaternions
         return {u.x + v.x, u.y + v.y, u.z + v.z, u.w + v.w};
     }
 
     inline vec4f operator- (const vec4f& u, const vec4f& v) {
-        // subtraction of two vectors
+        // subtraction of two quaternions
         return {u.x - v.x, u.y - v.y, u.z - v.z, u.w - v.w};
     }
 
     inline vec4f operator* (const vec4f& u, const vec4f& v) {
-        return {u.x * v.x, u.y * v.y, u.z * v.z, u.w * v.w};
+        return {u.scalar() * v.vector() + v.scalar() * u.vector() + cross(u.vector(),v.vector()),
+                u.scalar() * v.scalar() - dot(u.vector(), v.vector())};
     }
 
     inline vec4f operator* (const float t, const vec4f& v) {
@@ -371,12 +380,12 @@ namespace r3dfrom0 { // vectors and vector related functions
         return (1/t) * v;
     }
 
-    inline float dot(vec4f& u, vec4f& v) {
+    inline const float dot(const vec4f& u, const vec4f& v) {
         // dot product or "prodotto scalare"
         return u.x * v.x + u.y * v.y + u.z * v.z + u.w * v.w;
     }
 
-    inline vec4f multiplication(vec4f& a, vec4f& b) {
+    inline vec4f cross(vec4f& a, vec4f& b) {
         // cross product or "prodotto vettoriale"
         return {a.x * b.w + a.w * b.x + a.y * b.w - a.z * b.y,
                 a.y * b.w + a.w * b.y + a.z * b.x - a.x * b.z,
@@ -463,6 +472,10 @@ namespace r3dfrom0 { // vectors and vector related functions
     }; // class matrix44f
 
     // Matrix operations
+    inline ostream& operator<<(ostream& out, matrix44f m) {
+        return out << "{\n [ " << m.x << " ]\n[ " << m.y << " ]\n[ " << m.z << " ]\n[ " << m.t << " ]\n}";
+    }
+
     inline bool operator==(const matrix44f &a, const matrix44f &b) {
         return a.x == b.x && a.y == b.y && a.z == b.z && a.t == b.t;
     }
@@ -471,33 +484,41 @@ namespace r3dfrom0 { // vectors and vector related functions
         return !(a == b);
     }
 
-    inline matrix44f operator+(const matrix44f &a, const matrix44f &b) {
-        return {a.x + b.x, a.y + b.y, a.z + b.z, a.t + b.t};
-    }
-
-    inline matrix44f operator*(const matrix44f &a, float b) {
+    inline matrix44f operator*(const matrix44f &a, const float& b) {
         return {a.x * b, a.y * b, a.z * b, a.t * b};
     }
 
-    inline vec4f operator*(const matrix44f &a, const vec4f &b) {
+    inline vec4f operator*(const matrix44f &a, const vec4f& b) {
         return a.x * b.x + a.y * b.y + a.z * b.z + a.t * b.w;
     }
 
-    inline vec4f operator*(const vec4f &a, const matrix44f &b) {
+    inline vec4f operator*(const vec4f &a, const matrix44f& b) {
         return {dot(a, b.x), dot(a, b.y), dot(a, b.z), dot(a, b.t)};
     }
 
-    inline matrix44f operator*(const matrix44f &a, const matrix44f &b) {
+    inline matrix44f operator*(const matrix44f& a, const matrix44f& b) {
         return {a * b.x, a * b.y, a * b.z, a * b.t};
     }
 
     // https://math.stackexchange.com/questions/152462/inverse-of-transformation-matrix
     // ROTATIONS
     inline matrix44f make_rotation_matrix(const vec4f& q) {
-        return {{1 - (q.y * q.y + q.z * q.z) * 2, (q.x * q.y - q.z * q.w) * 2, (q.x * q.z + q.w * q.y) * 2, 0},
+        // https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
+        return {{1 - (q.y * q.y + q.z * q.z) * 2, (q.x * q.y - q.z * q.w) * 2, (q.w * q.y + q.x * q.z) * 2, 0},
                 {(q.x * q.y + q.w * q.z) * 2, 1 - (q.x * q.x + q.z * q.z) * 2, (q.y * q.z - q.w * q.x) * 2, 0},
-                {(q.x * q.z - q.w * q.y) * 2, (q.y * q.z + q.w * q.x) * 2, 1 - (q.x * q.x + q.y * q.y) * 2, 0},
+                {(q.x * q.z - q.w * q.y) * 2, (q.w * q.x + q.y * q.z) * 2, 1 - (q.x * q.x + q.y * q.y) * 2, 0},
                 {0, 0, 0, 1}}; // colum major <- it has no meaning
+    }
+
+    inline matrix44f make_rotation_matrix(const float& angle, const vec3f& axis){
+        auto a = unit(axis);
+        float s = sin(angle/2);
+        auto qx = a.x * s;
+        auto qy = a.y * s;
+        auto qz = a.z * s;
+        auto qw = cos(angle/2);
+        auto axis_angle_quaternion = unit(vec4f(qx,qy,qz,qw));
+        return make_rotation_matrix(axis_angle_quaternion);
     }
 
     bool is_rotation_matrix(const matrix44f& m){
@@ -516,7 +537,7 @@ namespace r3dfrom0 { // vectors and vector related functions
     }
 
     // TRANSLATIONS
-    inline matrix44f make_translation_matrix(const vec4f& t) {
+    inline matrix44f make_translation_matrix(const vec3f& t) {
         return { {1, 0, 0, 0},
                  {0, 1, 0, 0},
                  {0, 0, 1, 0},
@@ -535,7 +556,7 @@ namespace r3dfrom0 { // vectors and vector related functions
     }
 
     // SCALING
-    matrix44f make_scaling_matrix_xyz (const vec4f& s) {
+    matrix44f make_scaling_matrix_xyz (const vec3f& s) {
         return {{s.x, 0, 0, 0},
                 {0, s.y, 0, 0},
                 {0, 0, s.z, 0},
@@ -543,7 +564,8 @@ namespace r3dfrom0 { // vectors and vector related functions
     }
 
     matrix44f make_scaling_matrix (const float& s) {
-        return make_scaling_matrix_xyz(vec4f{s, s, s, 1});
+        // NOTE: UNIFORM SCALING ON 2D OBJECTS FUCKS WITH Z AXIS AKA IT DOESN'T WORK
+        return make_scaling_matrix_xyz(vec3f{s, s, s});
     }
 
     bool is_scaling_matrix (const matrix44f& s) {
@@ -579,25 +601,62 @@ namespace r3dfrom0 { // vectors and vector related functions
                        {0, H.y.length(), 0, 0},
                        {0, 0, H.z.length(), 0},
                        {0, 0, 0, 1}};
-        matrix44f r = {{H.x.x / s.x.x, H.x.y / s.y.y, H.x.z / s.z.z, 0},
-                      {H.y.x / s.x.x, H.y.y / s.y.y, H.y.z / s.z.z, 0},
-                      {H.z.x / s.x.x, H.z.y / s.y.y, H.z.z / s.z.z, 0},
+        matrix44f r = {{H.x.x / s.x.x, H.x.y / s.x.x, H.x.z / s.x.x, 0},
+                      {H.y.x / s.y.y, H.y.y / s.y.y, H.y.z / s.y.y, 0},
+                      {H.x.z / s.z.z, H.y.z / s.z.z, H.z.z / s.z.z, 0},
                       {0, 0, 0, 1}};
+        r = is_rotation_matrix(r) ? r : matrix44f();
         return s.transpose() * r.transpose() * t.transpose();
 
     }
-    vec3f local_to_world(vec3f &p_local, matrix44f &m) {
+
+    // TODO: IMPLEMENT VECTORS AND NORMALS TRANSFORMS
+    void transform_normals(const vec3f& normal, const matrix44f& m) {
+    }
+
+    void transform_vectors(const vec3f& v, const matrix44f& m) {
+    }
+
+    vec3f local_to_world(const vec3f& p_local, const matrix44f& m) {
         return {p_local.x * m.x.x + p_local.y * m.y.x + p_local.z * m.z.x + m.t.x,
                 p_local.y * m.x.y + p_local.y * m.y.y + p_local.z * m.z.y + m.t.y,
                 p_local.z * m.x.z + p_local.y * m.y.z + p_local.z * m.z.z + m.t.z};
     }
 
-    vec3f world_to_local(vec3f &p_world, matrix44f &m) {
+    vec3f world_to_local(const vec3f& p_world, const matrix44f& m) {
         auto invert_m = invert(m);
         return local_to_world(p_world,invert_m);
     }
 
-    // TODO: TEST MATRIX FUNCTIONS
+    // values interpolations between a0 to a1 decided by a weight w
+    // https://en.wikipedia.org/wiki/Perlin_noise
+    inline float smoothstep_interpolation(const float& w) {
+        if (w < 0.0f) return 0.0f;
+        else if (w > 1.0f) return 1.0f;
+        else return (3.f - w * 2.f) * w * w;
+    }
+
+    inline float smootherstep_interpolation(const float& w) {
+        if (w < 0.0f) return 0.0f;
+        else if (w > 1.0f) return 1.0f;
+        else return w*w*w * (w * (w * 6.f - 15.f) + 10.f);
+    }
+
+    inline float lerp_float(const float& value, const float& start, const float& end) {
+        float a = 0.5f * (value + 1.0f);
+        return (1 - a) * start + a * end;
+    }
+
+    inline int lerp_int(const int& value, const int& start, const int& end) {
+        float a = 0.5f * (value + 1.0f);
+        return (1 - a) * start + a * end;
+    }
+
+    inline vec3f lerp_vec3f(const vec3f& value, const vec3f& start, const vec3f& end) {
+        auto a = 0.5f * (value.length() + 1.0f);
+        return (1 - a) * start + a * end;
+    }
+
 } // namespace r3dfrom0
 
 #endif //_R3DFROM0_R3DF0_MATH_H

@@ -7,6 +7,7 @@
 
 #include "r3df0_varsutil.h"
 #include "r3df0_texture_interface.h"
+#include "r3df0_perlin.h"
 
 namespace r3dfrom0{
     class spacial_texture : public texture {
@@ -82,5 +83,18 @@ namespace r3dfrom0{
         const pixel_i NEON_GREEN = {5, 247, 41};
 
     }; // image_texture class
+
+    class perlin_noise_texture : public texture {
+    public:
+        // constructor
+        perlin_noise_texture(float scale) : scale(scale) {}
+        // methods
+        virtual pixel_f color(float u, float v, const vec3f& p) const override{
+            return pixel_f(1.f, 1.f, 1.f) * 0.5 * (1.f + noise.noise(scale * p));
+        }
+    private:
+        float scale;
+        perlin_noise noise;
+    };
 } // namespace r3dfrom0
 #endif //R3DFROM0_R3DF0_TEXTURE_H

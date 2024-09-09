@@ -174,10 +174,21 @@ namespace r3dfrom0{
 //
 //            set_bounding_box();
 //        }
-
         triangle(const vec3f& v1, const vec3f& v2, const vec3f& v3, shared_ptr<material> material, bool ss = false) :
                 v1(v1), v2(v2), v3(v3), material(material), single_side(ss) {
-            // 3 vertices definition
+            u = v2 - v1;
+            v = v3 - v1;
+
+            set_bounding_box();
+        }
+
+        triangle(const vec3f& v1, const vec3f& v2, const vec3f& v3, shared_ptr<material> material, const matrix44f& o2w, bool ss = false) :
+                v1(v1), v2(v2), v3(v3), material(material), object_to_world(o2w), single_side(ss) {
+            //transform
+            this->v1 = local_to_world(v1, object_to_world); // TODO: APPLY TRANSFORMS TO ALL SHAPES
+            this->v2 = local_to_world(v2, object_to_world);
+            this->v3 = local_to_world(v3, object_to_world);
+
             u = v2 - v1;
             v = v3 - v1;
 
@@ -186,8 +197,12 @@ namespace r3dfrom0{
 
         // methods
         bool hit(const ray& r, interval i, hit_record& hit_record) const override {
+            auto origin_transform = world_to_local(r.origin(), object_to_world);
+            auto direction_transform = world_to_local(r.direction(), object_to_world);
+            ray r_t = ray(origin_transform, direction_transform);
+
             auto normal = unit(cross(u,v));
-            auto denominator = dot(normal, r.direction());
+            auto denominator = dot(normal, r_t.direction());
             auto D = dot(v1, normal);
             if (fabs(denominator) < 1e-8) { // check if ray is parallel to the surface
                 return false;
@@ -198,11 +213,11 @@ namespace r3dfrom0{
                 return false;
             }
 
-            auto t = (D - dot(normal, r.origin())) / denominator;
+            auto t = (D - dot(normal, r_t.origin())) / denominator;
             if (!i.includes(t)) { // check if t intersection point is behind the surface
                 return false;
             }
-            auto intersect = r.at(t);
+            auto intersect = r_t.at(t);
 
             auto c1 = intersect - v1;
             auto c2 = intersect - v2;
@@ -216,7 +231,7 @@ namespace r3dfrom0{
             // save data in hit_record
             hit_record.position = intersect;
             hit_record.t = t;
-            hit_record.set_face_normals(r, normal);
+            hit_record.set_face_normals(r_t, normal);
             hit_record.material_ptr = material;
 //            get_triangle_uv(hit_record.normal, hit_record.u, hit_record.v);
             return true;
@@ -232,13 +247,15 @@ namespace r3dfrom0{
             return bbox;
         }
 
+
     private:
         // attributes
         vec3f u, v;                         // horizontal and vertical vectors respectfully
         vec3f v1, v2, v3;                   // coordinates of the vertices of the quad in counter clock-wise order;
         shared_ptr<material> material;
         axisAlignBbox bbox;
-        bool single_side;
+        const bool single_side;
+        const matrix44f object_to_world;
     }; // triangle class
 }
 

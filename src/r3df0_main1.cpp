@@ -26,5 +26,5 @@ int main(){
     // Initialize camera
     camera main_camera;
     main_camera.vfov = 90;
-    main_camera.render("new_camera_tech_test_90.pmm", world);
+    main_camera.render_png("new_camera_tech_test_90.pmm", world);
 }

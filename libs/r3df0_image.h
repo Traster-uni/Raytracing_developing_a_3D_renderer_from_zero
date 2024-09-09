@@ -88,7 +88,7 @@ namespace r3dfrom0{
 
 
     void write_png(const string& filename, int& width, int& height, vector<vector<pixel_i>> tuple_image){
-        int bytes_pixel = 3;
+        uint8_t bytes_pixel = 3;
         int bytes_scanline = width * bytes_pixel;
         int bytes_total = width * height * bytes_pixel;
 
