@@ -108,6 +108,7 @@ int main(){
     main_camera.look_from   = vec3f(13,2,3);
     main_camera.look_at     = vec3f(0,0,0);
     main_camera.view_up     = vec3f(0,1,0);
+    main_camera.background = pixel_f(0.70, 0.80, 1.00);
 //    main_camera.look_from   = vec3f(-2,2,1);
 //    main_camera.look_at     = vec3f(0,0,-1);
 //    main_camera.view_up     = vec3f(0,1,0);

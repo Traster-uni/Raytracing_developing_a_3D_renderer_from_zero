@@ -33,7 +33,7 @@ namespace r3dfrom0{
             vec3f c[2][2][2];
             for(int ii = 0; ii < 2; ii++){
                 for(int jj = 0; jj < 2; jj++){
-                    for(int kk = 0; kk < 3; kk++){
+                    for(int kk = 0; kk < 2; kk++){
                         c[ii][kk][jj] = rand_vec_array[
                                 perm_x[i+ii & 255] ^
                                 perm_y[j+jj & 255] ^
@@ -62,33 +62,33 @@ namespace r3dfrom0{
 
         static void scramble(int* perm_array){
             for (int i = p_count-1; i > 0; i--) {
-                auto rdm_int = random_int(0, i);
-                auto temp = perm_array[i];
-                perm_array[i] = perm_array[rdm_int];
-                perm_array[rdm_int] = temp;
+                int target = random_int(0, i);
+                int tmp = perm_array[i];
+                perm_array[i] = perm_array[target];
+                perm_array[target] = tmp;
             }
         }
 
         static float perlin_interpolation(const vec3f c[2][2][2], float u, float v, float w) {
-            auto uu = smoothstep_interpolation(u);
-            auto vv = smoothstep_interpolation(v);
-            auto ww = smoothstep_interpolation(w);
+            auto uu = smootherstep_interpolation(u);
+            auto vv = smootherstep_interpolation(v);
+            auto ww = smootherstep_interpolation(w);
 
             float accumulation = .0f;
             for (int i=0; i < 2; i++){
                 for (int j=0; j < 2; j++) {
                     for (int k=0; k < 2; k++) {
-                        vec3f weight_v(u - i, v - j, w - k);
+                        auto weight_v = vec3f(u - i, v - j, w - k);
                         accumulation += (i * uu + (1-i) * (1-uu))
-                                        * (j * vv + (1-j) * (1-vv))
-                                        * (k * ww + (1-k) * (1-ww))
-                                        * dot(c[i][j][k], weight_v);
+                                      * (j * vv + (1-j) * (1-vv))
+                                      * (k * ww + (1-k) * (1-ww))
+                                      * dot(c[i][j][k], weight_v);
                     }
                 }
             }
             return accumulation;
         };
-        // TODO: TEST PERLIN_NOISE CLASS
+        // TODO: FIX PERLIN_INTERPOLATION FUNCTION, VISIBLE STEPS
     }; // perlin_noise class
 
 } // namespace r3dfrom0

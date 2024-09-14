@@ -6,7 +6,7 @@
 #define R3DFROM0_R3DF0_TEXTURE_H
 
 #include "r3df0_varsutil.h"
-#include "r3df0_texture_interface.h"
+#include "r3df0_image.h"
 #include "r3df0_perlin.h"
 
 namespace r3dfrom0{

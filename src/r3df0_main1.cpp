@@ -27,4 +27,5 @@ int main(){
     camera main_camera;
     main_camera.vfov = 90;
     main_camera.render_png("new_camera_tech_test_90.pmm", world);
+    main_camera.background = pixel_f(0.70, 0.80, 1.00);
 }

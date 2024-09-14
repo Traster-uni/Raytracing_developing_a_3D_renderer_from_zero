@@ -29,7 +29,7 @@ int main() {
     main_camera.look_from = vec3f(0,0,12);
     main_camera.look_at   = vec3f(50,50,50);
     main_camera.view_up   = vec3f(0,1,0);
-
+    main_camera.background = pixel_f(0.70, 0.80, 1.00);
     main_camera.defocus_angle = 0;
 
     main_camera.render_png("wtt.png", world);

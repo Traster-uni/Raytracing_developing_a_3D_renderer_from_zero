@@ -20,12 +20,12 @@ namespace r3dfrom0{
     public:
         // attributes
         vec3f position;                     // hit vector on the surface
-        vec3f normal;                       // normal on the surface
-        shared_ptr<material> material_ptr;  // pointer to material data of geometry
-        float t;                            // hit on surface (roots of quadratic equation)
+        vec3f normal;                       // normal calculated on ray hit aka shading normal
+        shared_ptr<material> material_ptr;  // pointer to material instance
+        float t;                            // hit on geometry
         float u;                            // horizontal z, x texture component (u,v)
         float v;                            // vertical y texture component (u,v)
-        bool front_face_hit;                // Is the object being hit on the front?
+        bool front_face_hit;                // answers the question: Is the object being hit on the front?
 
         // constructors
         hit_record() {};

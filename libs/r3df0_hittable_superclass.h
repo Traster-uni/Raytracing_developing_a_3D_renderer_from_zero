@@ -2,8 +2,8 @@
 // Created by tommasomarialopedote on 15/08/24.
 //
 
-#ifndef R3DFROM0_R3DF0_HITTABLE_INTERFACE_H
-#define R3DFROM0_R3DF0_HITTABLE_INTERFACE_H
+#ifndef R3DFROM0_R3DF0_HITTABLE_SUPERCLASS_H
+#define R3DFROM0_R3DF0_HITTABLE_SUPERCLASS_H
 
 namespace r3dfrom0{
     class ray;
@@ -28,4 +28,4 @@ namespace r3dfrom0{
     }; // hittable interface
 }
 
-#endif //R3DFROM0_R3DF0_HITTABLE_INTERFACE_H
+#endif //R3DFROM0_R3DF0_HITTABLE_SUPERCLASS_H

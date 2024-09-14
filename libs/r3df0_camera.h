@@ -8,6 +8,7 @@
 #include "r3df0_varsutil.h"
 #include "r3df0_hittable.h"
 #include "r3df0_material.h"
+#include "r3df0_image.h"
 
 
 namespace r3dfrom0{
@@ -17,12 +18,12 @@ namespace r3dfrom0{
         // public attributes
         int image_width = 1920;         // defaults to fullHD, 1920w x 1080h
         float aspect_ratio = 1.777776;  // defaults to 16:9
-
-        int samples_number = 100;       // number of sampling points within a single pixel
-        int max_recursion_depth = 50;   // limits the number of recursive calls
         // added 6/08: vertical fov, camera_frame(u,v,w), looking_frame
         int vfov = 90;
-        // looking frame
+        // ray sampling parameters
+        int samples_number = 100;       // number of sampling points within a single pixel
+        int max_recursion_depth = 50;   // limits the number of recursive calls
+        // looking frame - camera orientation
         vec3f look_from;    // camera reference
         vec3f look_at;      // objective reference
         vec3f view_up;      // vertical reference
@@ -31,24 +32,26 @@ namespace r3dfrom0{
         float defocus_angle = 0;        // angle of variation from each pixels
         // transform
         matrix44f camera_to_world;
+        // background fake light
+        pixel_f background = pixel_f(.0f, .0f,.0f);
 
         // constructor
         camera() {}
 
         // public methods
-        pixel_f ray_color(const ray& r, hittable_list& worldList, const int& recursive_depth){
+        pixel_f ray_color_old(const ray& r, hittable_list& worldList, const int& recursive_depth){
             if (recursive_depth <= 0){ // end of recursion check
                 return {0,0,0};
             }
 
             hit_record hitRecord;                  // initialize hit record
-            interval i(0.01f, infinity);    // clamp rays too close to surface of object
+            interval i(0.01f, infinity);    // clamp rays too close to object surface
             if (worldList.hit(r, i, hitRecord)){
                 pixel_f attenuation;
                 ray scatter;
                 if (hitRecord.material_ptr->scatter(r, hitRecord, scatter, attenuation)){
                     // attenuation is used to reduce the light reflected by said object, related to albedo
-                    return attenuation * ray_color(scatter, worldList, recursive_depth-1);
+                    return attenuation * ray_color_old(scatter, worldList, recursive_depth-1);
                 }
                 return {0,0,0};
             }
@@ -56,6 +59,35 @@ namespace r3dfrom0{
             auto unit_vec = unit(r.direction()).y;
             return lerp_color(unit_vec, pixel_f{1.0,1.0,1.0}, pixel_f{0.5, 0.7, 1.0});
         }
+
+
+        pixel_f ray_color(const ray& r, hittable_list& worldList, const int& recursive_depth){
+            if (recursive_depth <= 0){ // end of recursion check
+//                return {0,0,0};
+                return background;
+            }
+
+            hit_record hitRecord;                  // initialize hit record
+            interval i(0.01f, infinity);    // clamp rays too close to object surface
+            if (!worldList.hit(r, i, hitRecord)) { // if ray doesn't hit geometry
+                return background;                  // return background color
+            }
+            // else
+            ray scatter;
+            pixel_f attenuation;
+
+            // calculate material emission
+            auto color_emission = hitRecord.material_ptr->emitted(hitRecord.u, hitRecord.v, hitRecord.position);
+            if (!hitRecord.material_ptr->scatter(r, hitRecord, scatter, attenuation)){
+                // object didn't scatter ray, so it emits light: pixel takes color of emission
+                return color_emission;
+            }
+
+            // attenuation is used to reduce the light reflected by said object, related to albedo
+            pixel_f color_scatter = attenuation * ray_color(scatter, worldList, recursive_depth-1);
+            return color_scatter + color_emission;
+        }
+
 
         void render_ppm(const string& fname, hittable_list& world){
             initialize();

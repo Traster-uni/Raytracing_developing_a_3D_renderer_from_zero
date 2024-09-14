@@ -631,9 +631,10 @@ namespace r3dfrom0 { // vectors and vector related functions
     // values interpolations between a0 to a1 decided by a weight w
     // https://en.wikipedia.org/wiki/Perlin_noise
     inline float smoothstep_interpolation(const float& w) {
-        if (w < 0.0f) return 0.0f;
-        else if (w > 1.0f) return 1.0f;
-        else return (3.f - w * 2.f) * w * w;
+//        if (w < 0.0f) return 0.0f;
+//        else if (w > 1.0f) return 1.0f;
+//        else
+        return w * w * (3 - 2 * w);
     }
 
     inline float smootherstep_interpolation(const float& w) {

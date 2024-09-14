@@ -99,6 +99,22 @@ namespace r3dfrom0{
          */
         float refraction_index; // eta on eta1
     }; // dielectric class
+
+    class diffuse_light : public material {
+    public:
+        // constructor
+        diffuse_light(shared_ptr<texture> tex) : emission_tex(tex) {};
+        diffuse_light(const pixel_f& col ) : emission_tex(make_shared<spacial_texture>(col)) {};
+        diffuse_light(const float& intensity ) : emission_tex(make_shared<spacial_texture>(pixel_f{intensity, intensity, intensity})) {};
+        // methods
+
+        pixel_f emitted(const float& u, const float& v, const vec3f& p) const override {
+            return emission_tex->color(u, v, p);
+        }
+    private:
+        shared_ptr<texture> emission_tex;
+
+    }; // class material
 }
 
 

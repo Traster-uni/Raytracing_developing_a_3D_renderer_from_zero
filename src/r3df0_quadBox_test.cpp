@@ -45,6 +45,7 @@ int main(){
     cam.look_from = vec3f(0,0,9);
     cam.look_at   = vec3f(0,0,0);
     cam.view_up   = vec3f(0,1,0);
+    cam.background = pixel_f(0.70, 0.80, 1.00);
 
     cam.render_png("triangleBox_test.png",world);
 }
