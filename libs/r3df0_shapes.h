@@ -134,7 +134,7 @@ namespace r3dfrom0{
             hit_record.t = t;
             hit_record.set_face_normals(r, normal);
             hit_record.material_ptr = material;
-//            get_quad_uv(hit_record.normal, hit_record.u, hit_record.v);
+//            get_quad_uv(hit_record.normal, hit_record.u, hit_record.v); // TODO: IMPLEMENT get_quad_uv()
             return true;
         }
 
@@ -233,7 +233,7 @@ namespace r3dfrom0{
             hit_record.t = t;
             hit_record.set_face_normals(r_t, normal);
             hit_record.material_ptr = material;
-//            get_triangle_uv(hit_record.normal, hit_record.u, hit_record.v);
+//            get_triangle_uv(hit_record.normal, hit_record.u, hit_record.v); // TODO: IMPLEMENT get_triangle_uv()
             return true;
         }
 

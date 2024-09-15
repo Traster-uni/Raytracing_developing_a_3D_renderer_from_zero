@@ -19,6 +19,4 @@ int main(){
 
     auto img = load_img("earthmap.jpg", w, h);
     write_png("load_file_test.png", w, h, img);
-
-    // TODO: READING THE IMAGE COOKS THE COLORS, LOOK AT load_file_test.png
 }

@@ -53,7 +53,6 @@ inline int random_int(int min, int max){
 #include "r3df0_rays.h"
 #include "r3df0_hittable_superclass.h"
 #include "r3df0_material_superclass.h"
-#include "r3df0_light_superclass.h"
 #include "r3df0_texture_superclass.h"
 
 #endif //R3DFROM0_R3DF0_VARSUTIL_H

@@ -82,36 +82,50 @@ pixel_f ray_color_old(const ray& r, hittable_list& worldList){
 int main(){
     // Initialize world
     hittable_list world;
-    auto pertext = make_shared<perlin_noise_texture>(4);
-//    world.append(make_shared<sphere>(vec3f(0,-1000,0), 1000, make_shared<lambertian>(pertext)));
-    world.append(make_shared<sphere>(vec3f(0, 2, 0), 2, make_shared<lambertian>(pertext)));
-//    auto earth_texture = make_shared<image_texture>("earthmap.jpg");
-    auto material_ground = make_shared<lambertian>(pixel_f(0.8, 0.8, 0.0));
-    //pixel_f(0.8, 0.8, 0.0)
+
+    // initialize textures
+//    auto perlin_tex = make_shared<perlin_noise_texture>(4);
+    auto earth_texture = make_shared<image_texture>("earthmap.jpg");
+
+    // initialize materials
+//    auto material_perlin = make_shared<lambertian>(perlin_tex);
+    auto material_texture = make_shared<lambertian>(earth_texture);
+
 //    auto material_center = make_shared<lambertian>(pixel_f(0.1, 0.2, 0.5));
 //    auto material_left   = make_shared<dielectric>(1.50f);     // air bubble! 1.0f theta of air, 1.33f theta of water
 //    auto material_bubble = make_shared<dielectric>(1.0 / 1.3333);
 //    auto material_right      = make_shared<metal>(pixel_f(0.8, 0.6, 0.2), 0.7);
+    auto material_ground = make_shared<lambertian>(pixel_f(0.8, 0.8, 0.0));
 
-    world.append(make_shared<sphere>(vec3f( 0.0, -1000,0), 1000, material_ground));
+// initialize objects
+
 //    world.append(make_shared<sphere>(vec3f( 0.0,    0.0, -1.2),   0.5, material_center));
 //    world.append(make_shared<sphere>(vec3f(-1.0,    0.0, -1.0),   0.5, material_left));
 //    world.append(make_shared<sphere>(vec3f(-1.0,    0.0, -1.0),   0.4, material_bubble));
 //    world.append(make_shared<sphere>(vec3f( 1.0,    0.0, -1.0),   0.5, material_right));
+
+//    world.append(make_shared<sphere>(vec3f(0, 2, 0), 2, material_perlin));
+    world.append(make_shared<sphere>(vec3f(0, 2, 0), 2, material_texture));
+    world.append(make_shared<sphere>(vec3f(0,-1000,0), 1000, material_ground));
+
 
     // Initialize camera
     camera main_camera;
 //    main_camera.defocus_angle = 10;
     main_camera.image_width   = 600;
     main_camera.aspect_ratio = 1.f;
-    main_camera.vfov = 20;
-    main_camera.look_from   = vec3f(13,2,3);
-    main_camera.look_at     = vec3f(0,0,0);
-    main_camera.view_up     = vec3f(0,1,0);
+    main_camera.vfov = 25;
     main_camera.background = pixel_f(0.70, 0.80, 1.00);
+
+    // perlin noise test camera position
+    main_camera.look_from   = vec3f(13,2,3);
+    main_camera.look_at     = vec3f(0,2,0);
+    main_camera.view_up     = vec3f(0,1,0);
+
+    // original camera position
 //    main_camera.look_from   = vec3f(-2,2,1);
 //    main_camera.look_at     = vec3f(0,0,-1);
 //    main_camera.view_up     = vec3f(0,1,0);
-    main_camera.render_png("perlin_noise_test.png", world);
+    main_camera.render_png("texture_load_test.png", world);
 }
 

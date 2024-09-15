@@ -104,7 +104,7 @@ namespace r3dfrom0{
                     pixel_f color_sum(0.0f,0.0f,0.0f);
                     for (int s = 0; s < samples_number; s++){   // for random squares in pixel
                         ray r = get_ray(i,j);
-                        color_sum += ray_color(r, world, max_recursion_depth);
+                        color_sum += ray_color_old(r, world, max_recursion_depth);
                     }
                     auto mean_color = color_sum * mean_factor; // (sum(colors rays))/number_of_rays)
                     write_color_ppm(out, mean_color); // gamma, clamp and write on file
