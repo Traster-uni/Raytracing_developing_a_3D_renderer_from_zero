@@ -41,11 +41,11 @@ namespace r3dfrom0{
     }
 
     float int_to_float(int n){
-        interval c = {0.0f, 1.0f};
-        return c.clamp(n/255.0f);
+        const interval interval(0.0f, 1.0f);
+        return interval.clamp(n/255.0f);
     }
 
-    vector<vector<pixel_i>> load_img(const string& filename, int& width, int& height){
+    bool load_img(vector<vector<pixel_f>>& tuple_img, const string& filename, int& width, int& height){
         //    width;          -- width of the loaded image
         //    height;         -- height of the loaded image
         int bytes_pixel;      // number of bytes per pixel [1,8]
@@ -61,29 +61,30 @@ namespace r3dfrom0{
         // LOAD FILE
         auto file_data = stbi_load(dir_fname.c_str(), &width, &height, &bytes_pixel, 3);
         if (file_data == nullptr){
-            return texture_not_found(width, height);
+            return false;
         };
 
         // CONVERSION TO VEC3F
         bytes_scanline = width * bytes_pixel;
         bytes_total = bytes_scanline * height;
 
-        vector<vector<pixel_i>> tuple_image = {};
         int r = 0;       // row counter
         for (int i = 0; i < bytes_total; i+=bytes_scanline, r++){
-            vector<pixel_i> scanline = {};
-            tuple_image.push_back(scanline);
+            vector<pixel_f> scanline = {};
+            tuple_img.push_back(scanline);
             int c = 0;   // column counter
             for (int j = 0; j < bytes_scanline; j+=3, c++){
                 // stbi_load already loads data as bytes!
                 auto color_comp_r = int (*file_data++);
                 auto color_comp_g = int (*file_data++);
                 auto color_comp_b = int (*file_data++);
-                pixel_i pixel = {color_comp_r,color_comp_g,color_comp_b};
-                tuple_image[r].push_back(pixel); // write pixel tuple
+                pixel_f pixel = {int_to_float(color_comp_r),
+                                 int_to_float(color_comp_g),
+                                 int_to_float(color_comp_b)};
+                tuple_img[r].push_back(pixel); // write pixel tuple
             }
         }
-        return tuple_image;
+        return true;
     } // load_png
 
 

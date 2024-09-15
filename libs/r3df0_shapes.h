@@ -63,7 +63,7 @@ namespace r3dfrom0{
         }
 
         static void get_sphere_uv(vec3f& p, float& u, float& v){
-            float phi = atan2(p.z, p.x) + 2*pi;
+            float phi = atan2(-p.z, p.x) + pi;
             float theta = acos(-p.y);
             u = phi / (2 * pi);
             v = theta / pi;

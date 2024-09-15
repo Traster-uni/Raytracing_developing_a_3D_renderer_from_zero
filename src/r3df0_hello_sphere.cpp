@@ -84,12 +84,12 @@ int main(){
     hittable_list world;
 
     // initialize textures
-//    auto perlin_tex = make_shared<perlin_noise_texture>(4);
-    auto earth_texture = make_shared<image_texture>("earthmap.jpg");
+    auto perlin_tex = make_shared<perlin_noise_texture>(4);
+//    auto earth_texture = make_shared<image_texture>("earthmap.jpg");
 
-    // initialize materials
-//    auto material_perlin = make_shared<lambertian>(perlin_tex);
-    auto material_texture = make_shared<lambertian>(earth_texture);
+//     initialize materials
+    auto material_perlin = make_shared<lambertian>(perlin_tex);
+//    auto material_texture = make_shared<lambertian>(earth_texture);
 
 //    auto material_center = make_shared<lambertian>(pixel_f(0.1, 0.2, 0.5));
 //    auto material_left   = make_shared<dielectric>(1.50f);     // air bubble! 1.0f theta of air, 1.33f theta of water
@@ -104,8 +104,8 @@ int main(){
 //    world.append(make_shared<sphere>(vec3f(-1.0,    0.0, -1.0),   0.4, material_bubble));
 //    world.append(make_shared<sphere>(vec3f( 1.0,    0.0, -1.0),   0.5, material_right));
 
-//    world.append(make_shared<sphere>(vec3f(0, 2, 0), 2, material_perlin));
-    world.append(make_shared<sphere>(vec3f(0, 2, 0), 2, material_texture));
+    world.append(make_shared<sphere>(vec3f(0, 2, 0), 2, material_perlin));
+//    world.append(make_shared<sphere>(vec3f(0, 2, 0), 2, material_texture));
     world.append(make_shared<sphere>(vec3f(0,-1000,0), 1000, material_ground));
 
 
@@ -126,6 +126,6 @@ int main(){
 //    main_camera.look_from   = vec3f(-2,2,1);
 //    main_camera.look_at     = vec3f(0,0,-1);
 //    main_camera.view_up     = vec3f(0,1,0);
-    main_camera.render_png("texture_load_test.png", world);
+    main_camera.render_png("perlin_noise_test.png", world);
 }
 

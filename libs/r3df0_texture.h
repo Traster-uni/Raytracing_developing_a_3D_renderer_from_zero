@@ -51,7 +51,7 @@ namespace r3dfrom0{
     public:
     // constructor
     image_texture(string file_name) : image_file_name(file_name){
-        tuple_img = load_img(image_file_name, width, height);
+        load_img(tuple_img, image_file_name, width, height);
     }
 
     pixel_f color(float u, float v, const vec3f& p) const override{
@@ -69,7 +69,7 @@ namespace r3dfrom0{
 //        cout << "(" << x << ", " << y << ") " << width << " | " << height << "\n(" << u << ", " << v << ")" << endl;
 
         if (x < width && y < height) {
-            return convert_pixel_f_clamp(tuple_img[y][x]); //TODO: ERROR IN TUPLE_IMG ACCESS
+            return tuple_img[y][x]; //TODO: ERROR IN TUPLE_IMG ACCESS
         } else {
             return convert_pixel_f_clamp(NEON_GREEN);
         }
@@ -79,7 +79,7 @@ namespace r3dfrom0{
         int width = 0;
         int height = 0;
         string image_file_name;
-        vector<vector<pixel_i>> tuple_img;
+        vector<vector<pixel_f>> tuple_img;
         const pixel_i NEON_GREEN = {5, 247, 41};
 
     }; // image_texture class
