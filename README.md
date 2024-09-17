@@ -12,6 +12,11 @@ and with the help of this wonderful collection of lessons:
 - [_Scratch Pixel_](https://www.scratchapixel.com/index.html)
 
 Many thanks to the authors of these books, that have release them for free and completely open source:
-_Peter Shirley, Trevor David Black, Steve Hollasch._
+_Peter Shirley, Trevor David Black, Steve Hollasch (Raytracing in one week) and Jean-Colas Prunier (Scratch Pixel)._
 
 ![Matte shader](https://github.com/Traster-uni/Raytracing_developing_a_3D_renderer_from_zero/blob/main/old_renders/final_render.png?raw=True)
+
+I've used the following two libraries to handle models I/O and texture I/O
+
+- [_plycpp_](https://github.com/rbregier/plycpp) - to handle .ply 
+- [stb_image.h](https://github.com/nothings/stb) - to handle textures

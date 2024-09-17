@@ -9,8 +9,108 @@
 using namespace std;
 using namespace r3dfrom0;
 
+matrix44f inverse(matrix44f& t)
+{
+    int i, j, k;
+    matrix44f s;
+
+    // Forward elimination
+    for (i = 0; i < 3 ; i++) {
+        int pivot = i;
+
+        auto pivotsize = t[i][i];
+
+        if (pivotsize < 0)
+            pivotsize = -pivotsize;
+
+        for (j = i + 1; j < 4; j++) {
+            auto tmp = t[j][i];
+
+            if (tmp < 0)
+                tmp = -tmp;
+
+            if (tmp > pivotsize) {
+                pivot = j;
+                pivotsize = tmp;
+            }
+        }
+
+        if (pivotsize == 0) {
+            // Cannot invert singular matrix
+            return matrix44f();
+        }
+
+        if (pivot != i) {
+            for (j = 0; j < 4; j++) {
+                float tmp;
+
+                tmp = t[i][j];
+                t[i][j] = t[pivot][j];
+                t[pivot][j] = tmp;
+
+                tmp = s[i][j];
+                s[i][j] = s[pivot][j];
+                s[pivot][j] = tmp;
+            }
+        }
+
+        for (j = i + 1; j < 4; j++) {
+            auto f = t[j][i] / t[i][i];
+
+            for (k = 0; k < 4; k++) {
+                t[j][k] -= f * t[i][k];
+                s[j][k] -= f * s[i][k];
+            }
+        }
+    }
+
+    // Backward substitution
+    for (i = 3; i >= 0; --i) {
+        float f;
+
+        if ((f = t[i][i]) == 0) {
+            // Cannot invert singular matrix
+            return matrix44f();
+        }
+
+        for (j = 0; j < 4; j++) {
+            t[i][j] /= f;
+            s[i][j] /= f;
+        }
+
+        for (j = 0; j < i; j++) {
+            f = t[j][i];
+
+            for (k = 0; k < 4; k++) {
+                t[j][k] -= f * t[i][k];
+                s[j][k] -= f * s[i][k];
+            }
+        }
+    }
+
+    return s;
+}
+
 int main() {
     hittable_list world;
+
+    matrix44f m = {vec4f(0.707107, 0, -0.707107, 0),
+                   vec4f(-0.331295, 0.883452, -0.331295, 0),
+                   vec4f(0.624695, 0.468521, 0.624695, 0),
+                   vec4f(4.000574, 3.00043, 4.000574, 1)};
+
+//    0.707107  -0.331295 0.624695  0
+//    0 0.883452 0.468521   0
+//    -0.707107 -0.331295 0.624695  0
+//    0             0     -6.404043 1
+    auto m1 = m;
+    auto m2 = m;
+    m1 = invert(m1);
+    m2 = inverse(m2);
+    cout << m1 << endl;
+    cout << m2 << endl;
+    cout << m << endl;
+
 //    matrix44f object_to_world = {};
     // make transformation
 //    matrix44f object_to_world = make_translation_matrix(vec3f(2,3,0));
@@ -45,12 +145,12 @@ int main() {
     txt_out.open("matrix.txt", std::ios::out);
     txt_out << "triangle coords pre transform:\n["<< v1 << "]\n[" << v2 << "]\n["<< v3 << "]" << endl;
     txt_out << object_to_world << endl;
-    auto vv1 = local_to_world(v1, object_to_world);
-    auto vv2 = local_to_world(v2, object_to_world);
-    auto vv3 = local_to_world(v3, object_to_world);
+    auto vv1 = transform_point(v1, object_to_world);
+    auto vv2 = transform_point(v2, object_to_world);
+    auto vv3 = transform_point(v3, object_to_world);
     txt_out << "triangle coords post transform:\n["<< vv1 << "]\n[" << vv2 << "]\n["<< vv3 << "]" << endl;
     txt_out.close();
 
-    main_camera.render_png("rotation_test1_50x.png", world);
+//    main_camera.render_png("rotation_test1_50x.png", world);
 
 }

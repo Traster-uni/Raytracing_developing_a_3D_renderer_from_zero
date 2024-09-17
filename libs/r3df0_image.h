@@ -8,7 +8,7 @@
 #include "r3df0_varsutil.h"
 #include "r3df0_color.h"
 
-#include "ext/stb_image/stb_image/stb_image_runner.cpp"
+#include "stb_image/stb_image/stb_image_runner.h"
 #include <cstdlib>
 
 using namespace std;
@@ -52,7 +52,7 @@ namespace r3dfrom0{
         int bytes_scanline;   // number of bytes per row in image
         int bytes_total;      // number of bytes in the entire image
 
-        auto dir_fname = R"(C:\Raytracing_developing_a_3D_renderer_from_zero\resources\)" + filename;
+        auto dir_fname = R"(C:\Raytracing_developing_a_3D_renderer_from_zero\resources\textures)" + filename;
         auto env = getenv("RTW_IMAGES");
 
         // FILL INFO
@@ -61,6 +61,7 @@ namespace r3dfrom0{
         // LOAD FILE
         auto file_data = stbi_load(dir_fname.c_str(), &width, &height, &bytes_pixel, 3);
         if (file_data == nullptr){
+            cout << "Failed to open file" << endl;
             return false;
         };
 

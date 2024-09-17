@@ -17,12 +17,12 @@ int main() {
     auto green = make_shared<lambertian>(pixel_f(.12, .45, .15));
     auto light = make_shared<diffuse_light>(pixel_f(15, 15, 15));
 
-    world.append(make_shared<quad>(vec3f(555,0,0), vec3f(0,555,0), vec3f(0,0,555), green));
-    world.append(make_shared<quad>(vec3f(0,0,0), vec3f(0,555,0), vec3f(0,0,555), red));
-    world.append(make_shared<quad>(vec3f(343, 554, 332), vec3f(-130,0,0), vec3f(0,0,-105), light));
-    world.append(make_shared<quad>(vec3f(0,0,0), vec3f(555,0,0), vec3f(0,0,555), white));
-    world.append(make_shared<quad>(vec3f(555,555,555), vec3f(-555,0,0), vec3f(0,0,-555), white));
-    world.append(make_shared<quad>(vec3f(0,0,555), vec3f(555,0,0), vec3f(0,555,0), white));
+    world.append(make_shared<quad>(vec3f(555,0,0),      vec3f(0,555,0), vec3f(0,0,555), green));
+    world.append(make_shared<quad>(vec3f(0,0,0),        vec3f(0,555,0), vec3f(0,0,555), red));
+    world.append(make_shared<quad>(vec3f(343, 554, 332),vec3f(-130,0,0),vec3f(0,0,-105),light));
+    world.append(make_shared<quad>(vec3f(0,0,0),        vec3f(555,0,0), vec3f(0,0,555), white));
+    world.append(make_shared<quad>(vec3f(555,555,555),  vec3f(-555,0,0),vec3f(0,0,-555),white));
+    world.append(make_shared<quad>(vec3f(0,0,555),      vec3f(555,0,0), vec3f(0,555,0), white));
 
     camera cam;
 

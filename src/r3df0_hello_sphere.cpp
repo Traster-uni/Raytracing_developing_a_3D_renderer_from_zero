@@ -126,6 +126,6 @@ int main(){
 //    main_camera.look_from   = vec3f(-2,2,1);
 //    main_camera.look_at     = vec3f(0,0,-1);
 //    main_camera.view_up     = vec3f(0,1,0);
-    main_camera.render_png("perlin_noise_test.png", world);
+    main_camera.render_png("r2r.png", world);
 }
 

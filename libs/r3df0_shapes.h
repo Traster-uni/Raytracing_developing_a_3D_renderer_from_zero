@@ -185,9 +185,9 @@ namespace r3dfrom0{
         triangle(const vec3f& v1, const vec3f& v2, const vec3f& v3, shared_ptr<material> material, const matrix44f& o2w, bool ss = false) :
                 v1(v1), v2(v2), v3(v3), material(material), object_to_world(o2w), single_side(ss) {
             //transform
-            this->v1 = local_to_world(v1, object_to_world); // TODO: APPLY TRANSFORMS TO ALL SHAPES
-            this->v2 = local_to_world(v2, object_to_world);
-            this->v3 = local_to_world(v3, object_to_world);
+            this->v1 = transform_point(v1, object_to_world); // TODO: APPLY TRANSFORMS TO ALL SHAPES
+            this->v2 = transform_point(v2, object_to_world);
+            this->v3 = transform_point(v3, object_to_world);
 
             u = v2 - v1;
             v = v3 - v1;
@@ -197,8 +197,8 @@ namespace r3dfrom0{
 
         // methods
         bool hit(const ray& r, interval i, hit_record& hit_record) const override {
-            auto origin_transform = world_to_local(r.origin(), object_to_world);
-            auto direction_transform = world_to_local(r.direction(), object_to_world);
+            auto origin_transform = transform_point(r.origin(), object_to_world);
+            auto direction_transform = transform_point(r.direction(), object_to_world);
             ray r_t = ray(origin_transform, direction_transform);
 
             auto normal = unit(cross(u,v));

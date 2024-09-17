@@ -1,0 +1,8 @@
+//
+// Created by trast on 16/09/2024.
+//
+
+#ifndef R3DFROM0_R3DF0_POLYGONS_H
+#define R3DFROM0_R3DF0_POLYGONS_H
+
+#endif //R3DFROM0_R3DF0_POLYGONS_H

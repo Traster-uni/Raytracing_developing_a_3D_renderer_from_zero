@@ -58,7 +58,7 @@ namespace r3dfrom0{
         // check h and w if they are set correctly
         //
         if (height <= 0 || width <= 0 || tuple_img.empty()) {
-            return convert_pixel_f_clamp(NEON_GREEN);
+            return BRIGHT_PURPLE;
         }
         // clamping in 0,1 could hold values that equals to w and h
         u = interval(0.0f,1.0f).clamp(u);
@@ -69,9 +69,9 @@ namespace r3dfrom0{
 //        cout << "(" << x << ", " << y << ") " << width << " | " << height << "\n(" << u << ", " << v << ")" << endl;
 
         if (x < width && y < height) {
-            return tuple_img[y][x]; //TODO: ERROR IN TUPLE_IMG ACCESS
+            return tuple_img[y][x];
         } else {
-            return convert_pixel_f_clamp(NEON_GREEN);
+            return BRIGHT_PURPLE;
         }
     }
 
@@ -80,7 +80,7 @@ namespace r3dfrom0{
         int height = 0;
         string image_file_name;
         vector<vector<pixel_f>> tuple_img;
-        const pixel_i NEON_GREEN = {5, 247, 41};
+        const pixel_f BRIGHT_PURPLE = {1.0f, 0, 1.0f};
 
     }; // image_texture class
 

@@ -79,7 +79,7 @@ namespace r3dfrom0 { // vectors and vector related functions
         vec3f(float x, float y, float z) : x{x}, y{y}, z{z} {} // if args are defined
 
         // custom operators
-        float const operator[](const int i) const {
+        const float& operator[](const int i) const{
             return (&x)[i];
         }
 
@@ -277,7 +277,12 @@ namespace r3dfrom0 { // vectors and vector related functions
         vec4f() : x{0}, y{0}, z{0}, w{0} {}; // default behaviour
         vec4f(float x, float y, float z, float w) : x{x}, y{y}, z{z}, w{w} {} // if args are defined
         vec4f(vec3f v, float s) : x{v.x}, y{v.y}, z{v.z}, w{s} {}
+
         // operators
+        inline float& operator[](int i) {
+            return (&x)[i];
+        }
+
         inline const float& operator[](int i) const {
             return (&x)[i];
         }
@@ -411,7 +416,11 @@ namespace r3dfrom0 { // vectors and vector related functions
         matrix44f(vec4f x, vec4f y, vec4f z, vec4f t) : x{x}, y{y}, z{z}, t{t} {};
 
         // methods
-        inline const vec4f &operator[](int i) const {
+        inline vec4f& operator[] (int i) {
+            return (&x)[i];
+        }
+
+        inline const vec4f& operator[](int i) const {
             return (&x)[i];
         }
 
@@ -455,45 +464,45 @@ namespace r3dfrom0 { // vectors and vector related functions
         }
 
         matrix44f diagonal() const {
-            return {vec4f{this->x.x, 0, 0, 0},
-                    vec4f{0, this->y.y, 0, 0},
-                    vec4f{0, 0, this->z.z, 0},
-                    vec4f{0, 0, 0, this->t.w}};
+            return {vec4f{x.x, 0, 0, 0},
+                    vec4f{0, y.y, 0, 0},
+                    vec4f{0, 0, z.z, 0},
+                    vec4f{0, 0, 0, t.w}};
         }
 
         matrix44f transpose() const {
             return {
-                    {this->x.x, this->y.x, this->z.x, this->t.x},
-                    {this->x.y, this->y.y, this->z.y, this->t.y},
-                    {this->x.z, this->y.z, this->z.z, this->t.z},
-                    {this->x.w, this->y.w, this->z.w, this->t.w}
+                    {x.x, y.x, z.x, t.x},
+                    {x.y, y.y, z.y, t.y},
+                    {x.z, y.z, z.z, t.z},
+                    {x.w, y.w, z.w,  t.w}
                     };
         }
     }; // class matrix44f
 
     // Matrix operations
-    inline ostream& operator<<(ostream& out, matrix44f m) {
-        return out << "{\n [ " << m.x << " ]\n[ " << m.y << " ]\n[ " << m.z << " ]\n[ " << m.t << " ]\n}";
+    inline ostream& operator<<(ostream& out, matrix44f& m) {
+        return out << "{\n[ " << m.x << " ]\n[ " << m.y << " ]\n[ " << m.z << " ]\n[ " << m.t << " ]\n}";
     }
 
-    inline bool operator==(const matrix44f &a, const matrix44f &b) {
+    inline bool operator==(const matrix44f& a, const matrix44f& b) {
         return a.x == b.x && a.y == b.y && a.z == b.z && a.t == b.t;
     }
 
-    inline bool operator!=(const matrix44f &a, const matrix44f &b) {
+    inline bool operator!=(const matrix44f& a, const matrix44f& b) {
         return !(a == b);
     }
 
-    inline matrix44f operator*(const matrix44f &a, const float& b) {
+    inline matrix44f operator*(const matrix44f& a, const float& b) {
         return {a.x * b, a.y * b, a.z * b, a.t * b};
     }
 
-    inline vec4f operator*(const matrix44f &a, const vec4f& b) {
-        return a.x * b.x + a.y * b.y + a.z * b.z + a.t * b.w;
+    inline vec4f operator*(const vec4f& a, const matrix44f& b) {
+        return {dot(a, b.x), dot(a, b.y), dot(a, b.z), dot(a, b.t)};
     }
 
-    inline vec4f operator*(const vec4f &a, const matrix44f& b) {
-        return {dot(a, b.x), dot(a, b.y), dot(a, b.z), dot(a, b.t)};
+    inline vec4f operator*(const matrix44f& m, const vec4f& v) {
+        return m.x * v.x + m.y * v.y + m.z * v.z + m.t * v.w;
     }
 
     inline matrix44f operator*(const matrix44f& a, const matrix44f& b) {
@@ -596,44 +605,60 @@ namespace r3dfrom0 { // vectors and vector related functions
             return {}; // returns default Identity matrix
         }
         // https://math.stackexchange.com/questions/237369/given-this-transformation-matrix-how-do-i-decompose-it-into-translation-rotati
-        matrix44f t = {{1,0,0,0},{0,1,0,0},{0,0,1,0},{H.t}};
+        matrix44f t = {{1,0,0,0},
+                       {0,1,0,0},
+                       {0,0,1,0},
+                       {H.t}};
         matrix44f s = {{H.x.length(), 0, 0, 0},
                        {0, H.y.length(), 0, 0},
                        {0, 0, H.z.length(), 0},
                        {0, 0, 0, 1}};
-        matrix44f r = {{H.x.x / s.x.x, H.x.y / s.x.x, H.x.z / s.x.x, 0},
-                      {H.y.x / s.y.y, H.y.y / s.y.y, H.y.z / s.y.y, 0},
-                      {H.x.z / s.z.z, H.y.z / s.z.z, H.z.z / s.z.z, 0},
+//        matrix44f r = {{H.x.x / s.x.x, H.x.y / s.x.x, H.x.z / s.x.x, 0},
+//                      {H.y.x / s.y.y, H.y.y / s.y.y, H.y.z / s.y.y, 0},
+//                      {H.z.x / s.z.z, H.z.y / s.z.z, H.z.z / s.z.z, 0},
+//                      {0, 0, 0, 1}};
+        matrix44f r = {{H.x.x, H.x.y, H.x.z, 0},
+                      {H.y.x, H.y.y , H.y.z , 0},
+                      {H.z.x , H.z.y , H.z.z , 0},
                       {0, 0, 0, 1}};
         r = is_rotation_matrix(r) ? r : matrix44f();
-        return s.transpose() * r.transpose() * t.transpose();
-
+        return r.transpose(); // scaling_inverse(s) * * translation_inverse(t);
     }
 
     // TODO: IMPLEMENT VECTORS AND NORMALS TRANSFORMS
-    void transform_normals(const vec3f& normal, const matrix44f& m) {
+    // https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-polygon-mesh/introduction.html
+    // under NORMALS AND VECTORS chapter
+    inline vec3f transform_vectors(const vec3f& v, const matrix44f& m) {
+        return {v.x * m.x.x + v.y * m.y.x + v.x * m.z.x + m.t.x,
+                v.y * m.x.y + v.y * m.y.y + v.x * m.z.y + m.t.y,
+                v.z * m.x.z + v.y * m.y.z + v.x * m.z.z + m.t.z};
+                                        // v.z-^
     }
 
-    void transform_vectors(const vec3f& v, const matrix44f& m) {
+    inline vec3f transform_normals(const vec3f& normal, const matrix44f& m) {
+        return transform_vectors(normal, invert(m));
     }
 
-    vec3f local_to_world(const vec3f& p_local, const matrix44f& m) {
-        return {p_local.x * m.x.x + p_local.y * m.y.x + p_local.z * m.z.x + m.t.x,
-                p_local.y * m.x.y + p_local.y * m.y.y + p_local.z * m.z.y + m.t.y,
-                p_local.z * m.x.z + p_local.y * m.y.z + p_local.z * m.z.z + m.t.z};
+    inline vec3f transform_point(const vec3f& p_local, const matrix44f& m) {
+        vec3f p_transform = {p_local.x * m.x.x + p_local.y * m.y.x + p_local.x * m.z.x + m.t.x,
+                             p_local.y * m.x.y + p_local.y * m.y.y + p_local.x * m.z.y + m.t.y,
+                             p_local.z * m.x.z + p_local.y * m.y.z + p_local.x * m.z.z + m.t.z};
+                                                                   // p_local.z-^
+        auto w = p_local.x * m.x.w + p_local.y * m.y.w + p_local.x * m.z.w + m.t.w;
+        if (w != 1) {
+            p_transform.x /= w;
+            p_transform.y /= w;
+            p_transform.z /= w;
+            return p_transform;
+        }
+        return p_transform;
     }
 
-    vec3f world_to_local(const vec3f& p_world, const matrix44f& m) {
-        auto invert_m = invert(m);
-        return local_to_world(p_world,invert_m);
-    }
-
-    // values interpolations between a0 to a1 decided by a weight w
+    // INTERPOLATION
     // https://en.wikipedia.org/wiki/Perlin_noise
     inline float smoothstep_interpolation(const float& w) {
-//        if (w < 0.0f) return 0.0f;
-//        else if (w > 1.0f) return 1.0f;
-//        else
+        if (w < 0.0f) return 0.0f;
+        else if (w > 1.0f) return 1.0f;
         return w * w * (3 - 2 * w);
     }
 
@@ -643,6 +668,7 @@ namespace r3dfrom0 { // vectors and vector related functions
         else return w*w*w * (w * (w * 6.f - 15.f) + 10.f);
     }
 
+    // LERP
     inline float lerp_float(const float& value, const float& start, const float& end) {
         float a = 0.5f * (value + 1.0f);
         return (1 - a) * start + a * end;
