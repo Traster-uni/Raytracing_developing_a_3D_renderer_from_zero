@@ -67,3 +67,90 @@ inline vec3 random_in_unit_disk() {
             return p;
     }
 }
+
+PLY MANUAL
+
+for (const auto& element : data) {
+	for (const auto& prop : element.data->properties) {
+
+element.key: vertex | element.data->size(): 3502
+    prop.key: x | prop.data->type.name(): f | prop.data->size(): 3502
+    - y -- type: f -- size: 3502
+    - z -- type: f -- size: 3502
+    - nx -- type: f -- size: 3502
+    - ny -- type: f -- size: 3502
+    - nz -- type: f -- size: 3502
+    - red -- type: h -- size: 3502
+    - green -- type: h -- size: 3502
+    - blue -- type: h -- size: 3502
+    - alpha -- type: h -- size: 3502
+* face -- size: 7000
+    - vertex_indices -- type: list of i -- size: 21000
+---------------------------------------------------------------------------
+
+x value of the first vertex element:
+data["vertex"]->properties["x"]->at<float>(0): -0.030394
+
+Coordinates of the 5 first vertices (out of 3502):
+// one way of accessing values:
+data["vertex"]->properties["x"]->ptr<float>(): -0.030394
+data["vertex"]->properties["y"]->ptr<float>(): 0.064757
+data["vertex"]->properties["z"]->ptr<float>(): 0.01881
+
+* -0.032484 0.062235 0.020179
+* -0.031546 0.063672 0.021553
+* -0.030159 0.063779 0.017815
+* -0.031724 0.061122 0.018518
+---------------------------------------------------------------------------
+
+Same output of the 5 first vertices:
+// another way:
+typedef std::vector<std::array<float, 3 > > Cloud   // define type Cloud
+Cloud points;
+Cloud normals;
+toPointCloud<float, Cloud>(data, points);           // populate clouds
+toNormalCloud<float, Cloud>(data, normals);
+// access with for loop
+for (size_t i = 0; i < 5; ++i) {
+    points[i][0] : -0.030394
+    points[i][1] : 0.064757
+    points[i][2] : 0.01881
+}
+
+* -0.032484 0.062235 0.020179
+* -0.031546 0.063672 0.021553
+* -0.030159 0.063779 0.017815
+* -0.031724 0.061122 0.018518
+---------------------------------------------------------------------------
+
+RGBA colour of the 5 first vertices:
+// to access color use the same method then before, using Cloud type
+typedef std::vector<std::array<unsigned char, 4> > RGBACloud; // define type color cloud
+RGBACloud rgbaCloud;
+std::vector<plycpp::PropertyArrayConstPtr> properties {     // define properties fields
+    data["vertex"]->properties["red"],
+    data["vertex"]->properties["green"],
+    data["vertex"]->properties["blue"],
+    data["vertex"]->properties["alpha"]
+}
+plycpp::packProperties<unsigned char, RGBACloud>(properties, rgbaCloud); // populate cloud
+// access with for loop
+for (size_t i = 0; i < 5; ++i) {
+    static_cast<unsigned int>(rgbaCloud[i][0]) : 254
+    static_cast<unsigned int>(rgbaCloud[i][1]) : 254
+    static_cast<unsigned int>(rgbaCloud[i][2]) : 254
+    static_cast<unsigned int>(rgbaCloud[i][3]) : 255
+}
+
+* 253 253 253 255
+* 253 253 253 255
+* 245 245 245 255
+* 236 236 236 255
+---------------------------------------------------------------------------
+
+Vertex indices of the first triangle:
+* 0 1 2
+
+Point cloud exported to point_cloud_ascii.ply
+Point cloud exported to point_cloud_binary.ply
+Enter a char to exit...

@@ -51,7 +51,9 @@ namespace plycpp
 	{
 	public:
 		Exception(const std::string& msg)
-			: exception(msg.c_str())
+//			: exception(msg.c_str()) <-- original line
+            : exception() // <-- added as per: https://stackoverflow.com/questions/71767599/no-matching-function-for-call-to-stdexceptionexceptionbrace-enclosed-init
+            // "std:exception does not provide a constructor that accepts const char* parameter"
 		{}
 	};
 

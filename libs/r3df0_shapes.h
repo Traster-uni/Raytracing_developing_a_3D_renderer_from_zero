@@ -255,7 +255,7 @@ namespace r3dfrom0{
         shared_ptr<material> material;
         axisAlignBbox bbox;
         const bool single_side;
-        const matrix44f object_to_world;
+        const matrix44f object_to_world;    // TODO: DECIDE IF MAKE IT AN AUTONOMOUS ATTRIBUTE
     }; // triangle class
 }
 

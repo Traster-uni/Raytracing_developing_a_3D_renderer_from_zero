@@ -21,7 +21,7 @@ Features
 Syntax example
 ----------
 
-See [src/example.cpp](plycpp/example.cpp) for a full example.
+See [src/example.cpp](../../src/example.cpp) for a full example.
 
 
 Current limitations

@@ -17,7 +17,7 @@ add_library(r3dfrom0 STATIC
         r3df0_material.h
         r3df0_texture_superclass.h
         r3df0_texture.h
-        r3df0_polygons_superclass.h
+        r3df0_polygons.h
         r3df0_polygons.h
 )
 

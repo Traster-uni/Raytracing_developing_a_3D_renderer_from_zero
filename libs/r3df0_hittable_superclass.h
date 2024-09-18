@@ -12,13 +12,10 @@ namespace r3dfrom0{
     class axisAlignBbox;
 
     class hittable{ // interface
-        /**
-         * All world objects implement this hittable interface
-         */
-    public:
         // attributes
         matrix44f object_to_world;
         matrix44f object_to_camera;
+    public:
         // constructor
         virtual ~hittable() = default;
         // methods

@@ -17,7 +17,7 @@ property float t
 element face 6
 property list uchar uint vertex_indices
 end_header
-comment | This is the vertexes, normals and uvs
+comment | This are the vertexes, normals and uvs
 1 1 1 0.5773503 0.5773503 0.5773503 0.625 0.5
 -1 1 1 -0.5773503 0.5773503 0.5773503 0.875 0.5
 -1 -1 1 -0.5773503 -0.5773503 0.5773503 0.875 0.75

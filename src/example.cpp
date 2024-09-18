@@ -21,13 +21,13 @@
 // SOFTWARE.
 
 //#include <vld.h>
-#include "plycpp.h"
+#include "plycpp/plycpp/plycpp_runner.h"
 #include <filesystem>
 #include <iostream>
 #include <array>
 
 
-void main()
+int main()
 {
 
 	try
@@ -36,7 +36,7 @@ void main()
 		plycpp::PLYData data;
 
 
-		plycpp::load(std::string(MODELS_DIRECTORY) + "/bunny.ply", data);
+		plycpp::load("../resources/models/bunny.ply", data);
 		//plycpp::load(std::string(MODELS_DIRECTORY) + "/bunny_ascii.ply", data);
 
 		// Listing PLY content
@@ -45,14 +45,14 @@ void main()
 				<< "===========================" << std::endl;
 			for (const auto& element : data)
 			{
-				std::cout << "* " << element.key << " -- size: " << element.data->size() << std::endl;
+				std::cout << "> " << element.key << " of size: " << element.data->size() << std::endl;
 				for (const auto& prop : element.data->properties)
 				{
-					std::cout << "    - " << prop.key
-						<< " -- type: "
+					std::cout << "    | > " << prop.key
+						<< " of type: "
 						<< (prop.data->isList ? "list of " : "")
 						<< prop.data->type.name()
-						<< " -- size: " << prop.data->size() << std::endl;
+						<< " of size: " << prop.data->size() << std::endl;
 				}
 			}
 			std::cout << "\n";
@@ -169,9 +169,6 @@ void main()
 	}
 	catch (const plycpp::Exception& e)
 	{
-		std::cout << "An exception happened:\n" << e.what() << std::endl;
+		std::cout << "An exception happened: " << e.what() << std::endl;
 	}
-
-	std::cout << "Enter a char to exit..." << std::endl;
-	std::getchar();
 }
