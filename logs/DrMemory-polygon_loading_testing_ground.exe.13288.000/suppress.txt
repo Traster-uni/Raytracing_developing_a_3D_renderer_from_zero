@@ -1,0 +1,2 @@
+# File for suppressing errors found in pid 13288: "polygon_loading_testing_ground.exe"
+

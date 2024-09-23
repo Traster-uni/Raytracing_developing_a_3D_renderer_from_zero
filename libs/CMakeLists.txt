@@ -27,4 +27,4 @@ target_include_directories(r3dfrom0 PRIVATE ext/)
 target_include_directories(r3dfrom0 PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/..")
 
 target_link_libraries(r3dfrom0 PRIVATE stb_image::stb_image)
-target_link_libraries(r3dfrom0 PRIVATE plycpp::plycpp)
+target_link_libraries(r3dfrom0 PRIVATE happly::happly)

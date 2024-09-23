@@ -1,0 +1,101 @@
+Dr. Memory version 2.6.0 build 0 built on Sep 21 2023 17:38:58
+Windows version: WinVer=105;Rel=2009;Build=19045;Edition=Professional
+Dr. Memory results for pid 3768: "polygon_loading_testing_ground.exe"
+Application cmdline: "C:\Raytracing_developing_a_3D_renderer_from_zero\bin\polygon_loading_testing_ground.exe"
+Recorded 124 suppression(s) from default C:\Program Files (x86)\Dr. Memory\bin64\suppress-default.txt
+
+Error #1: UNADDRESSABLE ACCESS beyond top of stack: reading 0x0000008cd99ff7f0-0x0000008cd99ff7f8 8 byte(s)
+# 0 .text                           
+# 1 _pei386_runtime_relocator       
+# 2 __tmainCRTStartup               
+# 3 .l_start                        
+# 4 KERNEL32.dll!BaseThreadInitThunk
+Note: @0:00:00.153 in thread 5748
+Note: 0x0000008cd99ff7f0 refers to 776 byte(s) beyond the top of the stack 0x0000008cd99ffaf8
+Note: instruction: or     $0x0000000000000000 (%rcx) -> (%rcx)
+
+Error #2: UNINITIALIZED READ: reading 0x0000008cd99fc18a-0x0000008cd99fc190 6 byte(s) within 0x0000008cd99fc180-0x0000008cd99fc1a8
+# 0 ntdll.dll!RcContinueExit
+# 1 ntdll.dll!RtlUnwindEx
+# 2 plycpp::load                    
+# 3 r3dfrom0::polygon_mesh::load_mesh
+# 4 plycpp::load                    
+# 5 plycpp::load                    
+# 6 libgcc_s_seh-1.dll!_GCC_specific_handler
+# 7 libstdc++-6.dll!?                              +0x0      (0x00007ff8f58a8295 <libstdc++-6.dll+0x118295>)
+# 8 ntdll.dll!RtlpExecuteHandlerForException
+# 9 ntdll.dll!RtlDispatchException
+#10 plycpp::load                    
+#11 KERNEL32.dll!BaseThreadInitThunk
+Note: @0:00:00.495 in thread 5748
+Note: instruction: iret   %rsp (%rsp) -> %rsp
+
+Error #3: UNINITIALIZED READ: reading 0x0000008cd99fe890-0x0000008cd99fe8f0 96 byte(s) within 0x0000008cd99fe7f0-0x0000008cd99fe9f0
+# 0 ntdll.dll!RcContinueExit
+# 1 ntdll.dll!RtlUnwindEx
+# 2 ntdll.dll!RtlDispatchException
+# 3 libgcc_s_seh-1.dll!_Unwind_Resume    
+# 4 KERNEL32.dll!BaseThreadInitThunk
+Note: @0:00:00.500 in thread 5748
+Note: instruction: fxrstor 0x00000100(%rcx)
+
+Error #4: UNINITIALIZED READ: reading 0x0000008cd99fe65a-0x0000008cd99fe660 6 byte(s) within 0x0000008cd99fe650-0x0000008cd99fe678
+# 0 ntdll.dll!RcContinueExit
+# 1 ntdll.dll!RtlUnwindEx
+# 2 ntdll.dll!RtlDispatchException
+# 3 libgcc_s_seh-1.dll!_Unwind_Resume    
+# 4 KERNEL32.dll!BaseThreadInitThunk
+Note: @0:00:00.500 in thread 5748
+Note: instruction: iret   %rsp (%rsp) -> %rsp
+
+Error #5: INVALID HEAP ARGUMENT to free 0x000002501bcd0e80
+# 0 replace_operator_delete_nothrow               [D:\a\drmemory\drmemory\common\alloc_replace.c:2978]
+# 1 main                            
+Note: @0:00:00.559 in thread 5748
+Note: refers to -1 byte(s) before next malloc
+Note: next higher malloc: 0x000002501bcd0e80-0x000002501bcd0e9e
+Note: refers to -30 byte(s) beyond last valid byte in prior malloc
+Note: prev lower malloc:  0x000002501bcd0e80-0x000002501bcd0e9e
+
+Error #6: POSSIBLE LEAK 24 direct bytes 0x000002501b8b02f0-0x000002501b8b0308 + 0 indirect bytes
+# 0 replace_malloc                                     [D:\a\drmemory\drmemory\common\alloc_replace.c:2580]
+# 1 libgcc_s_seh-1.dll!__emutls_get_address
+# 2 plycpp::load                    
+# 3 r3dfrom0::polygon_mesh::load_mesh
+# 4 r3dfrom0::polygon_mesh::polygon_mesh
+# 5 main                            
+
+Error #7: LEAK 30 direct bytes 0x000002501bcd0e80-0x000002501bcd0e9e + 0 indirect bytes
+# 0 replace_malloc                                             [D:\a\drmemory\drmemory\common\alloc_replace.c:2580]
+# 1 libstdc++-6.dll!?                                         +0x0      (0x00007ff8f58a74cc <libstdc++-6.dll+0x1174cc>)
+# 2 std::__cxx11::basic_string<>::_M_construct<>
+# 3 main                            
+
+===========================================================================
+FINAL SUMMARY:
+
+DUPLICATE ERROR COUNTS:
+	Error #   1:      2
+	Error #   2:      3
+	Error #   3:      2
+	Error #   4:      3
+
+SUPPRESSIONS USED:
+
+ERRORS FOUND:
+      1 unique,     2 total unaddressable access(es)
+      3 unique,     8 total uninitialized access(es)
+      1 unique,     1 total invalid heap argument(s)
+      0 unique,     0 total GDI usage error(s)
+      0 unique,     0 total handle leak(s)
+      0 unique,     0 total warning(s)
+      1 unique,     1 total,     30 byte(s) of leak(s)
+      1 unique,     1 total,     24 byte(s) of possible leak(s)
+ERRORS IGNORED:
+      4 potential error(s) (suspected false positives)
+         (details: C:\Raytracing_developing_a_3D_renderer_from_zero\logs\DrMemory-polygon_loading_testing_ground.exe.3768.000\potential_errors.txt)
+      1 potential leak(s) (suspected false positives)
+         (details: C:\Raytracing_developing_a_3D_renderer_from_zero\logs\DrMemory-polygon_loading_testing_ground.exe.3768.000\potential_errors.txt)
+     29 unique,    33 total,  13299 byte(s) of still-reachable allocation(s)
+         (re-run with "-show_reachable" for details)
+Details: C:\Raytracing_developing_a_3D_renderer_from_zero\logs\DrMemory-polygon_loading_testing_ground.exe.3768.000\results.txt

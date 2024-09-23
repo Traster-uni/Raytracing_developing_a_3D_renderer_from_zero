@@ -1,0 +1,81 @@
+Dr. Memory version 2.6.0 build 0 built on Sep 21 2023 17:38:58
+Dr. Memory errors that are likely to be false positives, for pid 9480: "polygon_loading_testing_ground.exe"
+These errors matched the blocklist ',C:\Windows*.d??' for 4 frames.
+Run with -lib_blocklist_frames 0 to treat these as regular errors.
+If these are all false positives and your focus is unaddressable errors, consider running with -light to skip all uninitialized reads and leaks for higher performance.
+
+Potential Error #1: UNINITIALIZED READ: reading 0x00000025897fd504-0x00000025897fd508 4 byte(s) within 0x00000025897fd500-0x00000025897fd508
+# 0 system call NtQueryWnfStateNameInformation parameter value #4
+# 1 ntdll.dll!SignalStartWerSvc
+# 2 ntdll.dll!SendMessageToWERService
+# 3 ntdll.dll!ReportExceptionInternal
+# 4 KERNEL32.dll!WerpReportFaultInternal
+# 5 KERNEL32.dll!WerpReportFault
+# 6 KERNELBASE.dll!UnhandledExceptionFilter
+# 7 ntdll.dll!RtlUserThreadStart$filt$0
+# 8 ntdll.dll!_C_specific_handler
+# 9 ntdll.dll!RtlpExecuteHandlerForException
+#10 ntdll.dll!RtlDispatchException
+#11 ntdll.dll!RtlUserThreadStart
+Note: @0:00:00.800 in thread 1464
+
+Potential Error #2: LEAK 256 direct bytes 0x0000013c22250880-0x0000013c22250980 + 0 indirect bytes
+# 0 replace_RtlAllocateHeap                [D:\a\drmemory\drmemory\common\alloc_replace.c:3772]
+# 1 ucrtbase.dll!malloc_base              +0x35     (0x00007fffc396fde6 <ucrtbase.dll+0xfde6>)
+# 2 ucrtbase.dll!realloc_base             +0x54     (0x00007fffc39716b5 <ucrtbase.dll+0x116b5>)
+# 3 ucrtbase.dll!strtol                   +0x14d    (0x00007fffc39724de <ucrtbase.dll+0x124de>)
+# 4 ucrtbase.dll!register_onexit_function +0x253    (0x00007fffc3972844 <ucrtbase.dll+0x12844>)
+# 5 ucrtbase.dll!register_onexit_function +0xea     (0x00007fffc39726db <ucrtbase.dll+0x126db>)
+# 6 ucrtbase.dll!register_onexit_function +0x9f     (0x00007fffc3972690 <ucrtbase.dll+0x12690>)
+# 7 _onexit                         
+# 8 atexit                          
+# 9 __do_global_ctors               
+#10 __main                          
+#11 __tmainCRTStartup               
+
+Potential Error #3: HANDLE LEAK: KERNEL handle 0x00000000000000f8 and 0 similar handle(s) were opened but not closed:
+# 0 system call NtDuplicateObject              
+# 1 KERNELBASE.dll!DuplicateHandle
+# 2 libwinpthread-1.dll!?                                    +0x0      (0x00007fffb9c77222 <libwinpthread-1.dll+0x7222>)
+# 3 libwinpthread-1.dll!?                                    +0x0      (0x00007fffb9c77335 <libwinpthread-1.dll+0x7335>)
+# 4 libwinpthread-1.dll!?                                    +0x0      (0x00007fffb9c768c5 <libwinpthread-1.dll+0x68c5>)
+# 5 libstdc++-6.dll!?                                        +0x0      (0x00007fff6d36a4d9 <libstdc++-6.dll+0xda4d9>)
+# 6 libstdc++-6.dll!?                                        +0x0      (0x00007fff6d36e136 <libstdc++-6.dll+0xde136>)
+# 7 libstdc++-6.dll!?                                        +0x0      (0x00007fff6d38b4fb <libstdc++-6.dll+0xfb4fb>)
+# 8 _GLOBAL__sub_I__ZN8r3dfrom08interval5emptyE
+# 9 __do_global_ctors               
+#10 __main                          
+#11 __tmainCRTStartup               
+#12 .l_start                        
+#13 KERNEL32.dll!BaseThreadInitThunk
+Note: @0:00:01.989 in thread 1464
+
+Potential Error #4: HANDLE LEAK: KERNEL handle 0x0000000000000110 and 0 similar handle(s) were opened but not closed:
+# 0 system call NtCreateEvent                  
+# 1 KERNELBASE.dll!CreateEventA  
+# 2 libwinpthread-1.dll!?                                    +0x0      (0x00007fffb9c7718a <libwinpthread-1.dll+0x718a>)
+# 3 libwinpthread-1.dll!?                                    +0x0      (0x00007fffb9c77335 <libwinpthread-1.dll+0x7335>)
+# 4 libwinpthread-1.dll!?                                    +0x0      (0x00007fffb9c768c5 <libwinpthread-1.dll+0x68c5>)
+# 5 libstdc++-6.dll!?                                        +0x0      (0x00007fff6d36a4d9 <libstdc++-6.dll+0xda4d9>)
+# 6 libstdc++-6.dll!?                                        +0x0      (0x00007fff6d36e136 <libstdc++-6.dll+0xde136>)
+# 7 libstdc++-6.dll!?                                        +0x0      (0x00007fff6d38b4fb <libstdc++-6.dll+0xfb4fb>)
+# 8 _GLOBAL__sub_I__ZN8r3dfrom08interval5emptyE
+# 9 __do_global_ctors               
+#10 __main                          
+#11 __tmainCRTStartup               
+#12 .l_start                        
+#13 KERNEL32.dll!BaseThreadInitThunk
+Note: @0:00:01.989 in thread 1464
+
+DUPLICATE POTENTIAL ERROR COUNTS:
+
+POTENTIAL ERRORS FOUND:
+      0 unique,     0 total potential unaddressable access(es)
+      1 unique,     1 total potential uninitialized access(es)
+      0 unique,     0 total potential invalid heap argument(s)
+      0 unique,     0 total potential GDI usage error(s)
+      2 unique,     2 total potential handle leak(s)
+      0 unique,     0 total potential warning(s)
+      1 unique,     1 total,    256 byte(s) of potential leak(s)
+      0 unique,     0 total,      0 byte(s) of potential possible leak(s)
+Details: C:\Raytracing_developing_a_3D_renderer_from_zero\logs\DrMemory-polygon_loading_testing_ground.exe.9480.000\potential_errors.txt

@@ -1,0 +1,76 @@
+Dr. Memory version 2.6.0 build 0 built on Sep 21 2023 17:38:58
+Windows version: WinVer=105;Rel=2009;Build=19045;Edition=Professional
+Dr. Memory results for pid 9480: "polygon_loading_testing_ground.exe"
+Application cmdline: "C:\Raytracing_developing_a_3D_renderer_from_zero\bin\polygon_loading_testing_ground.exe"
+Recorded 124 suppression(s) from default C:\Program Files (x86)\Dr. Memory\bin64\suppress-default.txt
+
+Error #1: UNADDRESSABLE ACCESS beyond top of stack: reading 0x00000025897ff660-0x00000025897ff668 8 byte(s)
+# 0 .text                           
+# 1 _pei386_runtime_relocator       
+# 2 __tmainCRTStartup               
+# 3 .l_start                        
+# 4 KERNEL32.dll!BaseThreadInitThunk
+Note: @0:00:00.409 in thread 1464
+Note: 0x00000025897ff660 refers to 776 byte(s) beyond the top of the stack 0x00000025897ff968
+Note: instruction: or     $0x0000000000000000 (%rcx) -> (%rcx)
+
+Error #2: UNADDRESSABLE ACCESS: reading 0x0000000000000000-0x0000000000000008 8 byte(s)
+# 0 r3dfrom0::camera::ray_color     
+# 1 r3dfrom0::camera::render_png    
+# 2 main                            
+Note: @0:00:00.709 in thread 1464
+Note: instruction: mov    (%rdx) -> %rax
+
+Error #3: UNINITIALIZED READ: reading 0x00000025897fdfa0-0x00000025897fe000 96 byte(s) within 0x00000025897fdf00-0x00000025897fe100
+# 0 ntdll.dll!RcContinueExit
+# 1 ntdll.dll!RtlUnwindEx
+# 2 ntdll.dll!RtlUserThreadStart
+Note: @0:00:01.922 in thread 1464
+Note: instruction: fxrstor 0x00000100(%rcx)
+
+Error #4: UNINITIALIZED READ: reading 0x00000025897fdd6a-0x00000025897fdd70 6 byte(s) within 0x00000025897fdd60-0x00000025897fdd88
+# 0 ntdll.dll!RcContinueExit
+# 1 ntdll.dll!RtlUnwindEx
+# 2 ntdll.dll!RtlUserThreadStart
+Note: @0:00:01.923 in thread 1464
+Note: instruction: iret   %rsp (%rsp) -> %rsp
+
+Error #5: LEAK 64 direct bytes 0x0000013c22650960-0x0000013c226509a0 + 1088 indirect bytes
+# 0 replace_operator_new                                                       [D:\a\drmemory\drmemory\common\alloc_replace.c:2903]
+# 1 _ZNSt6vectorISt10shared_ptrIN8r3dfrom08hittableEESaIS3_EE17_M_realloc_insertIJRKS3_EEEvN9__gnu_cxx17__normal_iteratorIPS3_S5_EEDpOT_
+# 2 r3dfrom0::hittable_list::append 
+# 3 main                            
+
+Error #6: LEAK 24 direct bytes 0x0000013c226509c0-0x0000013c226509d8 + 0 indirect bytes
+# 0 replace_operator_new                                                       [D:\a\drmemory\drmemory\common\alloc_replace.c:2903]
+# 1 _ZNSt6vectorIS_IN8r3dfrom07pixel_iESaIS1_EESaIS3_EE17_M_realloc_insertIJRKS3_EEEvN9__gnu_cxx17__normal_iteratorIPS3_S5_EEDpOT_
+# 2 r3dfrom0::camera::render_png    
+# 3 main                            
+
+===========================================================================
+FINAL SUMMARY:
+
+DUPLICATE ERROR COUNTS:
+	Error #   1:      2
+	Error #   3:      2
+	Error #   4:      3
+
+SUPPRESSIONS USED:
+
+ERRORS FOUND:
+      2 unique,     3 total unaddressable access(es)
+      2 unique,     5 total uninitialized access(es)
+      0 unique,     0 total invalid heap argument(s)
+      0 unique,     0 total GDI usage error(s)
+      0 unique,     0 total handle leak(s)
+      0 unique,     0 total warning(s)
+      2 unique,     2 total,   1176 byte(s) of leak(s)
+      0 unique,     0 total,      0 byte(s) of possible leak(s)
+ERRORS IGNORED:
+      3 potential error(s) (suspected false positives)
+         (details: C:\Raytracing_developing_a_3D_renderer_from_zero\logs\DrMemory-polygon_loading_testing_ground.exe.9480.000\potential_errors.txt)
+      1 potential leak(s) (suspected false positives)
+         (details: C:\Raytracing_developing_a_3D_renderer_from_zero\logs\DrMemory-polygon_loading_testing_ground.exe.9480.000\potential_errors.txt)
+     10 unique,    10 total,   6416 byte(s) of still-reachable allocation(s)
+         (re-run with "-show_reachable" for details)
+Details: C:\Raytracing_developing_a_3D_renderer_from_zero\logs\DrMemory-polygon_loading_testing_ground.exe.9480.000\results.txt

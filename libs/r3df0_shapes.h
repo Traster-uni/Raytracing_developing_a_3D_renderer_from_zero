@@ -23,6 +23,7 @@ namespace r3dfrom0{
             bbox = axisAlignBbox{center - temp_v, center + temp_v};
         };
 
+
         // methods
         bool hit(const ray& r, interval i, hit_record& hit_record) const override{
             auto c_q = center - r.origin();
@@ -196,6 +197,11 @@ namespace r3dfrom0{
         }
 
         // methods
+        friend inline ostream& operator<<(ostream& out, const triangle& t){
+            return out <<"triangle_instance: (" << t.v1 << "," << t.v2 << "," << t.v3 << ")" << endl;
+        }
+
+
         bool hit(const ray& r, interval i, hit_record& hit_record) const override {
             auto origin_transform = transform_point(r.origin(), object_to_world);
             auto direction_transform = transform_point(r.direction(), object_to_world);

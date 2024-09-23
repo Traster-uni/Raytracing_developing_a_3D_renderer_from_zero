@@ -1,0 +1,3 @@
+C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin\libstdc++-6.dll
+C:\Windows\System32\ucrtbase.dll
+C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin\libwinpthread-1.dll

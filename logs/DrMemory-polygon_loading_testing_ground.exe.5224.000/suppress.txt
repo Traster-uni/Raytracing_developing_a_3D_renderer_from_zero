@@ -1,0 +1,94 @@
+# File for suppressing errors found in pid 5224: "polygon_loading_testing_ground.exe"
+
+# Suppression for Error #1
+UNADDRESSABLE ACCESS
+name=Error #1 (update to meaningful name)
+polygon_loading_testing_ground.e!.text
+polygon_loading_testing_ground.e!_pei386_runtime_relocator
+polygon_loading_testing_ground.e!__tmainCRTStartup
+polygon_loading_testing_ground.e!.l_start
+KERNEL32.dll!BaseThreadInitThunk
+
+## Mod+offs-style suppression for Error #1:
+UNADDRESSABLE ACCESS
+name=Error #1 (update to meaningful name)
+<polygon_loading_testing_ground.e+0x3802b>
+<polygon_loading_testing_ground.e+0x3751a>
+<polygon_loading_testing_ground.e+0x1310>
+<polygon_loading_testing_ground.e+0x1146>
+<KERNEL32.dll+0x17374>
+
+# Suppression for Error #2
+UNADDRESSABLE ACCESS
+name=Error #2 (update to meaningful name)
+polygon_loading_testing_ground.e!r3dfrom0::camera::ray_color
+polygon_loading_testing_ground.e!r3dfrom0::camera::render_png
+polygon_loading_testing_ground.e!main
+
+## Mod+offs-style suppression for Error #2:
+UNADDRESSABLE ACCESS
+name=Error #2 (update to meaningful name)
+<polygon_loading_testing_ground.e+0x41db6>
+<polygon_loading_testing_ground.e+0x4113e>
+<polygon_loading_testing_ground.e+0x452f7>
+
+# Suppression for Error #3
+UNINITIALIZED READ
+name=Error #3 (update to meaningful name)
+ntdll.dll!RcContinueExit
+ntdll.dll!RtlUnwindEx
+ntdll.dll!RtlUserThreadStart
+
+## Mod+offs-style suppression for Error #3:
+UNINITIALIZED READ
+name=Error #3 (update to meaningful name)
+<ntdll.dll+0xa1ae0>
+<ntdll.dll+0x30b66>
+<ntdll.dll+0x4cc91>
+
+# Suppression for Error #4
+UNINITIALIZED READ
+name=Error #4 (update to meaningful name)
+ntdll.dll!RcContinueExit
+ntdll.dll!RtlUnwindEx
+ntdll.dll!RtlUserThreadStart
+
+## Mod+offs-style suppression for Error #4:
+UNINITIALIZED READ
+name=Error #4 (update to meaningful name)
+<ntdll.dll+0xa1bf9>
+<ntdll.dll+0x30b66>
+<ntdll.dll+0x4cc91>
+
+# Suppression for Error #5
+LEAK
+name=Error #5 (update to meaningful name)
+drmemorylib.dll!replace_operator_new
+polygon_loading_testing_ground.e!_ZNSt6vectorISt10shared_ptrIN8r3dfrom08hittableEESaIS3_EE17_M_realloc_insertIJRKS3_EEEvN9__gnu_cxx17__normal_iteratorIPS3_S5_EEDpOT_
+polygon_loading_testing_ground.e!r3dfrom0::hittable_list::append
+polygon_loading_testing_ground.e!main
+
+## Mod+offs-style suppression for Error #5:
+LEAK
+name=Error #5 (update to meaningful name)
+<drmemorylib.dll+0x29f60>
+<polygon_loading_testing_ground.e+0x44a1f>
+<polygon_loading_testing_ground.e+0x4011c>
+<polygon_loading_testing_ground.e+0x45245>
+
+# Suppression for Error #6
+LEAK
+name=Error #6 (update to meaningful name)
+drmemorylib.dll!replace_operator_new
+polygon_loading_testing_ground.e!_ZNSt6vectorIS_IN8r3dfrom07pixel_iESaIS1_EESaIS3_EE17_M_realloc_insertIJRKS3_EEEvN9__gnu_cxx17__normal_iteratorIPS3_S5_EEDpOT_
+polygon_loading_testing_ground.e!r3dfrom0::camera::render_png
+polygon_loading_testing_ground.e!main
+
+## Mod+offs-style suppression for Error #6:
+LEAK
+name=Error #6 (update to meaningful name)
+<drmemorylib.dll+0x29f60>
+<polygon_loading_testing_ground.e+0x447d2>
+<polygon_loading_testing_ground.e+0x4172d>
+<polygon_loading_testing_ground.e+0x452f7>
+

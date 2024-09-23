@@ -145,7 +145,7 @@ namespace r3dfrom0 { // vectors and vector related functions
     }
 
     inline ostream& operator<< (ostream& out, const vec3f v) {
-        return out << v.x << ' ' << v.y << ' ' << v.z;
+        return out << "(" << v.x << ' ' << v.y << ' ' << v.z << ")";
     }
 
     inline vec3f operator+ (const vec3f& u, const vec3f& v) {

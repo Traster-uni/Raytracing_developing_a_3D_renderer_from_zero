@@ -1,2 +1,2 @@
 add_subdirectory(stb_image)
-add_subdirectory(plycpp)
+add_subdirectory(happly)

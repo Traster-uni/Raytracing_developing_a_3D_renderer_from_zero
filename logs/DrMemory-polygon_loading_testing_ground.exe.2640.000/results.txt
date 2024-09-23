@@ -1,0 +1,15 @@
+Dr. Memory version 2.6.0 build 0 built on Sep 21 2023 17:38:58
+Windows version: WinVer=105;Rel=2009;Build=19045;Edition=Professional
+Dr. Memory results for pid 2640: "polygon_loading_testing_ground.exe"
+Application cmdline: "C:\Raytracing_developing_a_3D_renderer_from_zero\bin\polygon_loading_testing_ground.exe"
+Recorded 124 suppression(s) from default C:\Program Files (x86)\Dr. Memory\bin64\suppress-default.txt
+
+Error #1: UNADDRESSABLE ACCESS beyond top of stack: reading 0x000000270d5ff400-0x000000270d5ff408 8 byte(s)
+# 0 ___chkstk_ms                    
+# 1 _pei386_runtime_relocator       
+# 2 __tmainCRTStartup               
+# 3 .l_start                        
+# 4 KERNEL32.dll!BaseThreadInitThunk
+Note: @0:00:00.169 in thread 9992
+Note: 0x000000270d5ff400 refers to 776 byte(s) beyond the top of the stack 0x000000270d5ff708
+Note: instruction: or     $0x0000000000000000 (%rcx) -> (%rcx)

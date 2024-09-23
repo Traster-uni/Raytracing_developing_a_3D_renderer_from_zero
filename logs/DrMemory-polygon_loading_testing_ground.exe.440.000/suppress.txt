@@ -1,0 +1,132 @@
+# File for suppressing errors found in pid 440: "polygon_loading_testing_ground.exe"
+
+# Suppression for Error #1
+UNADDRESSABLE ACCESS
+name=Error #1 (update to meaningful name)
+polygon_loading_testing_ground.e!___chkstk_ms
+polygon_loading_testing_ground.e!_pei386_runtime_relocator
+polygon_loading_testing_ground.e!__tmainCRTStartup
+polygon_loading_testing_ground.e!.l_start
+KERNEL32.dll!BaseThreadInitThunk
+
+## Mod+offs-style suppression for Error #1:
+UNADDRESSABLE ACCESS
+name=Error #1 (update to meaningful name)
+<polygon_loading_testing_ground.e+0x394eb>
+<polygon_loading_testing_ground.e+0x389da>
+<polygon_loading_testing_ground.e+0x1310>
+<polygon_loading_testing_ground.e+0x1146>
+<KERNEL32.dll+0x17374>
+
+# Suppression for Error #2
+UNADDRESSABLE ACCESS
+name=Error #2 (update to meaningful name)
+libstdc++-6.dll!*
+libstdc++-6.dll!*
+libstdc++-6.dll!*
+libstdc++-6.dll!*
+libstdc++-6.dll!*
+libstdc++-6.dll!*
+libstdc++-6.dll!*
+polygon_loading_testing_ground.e!happly::PLYData::PLYData
+polygon_loading_testing_ground.e!r3dfrom0::polygon_mesh::load_mesh
+polygon_loading_testing_ground.e!r3dfrom0::polygon_mesh::polygon_mesh
+polygon_loading_testing_ground.e!_ZNSt10shared_ptrIN8r3dfrom012polygon_meshEEC1ISaIvEJRA30_KcRS_INS0_10lambertianEEEEESt20_Sp_alloc_shared_tagIT_EDpOT0_
+polygon_loading_testing_ground.e!main
+
+## Mod+offs-style suppression for Error #2:
+UNADDRESSABLE ACCESS
+name=Error #2 (update to meaningful name)
+<libstdc++-6.dll+0xb94b>
+<libstdc++-6.dll+0x9870>
+<libstdc++-6.dll+0xa515>
+<libstdc++-6.dll+0x24122>
+<libstdc++-6.dll+0x17466>
+<libstdc++-6.dll+0x10ed33>
+<libstdc++-6.dll+0x117cb6>
+<polygon_loading_testing_ground.e+0x520ae>
+<polygon_loading_testing_ground.e+0x527bc>
+<polygon_loading_testing_ground.e+0x52d5f>
+<polygon_loading_testing_ground.e+0x56b7d>
+<polygon_loading_testing_ground.e+0x5b428>
+
+# Suppression for Error #3
+UNADDRESSABLE ACCESS
+name=Error #3 (update to meaningful name)
+libstdc++-6.dll!*
+libstdc++-6.dll!*
+libstdc++-6.dll!*
+libstdc++-6.dll!*
+libstdc++-6.dll!*
+libstdc++-6.dll!*
+libstdc++-6.dll!*
+polygon_loading_testing_ground.e!happly::PLYData::PLYData
+polygon_loading_testing_ground.e!r3dfrom0::polygon_mesh::load_mesh
+polygon_loading_testing_ground.e!r3dfrom0::polygon_mesh::polygon_mesh
+polygon_loading_testing_ground.e!_ZNSt10shared_ptrIN8r3dfrom012polygon_meshEEC1ISaIvEJRA30_KcRS_INS0_10lambertianEEEEESt20_Sp_alloc_shared_tagIT_EDpOT0_
+polygon_loading_testing_ground.e!main
+
+## Mod+offs-style suppression for Error #3:
+UNADDRESSABLE ACCESS
+name=Error #3 (update to meaningful name)
+<libstdc++-6.dll+0xb94b>
+<libstdc++-6.dll+0x9897>
+<libstdc++-6.dll+0xa515>
+<libstdc++-6.dll+0x24122>
+<libstdc++-6.dll+0x17466>
+<libstdc++-6.dll+0x10ed33>
+<libstdc++-6.dll+0x117cb6>
+<polygon_loading_testing_ground.e+0x520ae>
+<polygon_loading_testing_ground.e+0x527bc>
+<polygon_loading_testing_ground.e+0x52d5f>
+<polygon_loading_testing_ground.e+0x56b7d>
+<polygon_loading_testing_ground.e+0x5b428>
+
+# Suppression for Error #4
+UNINITIALIZED READ
+name=Error #4 (update to meaningful name)
+ntdll.dll!RcContinueExit
+ntdll.dll!RtlUnwindEx
+libstdc++-6.dll!*
+libstdc++-6.dll!*
+libstdc++-6.dll!*
+libgcc_s_seh-1.dll!_GCC_specific_handler
+libstdc++-6.dll!*
+ntdll.dll!RtlpExecuteHandlerForException
+ntdll.dll!RtlDispatchException
+libstdc++-6.dll!*
+libstdc++-6.dll!*
+libstdc++-6.dll!*
+KERNELBASE.dll!RaiseException
+KERNELBASE.dll!RaiseException
+libgcc_s_seh-1.dll!_Unwind_RaiseException
+libgcc_s_seh-1.dll!_Unwind_Resume_or_Rethrow
+libstdc++-6.dll!*
+libstdc++-6.dll!*
+libstdc++-6.dll!*
+libstdc++-6.dll!*
+
+## Mod+offs-style suppression for Error #4:
+UNINITIALIZED READ
+name=Error #4 (update to meaningful name)
+<ntdll.dll+0xa1bf9>
+<ntdll.dll+0x30b66>
+<libstdc++-6.dll+0x17466>
+<libstdc++-6.dll+0x11903c>
+<libstdc++-6.dll+0x11903c>
+<libgcc_s_seh-1.dll+0x129e3>
+<libstdc++-6.dll+0x118295>
+<ntdll.dll+0xa292f>
+<ntdll.dll+0x52554>
+<libstdc++-6.dll+0x17466>
+<libstdc++-6.dll+0x11903c>
+<libstdc++-6.dll+0x117cb6>
+<KERNELBASE.dll+0x3b699>
+<KERNELBASE.dll+0x3b699>
+<libgcc_s_seh-1.dll+0x12a41>
+<libgcc_s_seh-1.dll+0x12b10>
+<libstdc++-6.dll+0x117c5b>
+<libstdc++-6.dll+0x11903c>
+<libstdc++-6.dll+0x17466>
+<libstdc++-6.dll+0x10ed33>
+

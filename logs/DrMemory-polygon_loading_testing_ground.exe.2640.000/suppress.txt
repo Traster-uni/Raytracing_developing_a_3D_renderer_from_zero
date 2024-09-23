@@ -1,0 +1,20 @@
+# File for suppressing errors found in pid 2640: "polygon_loading_testing_ground.exe"
+
+# Suppression for Error #1
+UNADDRESSABLE ACCESS
+name=Error #1 (update to meaningful name)
+polygon_loading_testing_ground.e!___chkstk_ms
+polygon_loading_testing_ground.e!_pei386_runtime_relocator
+polygon_loading_testing_ground.e!__tmainCRTStartup
+polygon_loading_testing_ground.e!.l_start
+KERNEL32.dll!BaseThreadInitThunk
+
+## Mod+offs-style suppression for Error #1:
+UNADDRESSABLE ACCESS
+name=Error #1 (update to meaningful name)
+<polygon_loading_testing_ground.e+0x3801b>
+<polygon_loading_testing_ground.e+0x3750a>
+<polygon_loading_testing_ground.e+0x1310>
+<polygon_loading_testing_ground.e+0x1146>
+<KERNEL32.dll+0x17374>
+

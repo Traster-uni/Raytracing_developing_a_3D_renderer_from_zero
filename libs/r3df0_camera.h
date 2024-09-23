@@ -22,6 +22,7 @@ namespace r3dfrom0{
         int vfov = 90;
         // ray sampling parameters
         int samples_number = 100;       // number of sampling points within a single pixel
+                                        // when using lights, you should use at least 500 samples per pixel.
         int max_recursion_depth = 50;   // limits the number of recursive calls
         // looking frame - camera orientation
         vec3f look_from;    // camera reference
@@ -132,7 +133,7 @@ namespace r3dfrom0{
                     pixel_f color_sum(0.0f,0.0f,0.0f);
                     for (int s = 0; s < samples_number; s++){   // for random squares in pixel
                         ray r = get_ray(i,j);
-                        color_sum += ray_color(r, world, max_recursion_depth);
+                        color_sum += ray_color_old(r, world, max_recursion_depth);
                     }
                     auto mean_color = color_sum * mean_factor; // (sum(colors rays))/number_of_rays)
                     auto correct_color = correct_color_gamma(mean_color);

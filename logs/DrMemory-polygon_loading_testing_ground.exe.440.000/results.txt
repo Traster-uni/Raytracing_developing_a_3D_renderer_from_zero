@@ -1,0 +1,73 @@
+Dr. Memory version 2.6.0 build 0 built on Sep 21 2023 17:38:58
+Windows version: WinVer=105;Rel=2009;Build=19045;Edition=Professional
+Dr. Memory results for pid 440: "polygon_loading_testing_ground.exe"
+Application cmdline: "C:\Raytracing_developing_a_3D_renderer_from_zero\bin\polygon_loading_testing_ground.exe"
+Recorded 124 suppression(s) from default C:\Program Files (x86)\Dr. Memory\bin64\suppress-default.txt
+
+Error #1: UNADDRESSABLE ACCESS beyond top of stack: reading 0x0000003ba1fff720-0x0000003ba1fff728 8 byte(s)
+# 0 ___chkstk_ms                    
+# 1 _pei386_runtime_relocator       
+# 2 __tmainCRTStartup               
+# 3 .l_start                        
+# 4 KERNEL32.dll!BaseThreadInitThunk
+Note: @0:00:00.155 in thread 11276
+Note: 0x0000003ba1fff720 refers to 776 byte(s) beyond the top of the stack 0x0000003ba1fffa28
+Note: instruction: or     $0x0000000000000000 (%rcx) -> (%rcx)
+
+Error #2: UNADDRESSABLE ACCESS beyond top of stack: reading 0x0000003ba1ffea40-0x0000003ba1ffea48 8 byte(s)
+# 0 libstdc++-6.dll!?                                                         +0x0      (0x00007ff8bea0b94b <libstdc++-6.dll+0xb94b>)
+# 1 libstdc++-6.dll!?                                                         +0x0      (0x00007ff8bea09870 <libstdc++-6.dll+0x9870>)
+# 2 libstdc++-6.dll!?                                                         +0x0      (0x00007ff8bea0a515 <libstdc++-6.dll+0xa515>)
+# 3 libstdc++-6.dll!?                                                         +0x0      (0x00007ff8bea24122 <libstdc++-6.dll+0x24122>)
+# 4 libstdc++-6.dll!?                                                         +0x0      (0x00007ff8bea17466 <libstdc++-6.dll+0x17466>)
+# 5 libstdc++-6.dll!?                                                         +0x0      (0x00007ff8beb0ed33 <libstdc++-6.dll+0x10ed33>)
+# 6 libstdc++-6.dll!?                                                         +0x0      (0x00007ff8beb17cb6 <libstdc++-6.dll+0x117cb6>)
+# 7 happly::PLYData::PLYData        
+# 8 r3dfrom0::polygon_mesh::load_mesh
+# 9 r3dfrom0::polygon_mesh::polygon_mesh
+#10 _ZNSt10shared_ptrIN8r3dfrom012polygon_meshEEC1ISaIvEJRA30_KcRS_INS0_10lambertianEEEEESt20_Sp_alloc_shared_tagIT_EDpOT0_
+#11 main                            
+Note: @0:00:00.476 in thread 11276
+Note: 0x0000003ba1ffea40 refers to 1064 byte(s) beyond the top of the stack 0x0000003ba1ffee68
+Note: instruction: or     $0x0000000000000000 (%rcx) -> (%rcx)
+
+Error #3: UNADDRESSABLE ACCESS beyond top of stack: reading 0x0000003ba1ffe9b0-0x0000003ba1ffe9b8 8 byte(s)
+# 0 libstdc++-6.dll!?                                                         +0x0      (0x00007ff8bea0b94b <libstdc++-6.dll+0xb94b>)
+# 1 libstdc++-6.dll!?                                                         +0x0      (0x00007ff8bea09897 <libstdc++-6.dll+0x9897>)
+# 2 libstdc++-6.dll!?                                                         +0x0      (0x00007ff8bea0a515 <libstdc++-6.dll+0xa515>)
+# 3 libstdc++-6.dll!?                                                         +0x0      (0x00007ff8bea24122 <libstdc++-6.dll+0x24122>)
+# 4 libstdc++-6.dll!?                                                         +0x0      (0x00007ff8bea17466 <libstdc++-6.dll+0x17466>)
+# 5 libstdc++-6.dll!?                                                         +0x0      (0x00007ff8beb0ed33 <libstdc++-6.dll+0x10ed33>)
+# 6 libstdc++-6.dll!?                                                         +0x0      (0x00007ff8beb17cb6 <libstdc++-6.dll+0x117cb6>)
+# 7 happly::PLYData::PLYData        
+# 8 r3dfrom0::polygon_mesh::load_mesh
+# 9 r3dfrom0::polygon_mesh::polygon_mesh
+#10 _ZNSt10shared_ptrIN8r3dfrom012polygon_meshEEC1ISaIvEJRA30_KcRS_INS0_10lambertianEEEEESt20_Sp_alloc_shared_tagIT_EDpOT0_
+#11 main                            
+Note: @0:00:00.476 in thread 11276
+Note: 0x0000003ba1ffe9b0 refers to 120 byte(s) beyond the top of the stack 0x0000003ba1ffea28
+Note: instruction: or     $0x0000000000000000 (%rcx) -> (%rcx)
+
+Error #4: UNINITIALIZED READ: reading 0x0000003ba1ffd7fa-0x0000003ba1ffd800 6 byte(s) within 0x0000003ba1ffd7f0-0x0000003ba1ffd818
+# 0 ntdll.dll!RcContinueExit
+# 1 ntdll.dll!RtlUnwindEx
+# 2 libstdc++-6.dll!?                           +0x0      (0x00007ff8bea17466 <libstdc++-6.dll+0x17466>)
+# 3 libstdc++-6.dll!?                           +0x0      (0x00007ff8beb1903c <libstdc++-6.dll+0x11903c>)
+# 4 libstdc++-6.dll!?                           +0x0      (0x00007ff8beb1903c <libstdc++-6.dll+0x11903c>)
+# 5 libgcc_s_seh-1.dll!_GCC_specific_handler
+# 6 libstdc++-6.dll!?                           +0x0      (0x00007ff8beb18295 <libstdc++-6.dll+0x118295>)
+# 7 ntdll.dll!RtlpExecuteHandlerForException
+# 8 ntdll.dll!RtlDispatchException
+# 9 libstdc++-6.dll!?                           +0x0      (0x00007ff8bea17466 <libstdc++-6.dll+0x17466>)
+#10 libstdc++-6.dll!?                           +0x0      (0x00007ff8beb1903c <libstdc++-6.dll+0x11903c>)
+#11 libstdc++-6.dll!?                           +0x0      (0x00007ff8beb17cb6 <libstdc++-6.dll+0x117cb6>)
+#12 KERNELBASE.dll!RaiseException
+#13 KERNELBASE.dll!RaiseException
+#14 libgcc_s_seh-1.dll!_Unwind_RaiseException
+#15 libgcc_s_seh-1.dll!_Unwind_Resume_or_Rethrow
+#16 libstdc++-6.dll!?                           +0x0      (0x00007ff8beb17c5b <libstdc++-6.dll+0x117c5b>)
+#17 libstdc++-6.dll!?                           +0x0      (0x00007ff8beb1903c <libstdc++-6.dll+0x11903c>)
+#18 libstdc++-6.dll!?                           +0x0      (0x00007ff8bea17466 <libstdc++-6.dll+0x17466>)
+#19 libstdc++-6.dll!?                           +0x0      (0x00007ff8beb0ed33 <libstdc++-6.dll+0x10ed33>)
+Note: @0:00:00.524 in thread 11276
+Note: instruction: iret   %rsp (%rsp) -> %rsp

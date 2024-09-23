@@ -1,0 +1,108 @@
+# File for suppressing errors found in pid 11680: "polygon_loading_testing_ground.exe"
+
+# Suppression for Error #1
+UNADDRESSABLE ACCESS
+name=Error #1 (update to meaningful name)
+polygon_loading_testing_ground.e!___chkstk_ms
+polygon_loading_testing_ground.e!_pei386_runtime_relocator
+polygon_loading_testing_ground.e!__tmainCRTStartup
+polygon_loading_testing_ground.e!.l_start
+KERNEL32.dll!BaseThreadInitThunk
+
+## Mod+offs-style suppression for Error #1:
+UNADDRESSABLE ACCESS
+name=Error #1 (update to meaningful name)
+<polygon_loading_testing_ground.e+0x3a4db>
+<polygon_loading_testing_ground.e+0x399ca>
+<polygon_loading_testing_ground.e+0x1310>
+<polygon_loading_testing_ground.e+0x1146>
+<KERNEL32.dll+0x17374>
+
+# Suppression for Error #2
+UNINITIALIZED READ
+name=Error #2 (update to meaningful name)
+ntdll.dll!RcContinueExit
+ntdll.dll!RtlUnwindEx
+polygon_loading_testing_ground.e!plycpp::load
+polygon_loading_testing_ground.e!r3dfrom0::polygon_mesh::load_mesh
+polygon_loading_testing_ground.e!plycpp::load
+polygon_loading_testing_ground.e!plycpp::load
+libgcc_s_seh-1.dll!_GCC_specific_handler
+libstdc++-6.dll!*
+ntdll.dll!RtlpExecuteHandlerForException
+ntdll.dll!RtlDispatchException
+polygon_loading_testing_ground.e!plycpp::load
+KERNEL32.dll!BaseThreadInitThunk
+
+## Mod+offs-style suppression for Error #2:
+UNINITIALIZED READ
+name=Error #2 (update to meaningful name)
+<ntdll.dll+0xa1bf9>
+<ntdll.dll+0x30b66>
+<polygon_loading_testing_ground.e+0x4b070>
+<polygon_loading_testing_ground.e+0x43426>
+<polygon_loading_testing_ground.e+0x4b070>
+<polygon_loading_testing_ground.e+0x4b070>
+<libgcc_s_seh-1.dll+0x12a09>
+<libstdc++-6.dll+0x118295>
+<ntdll.dll+0xa292f>
+<ntdll.dll+0x52554>
+<polygon_loading_testing_ground.e+0x4b070>
+<KERNEL32.dll+0x17374>
+
+# Suppression for Error #3
+UNINITIALIZED READ
+name=Error #3 (update to meaningful name)
+ntdll.dll!RcContinueExit
+ntdll.dll!RtlUnwindEx
+ntdll.dll!RtlDispatchException
+libgcc_s_seh-1.dll!_Unwind_Resume
+KERNEL32.dll!BaseThreadInitThunk
+
+## Mod+offs-style suppression for Error #3:
+UNINITIALIZED READ
+name=Error #3 (update to meaningful name)
+<ntdll.dll+0xa1ae0>
+<ntdll.dll+0x30b66>
+<ntdll.dll+0x523ff>
+<libgcc_s_seh-1.dll+0x12af2>
+<KERNEL32.dll+0x17374>
+
+# Suppression for Error #4
+UNINITIALIZED READ
+name=Error #4 (update to meaningful name)
+ntdll.dll!RcContinueExit
+ntdll.dll!RtlUnwindEx
+ntdll.dll!RtlDispatchException
+libgcc_s_seh-1.dll!_Unwind_Resume
+KERNEL32.dll!BaseThreadInitThunk
+
+## Mod+offs-style suppression for Error #4:
+UNINITIALIZED READ
+name=Error #4 (update to meaningful name)
+<ntdll.dll+0xa1bf9>
+<ntdll.dll+0x30b66>
+<ntdll.dll+0x523ff>
+<libgcc_s_seh-1.dll+0x12af2>
+<KERNEL32.dll+0x17374>
+
+# Suppression for Error #5
+POSSIBLE LEAK
+name=Error #5 (update to meaningful name)
+drmemorylib.dll!replace_malloc
+libgcc_s_seh-1.dll!__emutls_get_address
+polygon_loading_testing_ground.e!plycpp::load
+polygon_loading_testing_ground.e!r3dfrom0::polygon_mesh::load_mesh
+polygon_loading_testing_ground.e!r3dfrom0::polygon_mesh::polygon_mesh
+polygon_loading_testing_ground.e!main
+
+## Mod+offs-style suppression for Error #5:
+POSSIBLE LEAK
+name=Error #5 (update to meaningful name)
+<drmemorylib.dll+0x296d0>
+<libgcc_s_seh-1.dll+0x1334b>
+<polygon_loading_testing_ground.e+0x4b070>
+<polygon_loading_testing_ground.e+0x43426>
+<polygon_loading_testing_ground.e+0x4448b>
+<polygon_loading_testing_ground.e+0x49838>
+

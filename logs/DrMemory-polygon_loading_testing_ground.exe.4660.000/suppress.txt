@@ -1,0 +1,50 @@
+# File for suppressing errors found in pid 4660: "polygon_loading_testing_ground.exe"
+
+# Suppression for Error #1
+UNADDRESSABLE ACCESS
+name=Error #1 (update to meaningful name)
+polygon_loading_testing_ground.e!___chkstk_ms
+polygon_loading_testing_ground.e!_pei386_runtime_relocator
+polygon_loading_testing_ground.e!__tmainCRTStartup
+polygon_loading_testing_ground.e!.l_start
+KERNEL32.dll!BaseThreadInitThunk
+
+## Mod+offs-style suppression for Error #1:
+UNADDRESSABLE ACCESS
+name=Error #1 (update to meaningful name)
+<polygon_loading_testing_ground.e+0x37eab>
+<polygon_loading_testing_ground.e+0x3739a>
+<polygon_loading_testing_ground.e+0x1310>
+<polygon_loading_testing_ground.e+0x1146>
+<KERNEL32.dll+0x17374>
+
+# Suppression for Error #2
+POSSIBLE LEAK
+name=Error #2 (update to meaningful name)
+drmemorylib.dll!replace_malloc
+libgcc_s_seh-1.dll!__emutls_get_address
+ucrtbase.dll!execute_onexit_table
+ucrtbase.dll!execute_onexit_table
+ucrtbase.dll!execute_onexit_table
+ucrtbase.dll!exit
+ucrtbase.dll!exit
+ucrtbase.dll!exit
+polygon_loading_testing_ground.e!__tmainCRTStartup
+polygon_loading_testing_ground.e!.l_start
+KERNEL32.dll!BaseThreadInitThunk
+
+## Mod+offs-style suppression for Error #2:
+POSSIBLE LEAK
+name=Error #2 (update to meaningful name)
+<drmemorylib.dll+0x296d0>
+<libgcc_s_seh-1.dll+0x1334b>
+<ucrtbase.dll+0x142d6>
+<ucrtbase.dll+0x141fb>
+<ucrtbase.dll+0x141b4>
+<ucrtbase.dll+0x20522>
+<ucrtbase.dll+0x204ab>
+<ucrtbase.dll+0x2044e>
+<polygon_loading_testing_ground.e+0x1461>
+<polygon_loading_testing_ground.e+0x1146>
+<KERNEL32.dll+0x17374>
+
