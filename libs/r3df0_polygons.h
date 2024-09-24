@@ -40,42 +40,26 @@ namespace r3dfrom0 {
 //        }
         //// TEST CONSTRUCTOR ////
 
-        polygon_mesh(const string& fname, const shared_ptr<material> mat) {
+        polygon_mesh(const string& fname, const shared_ptr<material> mat) : poly_mat(mat){
             load_mesh(fname);
-            for (auto v_tri : vertex_index_array) {
-                auto v1 = vertex_array[v_tri[0]];
-                auto v2 = vertex_array[v_tri[1]];
-                auto v3 = vertex_array[v_tri[2]];
-                auto tri = make_shared<triangle>(v1, v2, v3, mat);
-                triangles_array.push_back(tri);
-            }
             set_bounding_box();
         };
         // public methods
 
 
         bool hit(const ray& r, interval i, hit_record& record) const override {
-            for(auto tri : triangles_array){
-                tri->hit(r, i, record);
-                return true;
-            }
-            return false;
+            return triangles_array->hit(r,i,record);
         }
 
         virtual void set_bounding_box() {
-            auto max_z = vec3f(0,0,0);
-            auto max_x = vec3f(0,0,0);
-            auto max_y = vec3f(0,0,0);
+            auto max_v = vec3f(0,0,0);
+            auto min_v = vec3f(0,0,0);
+
             for (auto v : vertex_array) {
-                if (v.z > max_z.z) max_z = v;
-                if (v.x > max_x.x) max_x = v;
-                if (v.y > max_y.y) max_y = v;
+                max_v = vec3f(fmax(v.x, max_v.x), fmax(v.y, max_v.y), fmax(v.z, max_v.z));
+                min_v = vec3f(fmin(v.x, min_v.x), fmin(v.y, min_v.y), fmin(v.z, min_v.z));
             }
-            auto bbox1 = axisAlignBbox(max_x, max_y);
-            auto bbox2 = axisAlignBbox(max_y, max_z);
-            auto bbox3 = axisAlignBbox(max_z, max_x);
-            auto bbox_sub = axisAlignBbox(bbox1, bbox2);
-            bbox = axisAlignBbox(bbox_sub, bbox3);
+            bbox = axisAlignBbox(max_v, min_v);
         }
 
         axisAlignBbox bounding_box() const override {
@@ -88,7 +72,8 @@ namespace r3dfrom0 {
         vector<vec3f>   vertex_array; // 3502 vertex for bunny.ply
         vector<vec3f>   uvs_array;
         vector<vec3f>   shading_normals_array;
-        vector<shared_ptr<triangle>>     triangles_array;
+        shared_ptr<hittable_list> triangles_array;
+        shared_ptr<material> poly_mat;
         axisAlignBbox bbox;
 
         // private methods
@@ -99,12 +84,18 @@ namespace r3dfrom0 {
                 vertex_array.emplace_back(v[0], v[1], v[2]);
 //                cout << v[0] << " | " << v[1] << " | " << v[2] << endl;
             }
-            cout << vertex_array.size() << endl;
+//            cout << vertex_array.size() << endl;
             vertex_index_array = plyIn.getFaceIndices<int>();
 //            for (auto idx : vertex_index_array){
 //                cout << idx[0] << " | " << idx[1] << " | " << idx[2] << endl;
 //            }
 //            cout << vertex_index_array.size() << endl;
+            for (auto v_tri : vertex_index_array) {
+                auto v1 = vertex_array[v_tri[0]];
+                auto v2 = vertex_array[v_tri[1]];
+                auto v3 = vertex_array[v_tri[2]];
+                triangles_array->append(make_shared<triangle>(v1, v2, v3, poly_mat));
+            }
         }
     }; // class polygon_mesh
 } // namespace r3dfrom0

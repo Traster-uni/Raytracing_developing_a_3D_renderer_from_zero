@@ -203,13 +203,14 @@ namespace r3dfrom0{
 
 
         bool hit(const ray& r, interval i, hit_record& hit_record) const override {
-            auto origin_transform = transform_point(r.origin(), object_to_world);
-            auto direction_transform = transform_point(r.direction(), object_to_world);
-            ray r_t = ray(origin_transform, direction_transform);
+//            auto origin_transform = transform_point(r.origin(), object_to_world);
+//            auto direction_transform = transform_point(r.direction(), object_to_world);
+//            ray r_t = ray(origin_transform, direction_transform);
+            auto r_t = r;
 
-            auto normal = unit(cross(u,v));
+            auto normal = cross(u,v);
             auto denominator = dot(normal, r_t.direction());
-            auto D = dot(v1, normal);
+            auto D = -dot(v1, normal);
             if (fabs(denominator) < 1e-8) { // check if ray is parallel to the surface
                 return false;
             }
@@ -219,7 +220,7 @@ namespace r3dfrom0{
                 return false;
             }
 
-            auto t = (D - dot(normal, r_t.origin())) / denominator;
+            auto t = -(D + dot(normal, r_t.origin())) / denominator;
             if (!i.includes(t)) { // check if t intersection point is behind the surface
                 return false;
             }
@@ -263,6 +264,47 @@ namespace r3dfrom0{
         const bool single_side;
         const matrix44f object_to_world;    // TODO: DECIDE IF MAKE IT AN AUTONOMOUS ATTRIBUTE
     }; // triangle class
+
+    inline shared_ptr<hittable_list> box_quad(const vec3f& a, const vec3f& b, shared_ptr<material> mat){
+        auto quad_list = make_shared<hittable_list>();
+        // lowest and highest vertices
+        auto min = vec3f(fmin(a.x,b.x), fmin(a.y,b.y), fmin(a.z,b.z));
+        auto max = vec3f(fmax(a.x, b.x), fmax(a.y, b.y), fmax(a.z, b.z));
+        // find vectors
+        auto dx = vec3f(max.x - min.x, 0, 0);
+        auto dy = vec3f(0, max.y - min.y, 0);
+        auto dz = vec3f(0, 0, max.z - min.z);
+        // define quads
+        quad_list->append(make_shared<quad>(vec3f(min.x, min.y, max.z), dx, dy, mat)); // front
+        quad_list->append(make_shared<quad>(vec3f(max.x, min.y, max.z), -dz, dy, mat)); // right
+        quad_list->append(make_shared<quad>(vec3f(max.x, min.y, min.z), -dx, dy, mat)); // back
+        quad_list->append(make_shared<quad>(vec3f(min.x, min.y, min.z), dz, dy, mat)); // left
+        quad_list->append(make_shared<quad>(vec3f(min.x, min.y, min.z), dz, dx, mat)); // bottom
+        quad_list->append(make_shared<quad>(vec3f(max.x, max.y, max.z), -dx, -dz, mat)); // top
+
+        return quad_list;
+    } // box_quad function
+
+    inline shared_ptr<hittable_list> pyramid_sqr_base(const vec3f& v1, const vec3f& u, const vec3f& v,
+                                                      const vec3f& h, shared_ptr<material> mat) {
+        auto pyramid_list = make_shared<hittable_list>();
+        pyramid_list->append(make_shared<quad>(v1, u, v, mat)); // base
+        // define vertex of base
+        auto v2 = v1 + u;     // lower right     4_______3
+        auto v3 = v1 + u + v; // upper right    /       /
+        auto v4 = v1 + v;     // upper left   1/_______/2
+
+        // define x,y position vertex of the apex
+        auto center = vec3f((v1.x + v2.x + v3.x + v4.x)/4, 0,(v1.z + v2.z + v3.z + v4.z)/4);
+        auto apex = center + h;
+
+        pyramid_list->append(make_shared<triangle>(v1, v2, apex,  mat)); // front
+        pyramid_list->append(make_shared<triangle>(v2, v3, apex, mat)); // right
+        pyramid_list->append(make_shared<triangle>(v3, v4, apex,  mat)); // back
+        pyramid_list->append(make_shared<triangle>(v4, v1, apex,  mat)); // left
+
+        return pyramid_list;
+    }
 }
 
 #endif //R3DFROM0_R3DF0_SHAPES_H

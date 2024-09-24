@@ -83,6 +83,10 @@ namespace r3dfrom0 { // vectors and vector related functions
             return (&x)[i];
         }
 
+        float& operator[](const int i){
+            return  (&x)[i];
+        }
+
         vec3f operator-() const{ // negative
             return {-x, -y, -z};
         };
@@ -342,6 +346,7 @@ namespace r3dfrom0 { // vectors and vector related functions
         float scalar() const {
             return w;
         }
+
     }; // vec4f
 
     inline bool operator==(const vec4f& a, const vec4f& b) {
@@ -481,6 +486,16 @@ namespace r3dfrom0 { // vectors and vector related functions
     }; // class matrix44f
 
     // Matrix operations
+    inline matrix44f operator*(const matrix44f& m1, const matrix44f& m2) {
+        matrix44f temp;
+        for (int i = 0; i < 4; i++){
+            for (int j = 0; j < 4; j++){
+                temp[i][j] = m1[i][j] * m2[j][i];
+            }
+        }
+        return temp;
+    }
+
     inline ostream& operator<<(ostream& out, matrix44f& m) {
         return out << "{\n[ " << m.x << " ]\n[ " << m.y << " ]\n[ " << m.z << " ]\n[ " << m.t << " ]\n}";
     }
@@ -493,22 +508,6 @@ namespace r3dfrom0 { // vectors and vector related functions
         return !(a == b);
     }
 
-    inline matrix44f operator*(const matrix44f& a, const float& b) {
-        return {a.x * b, a.y * b, a.z * b, a.t * b};
-    }
-
-    inline vec4f operator*(const vec4f& a, const matrix44f& b) {
-        return {dot(a, b.x), dot(a, b.y), dot(a, b.z), dot(a, b.t)};
-    }
-
-    inline vec4f operator*(const matrix44f& m, const vec4f& v) {
-        return m.x * v.x + m.y * v.y + m.z * v.z + m.t * v.w;
-    }
-
-    inline matrix44f operator*(const matrix44f& a, const matrix44f& b) {
-        return {a * b.x, a * b.y, a * b.z, a * b.t};
-    }
-
     // https://math.stackexchange.com/questions/152462/inverse-of-transformation-matrix
     // ROTATIONS
     inline matrix44f make_rotation_matrix(const vec4f& q) {
@@ -517,6 +516,15 @@ namespace r3dfrom0 { // vectors and vector related functions
                 {(q.x * q.y + q.w * q.z) * 2, 1 - (q.x * q.x + q.z * q.z) * 2, (q.y * q.z - q.w * q.x) * 2, 0},
                 {(q.x * q.z - q.w * q.y) * 2, (q.w * q.x + q.y * q.z) * 2, 1 - (q.x * q.x + q.y * q.y) * 2, 0},
                 {0, 0, 0, 1}}; // colum major <- it has no meaning
+    }
+
+    // multiplication with quaternion needs make_rotation_matrix and operator*
+    inline matrix44f operator* (const vec4f& v, const matrix44f& m){
+        return make_rotation_matrix(v) * m;
+    }
+
+    inline matrix44f operator* (const matrix44f& m, const vec4f& v){
+        return v * m;
     }
 
     inline matrix44f make_rotation_matrix(const float& angle, const vec3f& axis){
