@@ -1,0 +1,66 @@
+thesis_index.txt
+
+Created: 27/09/2024
+Updated: 27/09/2024
+
+0) Abstract.
+	a quick summary on the thesis subject and in short the final considerations
+	
+1) Introduction.
+	Explain the objective of the thesis;
+	The learning journay;
+	The compromises acknowledged;
+	
+2) A breif history of Computer Graphics.
+	In short describe the evolution of computer graphics 
+	as a subfield of Computer science
+	focusing on explaining the major breakthroughs in the various
+	subfields.
+		1. Geometry
+		2. Animation
+		3. Rendering
+		4. Imaging
+
+3) The rendering algorithm: Raytracing.
+	Explain the algorithm at high level and define the components 
+	used in the raytracer
+
+4) C++, code organization and shortcuts.
+	Explain the choice of the language, OOP and the structure 
+
+5) World, Camera and rays
+	explain the definition of the 3D world;
+	Transforms matrixes;
+	Rays function in the tracer;
+	Camera technology: color sampling, camera definition and 
+		propeties;
+
+6) Antialiasing.
+	function, tecnique, results;
+
+7) Geometry.
+	spheres: sphere definition and itersections, shading;
+	quads: quads definition and itersections, shading;
+	triangles: triangles definition and itersections, shading;
+
+8) Defocus blur - Depth of field simulation;
+
+9) BVH:
+	function and method used;
+	show other possible methods;
+
+10) Texture mapping and Perlin noise
+	UV definition and mapping textures on spheres;
+	Function of Perlin noise, methodology;
+	
+11) The Cornell Box
+	Explain why it's a banchmark;
+	explain the results of ther developed render box;
+
+12) Against the gigants
+	Compare the results given by my renderer with the industry standard
+	
+13) Next Possible steps and conclusion
+	Explain how the current renderer can be easly built upon to 
+	be on par with industry standards;
+	

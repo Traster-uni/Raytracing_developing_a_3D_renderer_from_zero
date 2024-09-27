@@ -326,11 +326,11 @@ namespace r3dfrom0 { // vectors and vector related functions
         // methods
         float sqr_length() const {
             // each of the vector component is squared
-            return (vector() * vector()).sqr_length() + w*w;
+            return x*x + y*y + z*z + w*w;
         }
 
         float length() const {
-            // length of a vector which is the sqrt of the square length
+            // length of a vector or norm or ||q||
             return sqrt(sqr_length());
         }
 
@@ -395,7 +395,7 @@ namespace r3dfrom0 { // vectors and vector related functions
         return u.x * v.x + u.y * v.y + u.z * v.z + u.w * v.w;
     }
 
-    inline vec4f cross(vec4f& a, vec4f& b) {
+    inline const vec4f cross(const vec4f& a, const vec4f& b) {
         // cross product or "prodotto vettoriale"
         return {a.x * b.w + a.w * b.x + a.y * b.w - a.z * b.y,
                 a.y * b.w + a.w * b.y + a.z * b.x - a.x * b.z,
@@ -404,20 +404,21 @@ namespace r3dfrom0 { // vectors and vector related functions
     }
 
     inline vec4f unit(const vec4f& v) {
-        // unit vector or versor
+        // unit vector or versor or (q / ||q||)
         return v / v.length();
     }
 
 
     class matrix44f {
     public:
-        vec4f x = {1, 0, 0, 0}; // xx xy xz            | xx
-        vec4f y = {0, 1, 0, 0}; // yx yy yz            |    yy
-        vec4f z = {0, 0, 1, 0}; // zx zy zz  rotations |       zz
-        vec4f t = {0, 0, 0, 1}; // t translations      |          tt scaling
+        vec4f x = {0, 0, 0, 0}; // xx xy xz            | xx
+        vec4f y = {0, 0, 0, 0}; // yx yy yz            |    yy
+        vec4f z = {0, 0, 0, 0}; // zx zy zz  rotations |       zz
+        vec4f t = {0, 0, 0, 0}; // t translations      |          tt scaling
 
         // constructor
         matrix44f() {};
+        matrix44f(float id) { x.x = id; y.y = id; z.z = id; t.w = id; };
         matrix44f(vec4f x, vec4f y, vec4f z, vec4f t) : x{x}, y{y}, z{z}, t{t} {};
 
         // methods
@@ -457,15 +458,16 @@ namespace r3dfrom0 { // vectors and vector related functions
             t *= f;
         }
 
-        float determinant() const{
-            return x.x * (y.y*z.z*t.w + y.z*z.w*t.y + y.w*z.y*t.z
-                            - y.w*z.z*t.y - y.z*z.y*t.w - y.y*z.w*t.z)
-                   - y.x * (x.y*z.z*t.w + x.z*z.w*t.y + x.w*z.y*t.z
-                            - x.w*z.z*t.y - x.z*z.y*t.w - x.y*y.w*t.w)
-                   + z.x * (x.y*y.z*t.w + x.z*y.w*t.y + x.w*y.y*t.z
-                            - x.w*y.z*t.y - x.z*y.y*t.w - x.y*y.w*t.z)
-                   - t.x * (x.y*y.z*z.w + x.z*y.w*z.y + x.w*y.y*z.z
-                            - x.w*y.z*z.y - x.z*y.y*z.w - x.y*y.w*z.z);
+        inline const float determinant() const {
+            // from https://semath.info/src/determinant-four-by-four.html
+            return  x.x*y.y*z.z*t.w + x.x*y.z*z.w*t.y + x.x*y.w*z.y*t.z
+            - x.x*y.w*z.z*t.y - x.x*y.z*z.y*t.w - x.x*y.y*z.w*t.z
+            - x.y*y.x*z.z*t.w - x.z*y.x*z.w*t.y - x.w*y.x*z.y*t.z
+            + x.w*y.x*z.z*t.y + x.z*y.x*z.y*t.w + x.y*y.x*z.w*t.z
+            + x.y*y.z*z.x*t.z + x.z*y.w*z.x*t.y + x.w*y.y*z.x*t.z
+            - x.w*y.z*z.x*t.y - x.z*y.y*z.x*t.w - x.y*y.w*z.x*t.z
+            - x.y*y.z*z.w*t.x - x.z*y.w*z.y*t.x - x.w*y.y*z.z*t.x
+            + x.w*y.z*z.y*t.x + x.z*y.y*z.w*t.x + x.y*y.w*z.z*t.x;
         }
 
         matrix44f diagonal() const {
@@ -486,14 +488,15 @@ namespace r3dfrom0 { // vectors and vector related functions
     }; // class matrix44f
 
     // Matrix operations
-    inline matrix44f operator*(const matrix44f& m1, const matrix44f& m2) {
-        matrix44f temp;
-        for (int i = 0; i < 4; i++){
-            for (int j = 0; j < 4; j++){
-                temp[i][j] = m1[i][j] * m2[j][i];
-            }
-        }
-        return temp;
+    inline vec4f operator*(const matrix44f& m, const vec4f& q) {
+        return m.x * q.x + m.y * q.y + m.z * q.z + m.t * q.w;
+    }
+    inline vec4f operator*(const vec4f& q, const matrix44f& m) {
+        return {dot(q, m.x), dot(q, m.y), dot(q, m.z), dot(q, m.t)};
+    }
+
+    inline matrix44f operator*(const matrix44f& a, const matrix44f& b) {
+        return {a * b.x, a * b.y, a * b.z, a * b.t};
     }
 
     inline ostream& operator<<(ostream& out, matrix44f& m) {
@@ -505,45 +508,46 @@ namespace r3dfrom0 { // vectors and vector related functions
     }
 
     inline bool operator!=(const matrix44f& a, const matrix44f& b) {
-        return !(a == b);
+        return a.x != b.x || a.y != b.y || a.z != b.z || a.t != b.t;
     }
 
     // https://math.stackexchange.com/questions/152462/inverse-of-transformation-matrix
     // ROTATIONS
     inline matrix44f make_rotation_matrix(const vec4f& q) {
         // https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
-        return {{1 - (q.y * q.y + q.z * q.z) * 2, (q.x * q.y - q.z * q.w) * 2, (q.w * q.y + q.x * q.z) * 2, 0},
-                {(q.x * q.y + q.w * q.z) * 2, 1 - (q.x * q.x + q.z * q.z) * 2, (q.y * q.z - q.w * q.x) * 2, 0},
-                {(q.x * q.z - q.w * q.y) * 2, (q.w * q.x + q.y * q.z) * 2, 1 - (q.x * q.x + q.y * q.y) * 2, 0},
-                {0, 0, 0, 1}}; // colum major <- it has no meaning
+        return {
+                {q.w*q.w + q.x*q.x - q.y*q.y - q.z*q.z, (q.x*q.y - q.w*q.z) *2, (q.w*q.y - q.x*q.z) *2, 0},
+                {(q.x*q.y - q.w*q.z) *2, q.w*q.w + q.x*q.x - q.y*q.y - q.z*q.z, (q.y*q.z - q.w*q.x) *2, 0},
+                {(q.x*q.z - q.w*q.y) *2, (q.w*q.x - q.y*q.z) *2, q.w*q.w + q.x*q.x - q.y*q.y - q.z*q.z, 0},
+                {0, 0, 0, 1}
+        };
     }
 
-    // multiplication with quaternion needs make_rotation_matrix and operator*
-    inline matrix44f operator* (const vec4f& v, const matrix44f& m){
-        return make_rotation_matrix(v) * m;
-    }
 
-    inline matrix44f operator* (const matrix44f& m, const vec4f& v){
-        return v * m;
-    }
-
-    inline matrix44f make_rotation_matrix(const float& angle, const vec3f& axis){
-        auto a = unit(axis);
-        float s = sin(angle/2);
-        auto qx = a.x * s;
-        auto qy = a.y * s;
-        auto qz = a.z * s;
-        auto qw = cos(angle/2);
-        auto axis_angle_quaternion = unit(vec4f(qx,qy,qz,qw));
-        return make_rotation_matrix(axis_angle_quaternion);
+    inline matrix44f make_rotation_matrix( const vec3f& axis, const float& angle) {
+        auto s = sin(angle);
+        auto c = cos(angle);
+        auto vv = unit(axis);
+        return {{c + (1 - c) * vv.x * vv.x, (1 - c) * vv.x * vv.y + s * vv.z, (1 - c) * vv.x * vv.z - s * vv.y, 0},
+                {(1 - c) * vv.x * vv.y - s * vv.z, c + (1 - c) * vv.y * vv.y, (1 - c) * vv.y * vv.z + s * vv.x, 0},
+                {(1 - c) * vv.x * vv.z + s * vv.y, (1 - c) * vv.y * vv.z - s * vv.x, c + (1 - c) * vv.z * vv.z, 0},
+                {0, 0, 0, 1}};
     }
 
     bool is_rotation_matrix(const matrix44f& m){
-        auto identity_matrix = matrix44f();
-        auto determinant_identity = identity_matrix.determinant();
-        auto determinant_input = m.determinant();
+        auto I = matrix44f(1);
+        auto det_m = m.determinant();
+        cout << det_m << endl;
+        auto m1 = m;
         auto m_t = m.transpose();
-        if (m * m_t != identity_matrix && determinant_input != determinant_identity){
+        cout << m1 << endl;
+        cout << m_t << endl;
+        if (m * m_t != I && det_m != 1.0f){
+            auto a = m * m_t;
+            bool b = a != I;
+            cout << "m*m_t= " << b << endl;
+            bool c = det_m != 1.0f;
+            cout << "det_m= " << c << endl;
             return false;
         }
         return true;
@@ -608,6 +612,7 @@ namespace r3dfrom0 { // vectors and vector related functions
     }
 
     matrix44f invert(const matrix44f& H){
+        // check what kind of matrix that is and invert it with the appropriate function
         // check if matrix is invertible
         if (H.determinant() == 0) {
             return {}; // returns default Identity matrix
@@ -633,14 +638,13 @@ namespace r3dfrom0 { // vectors and vector related functions
         return r.transpose(); // scaling_inverse(s) * * translation_inverse(t);
     }
 
-    // TODO: IMPLEMENT VECTORS AND NORMALS TRANSFORMS
     // https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-polygon-mesh/introduction.html
     // under NORMALS AND VECTORS chapter
     inline vec3f transform_vectors(const vec3f& v, const matrix44f& m) {
-        return {v.x * m.x.x + v.y * m.y.x + v.x * m.z.x + m.t.x,
-                v.y * m.x.y + v.y * m.y.y + v.x * m.z.y + m.t.y,
-                v.z * m.x.z + v.y * m.y.z + v.x * m.z.z + m.t.z};
-                                        // v.z-^
+        return {v.x * m.x.x + v.y * m.y.x + v.z * m.z.x + m.t.x,
+                v.y * m.x.y + v.y * m.y.y + v.z * m.z.y + m.t.y,
+                v.z * m.x.z + v.y * m.y.z + v.z * m.z.z + m.t.z};
+                                        // v.x-^
     }
 
     inline vec3f transform_normals(const vec3f& normal, const matrix44f& m) {
@@ -648,11 +652,11 @@ namespace r3dfrom0 { // vectors and vector related functions
     }
 
     inline vec3f transform_point(const vec3f& p_local, const matrix44f& m) {
-        vec3f p_transform = {p_local.x * m.x.x + p_local.y * m.y.x + p_local.x * m.z.x + m.t.x,
-                             p_local.y * m.x.y + p_local.y * m.y.y + p_local.x * m.z.y + m.t.y,
-                             p_local.z * m.x.z + p_local.y * m.y.z + p_local.x * m.z.z + m.t.z};
-                                                                   // p_local.z-^
-        auto w = p_local.x * m.x.w + p_local.y * m.y.w + p_local.x * m.z.w + m.t.w;
+        vec3f p_transform = {p_local.x * m.x.x + p_local.y * m.y.x + p_local.z * m.z.x + m.t.x,
+                             p_local.y * m.x.y + p_local.y * m.y.y + p_local.z * m.z.y + m.t.y,
+                             p_local.z * m.x.z + p_local.y * m.y.z + p_local.z * m.z.z + m.t.z};
+                                                                   // p_local.x-^
+        auto w = p_local.x * m.x.w + p_local.y * m.y.w + p_local.z * m.z.w + m.t.w;
         if (w != 1) {
             p_transform.x /= w;
             p_transform.y /= w;

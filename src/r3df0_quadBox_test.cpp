@@ -40,6 +40,7 @@ int main(){
 //    world.append(make_shared<triangle>(vec3f(-2.5, 2, 1), vec3f(2.5, 2, 1), vec3f(0, 2, 5), upper_orange));
     // pyramid
     world.append(pyramid_sqr_base(vec3f(-2,-3, 5), vec3f(4, 0, 0), vec3f(0, 0,-4), vec3f(0,1,0), upper_orange));
+
     camera cam;
     cam.image_width     = 400;
     cam.aspect_ratio    = 1.0;

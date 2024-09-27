@@ -68,6 +68,10 @@ namespace r3dfrom0{
             return bbox;
         }
 
+        void apply_w2o() const override {};
+
+        void apply_o2w() const override {};
+
     private:
         // private arguments
         shared_ptr<hittable> right;

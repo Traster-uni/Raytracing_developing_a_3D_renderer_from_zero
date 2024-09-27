@@ -93,6 +93,18 @@ namespace r3dfrom0{
             return bbox;
         }
 
+        void apply_w2o() const override {
+            for (const auto& obj : objects_list) {
+                obj->apply_w2o();
+            }
+        }
+
+        void apply_o2w() const override {
+            for (const auto& obj : objects_list) {
+                obj->apply_o2w();
+            }
+        }
+
     private:
         axisAlignBbox bbox;
     }; // hittable_list class

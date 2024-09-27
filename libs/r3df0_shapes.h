@@ -70,6 +70,14 @@ namespace r3dfrom0{
             v = theta / pi;
         }
 
+        void apply_w2o() const override {
+            transform_point(center, *w2o);
+        }
+
+        void apply_o2w() const override {
+            transform_point(center, *o2w);
+        }
+
     private:
         // attributes
         vec3f center;
@@ -154,6 +162,20 @@ namespace r3dfrom0{
             // TODO: COMPLETE 2D UV FOR TEXTURES THE BOOK HAS NOT PROVIDED A GOOD INSIGHT;
         }
 
+        void apply_w2o() const override {
+            transform_point(v1, *w2o);
+            transform_point(v2, *w2o);
+            transform_point(v3, *w2o);
+            transform_point(v4, *w2o);
+        }
+
+        void apply_o2w() const override {
+            transform_point(v1, *o2w);
+            transform_point(v2, *o2w);
+            transform_point(v3, *o2w);
+            transform_point(v4, *o2w);
+        }
+
     private:
         // attributes
         vec3f u, v;                         // horizontal and vertical vectors respectfully
@@ -177,19 +199,6 @@ namespace r3dfrom0{
 //        }
         triangle(const vec3f& v1, const vec3f& v2, const vec3f& v3, shared_ptr<material> material, bool ss = false) :
                 v1(v1), v2(v2), v3(v3), material(material), single_side(ss) {
-            u = v2 - v1;
-            v = v3 - v1;
-
-            set_bounding_box();
-        }
-
-        triangle(const vec3f& v1, const vec3f& v2, const vec3f& v3, shared_ptr<material> material, const matrix44f& o2w, bool ss = false) :
-                v1(v1), v2(v2), v3(v3), material(material), object_to_world(o2w), single_side(ss) {
-            //transform
-            this->v1 = transform_point(v1, object_to_world); // TODO: APPLY TRANSFORMS TO ALL SHAPES
-            this->v2 = transform_point(v2, object_to_world);
-            this->v3 = transform_point(v3, object_to_world);
-
             u = v2 - v1;
             v = v3 - v1;
 
@@ -254,6 +263,18 @@ namespace r3dfrom0{
             return bbox;
         }
 
+        void apply_w2o() const override {
+            transform_point(v1, *w2o);
+            transform_point(v2, *w2o);
+            transform_point(v3, *w2o);
+        }
+
+        void apply_o2w() const override {
+            transform_point(v1, *o2w);
+            transform_point(v2, *o2w);
+            transform_point(v3, *o2w);
+        }
+
 
     private:
         // attributes
@@ -262,7 +283,6 @@ namespace r3dfrom0{
         shared_ptr<material> material;
         axisAlignBbox bbox;
         const bool single_side;
-        const matrix44f object_to_world;    // TODO: DECIDE IF MAKE IT AN AUTONOMOUS ATTRIBUTE
     }; // triangle class
 
     inline shared_ptr<hittable_list> box_quad(const vec3f& a, const vec3f& b, shared_ptr<material> mat){
@@ -297,11 +317,11 @@ namespace r3dfrom0{
         // define x,y position vertex of the apex
         auto center = vec3f((v1.x + v2.x + v3.x + v4.x)/4, 0,(v1.z + v2.z + v3.z + v4.z)/4);
         auto apex = center + h;
-
-        pyramid_list->append(make_shared<triangle>(v1, v2, apex,  mat)); // front
-        pyramid_list->append(make_shared<triangle>(v2, v3, apex, mat)); // right
-        pyramid_list->append(make_shared<triangle>(v3, v4, apex,  mat)); // back
-        pyramid_list->append(make_shared<triangle>(v4, v1, apex,  mat)); // left
+        // (43, 124, 255)
+        pyramid_list->append(make_shared<triangle>(v1, v2, apex, make_shared<lambertian>(pixel_f(1, 0, 0)))); // front
+        pyramid_list->append(make_shared<triangle>(v2, v3, apex, make_shared<lambertian>(pixel_f(0, 1, 0)))); // right
+        pyramid_list->append(make_shared<triangle>(v3, v4, apex, make_shared<lambertian>(pixel_f(0, 0, 1)))); // back
+        pyramid_list->append(make_shared<triangle>(v4, v1, apex, make_shared<lambertian>(pixel_f(0, 1, 1)))); // left
 
         return pyramid_list;
     }

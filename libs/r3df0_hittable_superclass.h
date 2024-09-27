@@ -13,12 +13,18 @@ namespace r3dfrom0{
 
     class hittable{ // interface
     public:
+        shared_ptr<matrix44f> w2o;   // world to object transform matrix
+        shared_ptr<matrix44f> o2w;   // object to world transform matrix, inverse of w2o matrix
         // constructor
         virtual ~hittable() = default;
         // methods
         virtual bool hit(const ray& r, interval i, hit_record& record) const = 0;
 
         virtual axisAlignBbox bounding_box() const = 0;
+
+        virtual void apply_w2o() const = 0;
+
+        virtual void apply_o2w() const = 0;
     }; // hittable interface
 }
 

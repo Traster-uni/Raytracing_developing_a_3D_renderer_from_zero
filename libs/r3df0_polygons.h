@@ -18,6 +18,14 @@ namespace r3dfrom0 {
     // As per described in: https://www.scratchapixel.com/lessons/3d-basic-rendering/introduction-polygon-mesh/polygon-mesh-file-formats.html
     // plus adaptations made to make it compatible with the current implementation of the renderer
     class polygon_mesh : public hittable {
+        /**
+         *  POLYGON MASH is a class to add functionality to the hittable list class.
+         *  It's function is to open .ply files load the necessary information and
+         *  build and populate the relative hittable_list instance containing triangles instances
+         *  with the relative materials.
+         */
+        // POLYGONS ARE HITTABLE LIST OVERCLASS SO IT SHOULD CALL HITTABLE LIST FOR TRIANGLES AND ONLY DO THINGS
+        // LIKE LOADING MESHES FROM FILES AND KEEPING INFORMATION ABOUT SAID MASHES.
     public:
         // public attributes
         int num_vertex = 0;

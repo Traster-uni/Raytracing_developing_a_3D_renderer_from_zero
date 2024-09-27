@@ -25,6 +25,7 @@ namespace r3dfrom0{
         virtual pixel_f emitted(const float& u, const float& v, const vec3f& p) const {
             return {.0f, .0f, .0f};
         }
+
     }; // material interface
 }
 
