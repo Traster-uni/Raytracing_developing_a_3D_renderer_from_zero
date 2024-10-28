@@ -89,6 +89,9 @@ build/
 /*.png
 /*.jpg
 
+#logs
+logs/
+
 # Mongo Explorer plugin
 .idea/**/mongoSettings.xml
 
