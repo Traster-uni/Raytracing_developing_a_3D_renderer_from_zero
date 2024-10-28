@@ -17,8 +17,6 @@ int main() {
     hittable_list world;
 //    auto earth_texture = make_shared<image_texture>("earthmap.jpg");
     auto earth_texture = make_shared<spacial_texture>(convert_pixel_f_clamp(pixel_i{235, 231, 16}));
-    // wrong color sampling
-    // TODO: image_texture DOESN'T WORK, LOOK INTO IT
     auto earth_surface = make_shared<lambertian>(pixel_f{0.4,0.2,0.1});
     auto globe = make_shared<sphere>(vec3f(50,50,50), 20, earth_surface);
     world.append(globe);

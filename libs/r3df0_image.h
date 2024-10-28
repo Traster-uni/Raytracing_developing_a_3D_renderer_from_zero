@@ -45,14 +45,14 @@ namespace r3dfrom0{
         return interval.clamp(n/255.0f);
     }
 
-    bool load_img(vector<vector<pixel_f>>& tuple_img, const string& filename, int& width, int& height){
+    bool  load_img(vector<vector<pixel_f>>& tuple_img, const string& filename, int& width, int& height){
         //    width;          -- width of the loaded image
         //    height;         -- height of the loaded image
         int bytes_pixel;      // number of bytes per pixel [1,8]
         int bytes_scanline;   // number of bytes per row in image
         int bytes_total;      // number of bytes in the entire image
 
-        auto dir_fname = R"(C:\Raytracing_developing_a_3D_renderer_from_zero\resources\textures)" + filename;
+        auto dir_fname = R"(C:\Raytracing_developing_a_3D_renderer_from_zero\resources\textures\)" + filename;
         auto env = getenv("RTW_IMAGES");
 
         // FILL INFO
@@ -61,7 +61,7 @@ namespace r3dfrom0{
         // LOAD FILE
         auto file_data = stbi_load(dir_fname.c_str(), &width, &height, &bytes_pixel, 3);
         if (file_data == nullptr){
-            cout << "Failed to open file" << endl;
+            cout << "\nCall to load_img(" << dir_fname << "): Failed to open file" << endl;
             return false;
         };
 

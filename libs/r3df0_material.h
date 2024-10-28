@@ -12,6 +12,22 @@
 using namespace std;
 
 namespace r3dfrom0{
+    //////////////
+    class fake_material : public material {
+    public:
+        fake_material(shared_ptr<texture> tex) : albedo_texture(tex) {}
+
+        bool scatter  (const ray& ray_in, hit_record& hitRecord, ray& scatter_ray, pixel_f& attenuation)
+        const override{
+            attenuation = albedo_texture->color(hitRecord.u, hitRecord.v, hitRecord.position);
+            return true;
+        }
+    private:
+        shared_ptr<texture> albedo_texture;
+    };
+    //////////////
+
+
     class lambertian : public material {
     public:
         // constructor

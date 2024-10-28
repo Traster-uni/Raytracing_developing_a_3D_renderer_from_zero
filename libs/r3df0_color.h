@@ -81,8 +81,12 @@ namespace r3dfrom0{
     };
 
     // as above but from the other side
-    inline pixel_f operator* (const pixel_f& v, const float t) {
+    inline pixel_f operator* (const pixel_f& v, const float& t) {
         return t * v;
+    }
+
+    inline pixel_f operator/ (const pixel_f& v, const float& t) {
+        return {v.r/t, v.g/t, v.b/t};
     }
 
     // integers

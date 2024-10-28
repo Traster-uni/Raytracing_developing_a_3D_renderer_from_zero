@@ -10,6 +10,17 @@
 #include "r3df0_perlin.h"
 
 namespace r3dfrom0{
+
+    class color_gradiant : public texture {
+    public:
+        color_gradiant() {};
+
+        pixel_f color(float u, float v, const vec3f& p) const override{
+            return color_map(p);
+        }
+
+    };
+
     class spacial_texture : public texture {
     public:
         // constructor
@@ -66,7 +77,6 @@ namespace r3dfrom0{
 
         auto x = int(u * width);
         auto y = int(v * height);
-//        cout << "(" << x << ", " << y << ") " << width << " | " << height << "\n(" << u << ", " << v << ")" << endl;
 
         if (x < width && y < height) {
             return tuple_img[y][x];

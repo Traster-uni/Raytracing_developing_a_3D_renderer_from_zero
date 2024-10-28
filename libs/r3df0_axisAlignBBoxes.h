@@ -104,6 +104,14 @@ namespace r3dfrom0{
     // constants implementation
     const axisAlignBbox axisAlignBbox::empty    = axisAlignBbox(interval::empty,    interval::empty,    interval::empty);
     const axisAlignBbox axisAlignBbox::universe = axisAlignBbox(interval::universe, interval::universe, interval::universe);
+
+    axisAlignBbox operator+(const axisAlignBbox& bbox, const vec3f& offset) {
+        return axisAlignBbox(bbox.x + offset.x, bbox.y + offset.y, bbox.z + offset.z);
+    }
+
+    axisAlignBbox operator+(const vec3f& offset, const axisAlignBbox& bbox) {
+        return bbox + offset;
+    }
 }
 
 #endif //R3DFROM0_R3DF0_AXISALIGNBBOXES_H

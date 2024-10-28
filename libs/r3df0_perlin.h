@@ -13,8 +13,7 @@ namespace r3dfrom0{
     public:
         perlin_noise() {
             for (int i = 0; i < p_count; i++) {
-                auto v = unit(vec3f().random(-1, 1));
-                rand_vec_array[i] = v;
+                rand_vec_array[i] = unit(vec3f().random(-1, 1)); // gradient
 
                 perlin_permutations(perm_x);
                 perlin_permutations(perm_y);
@@ -42,12 +41,26 @@ namespace r3dfrom0{
                     }
                 }
             }
-            return perlin_interpolation(c, u, v, w);
+            return trilinear_interpolation(c, u, v, w);
+        }
+
+        double turbolance(const vec3f& p, const int depth){
+            float accumulation = .0f;
+            auto temp_p = p;
+            auto weight = 1.0f;
+
+            for (int i = 0; i < depth; i++){
+                accumulation += weight * noise(temp_p);
+                weight *= .5f;
+                temp_p *= 2;
+            }
+            return fabs(accumulation);
         }
 
     private:
         static const int p_count = 256;
-        vec3f rand_vec_array[p_count];
+        vec3f rand_vec_array[p_count]; // gradiant
+        // Permutation components arrays
         int perm_x[p_count];        // permutations on x axis
         int perm_y[p_count];        // permutations on y axis
         int perm_z[p_count];        // permutations on z axis
@@ -69,7 +82,7 @@ namespace r3dfrom0{
             }
         }
 
-        static float perlin_interpolation(const vec3f c[2][2][2], float u, float v, float w) {
+        static float trilinear_interpolation(const vec3f c[2][2][2], float u, float v, float w) {
             auto uu = smootherstep_interpolation(u);
             auto vv = smootherstep_interpolation(v);
             auto ww = smootherstep_interpolation(w);
@@ -82,7 +95,7 @@ namespace r3dfrom0{
                         accumulation += (i * uu + (1-i) * (1-uu))
                                       * (j * vv + (1-j) * (1-vv))
                                       * (k * ww + (1-k) * (1-ww))
-                                      * dot(c[i][j][k], weight_v);
+                                      * dot(unit(c[i][j][k]), weight_v);
                     }
                 }
             }

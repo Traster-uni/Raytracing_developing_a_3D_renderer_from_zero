@@ -4,7 +4,7 @@
 #include "r3df0_camera.h"
 #include "r3df0_hittable.h"
 #include "r3df0_shapes.h"
-
+#include "r3df0_bvh.h"
 
 using namespace std;
 using namespace r3dfrom0;
@@ -82,20 +82,24 @@ pixel_f ray_color_old(const ray& r, hittable_list& worldList){
 int main(){
     // Initialize world
     hittable_list world;
-
+    generator();
     // initialize textures
     auto perlin_tex = make_shared<perlin_noise_texture>(4);
 //    auto earth_texture = make_shared<image_texture>("earthmap.jpg");
+    auto checked_tex = make_shared<checker_texture>(1, pixel_f(.052,.723,0), pixel_f(0,0.8,.8));
 
 //     initialize materials
     auto material_perlin = make_shared<lambertian>(perlin_tex);
 //    auto material_texture = make_shared<lambertian>(earth_texture);
+//    auto fake_gradiant = make_shared<fake_material>(make_shared<color_gradiant>());
 
+//    auto sample_sphere_mat = make_shared<lambertian>(checked_tex);
 //    auto material_center = make_shared<lambertian>(pixel_f(0.1, 0.2, 0.5));
+//    auto material_left = make_shared<metal>(pixel_f(0.1, .2, .5), 0);
 //    auto material_left   = make_shared<dielectric>(1.50f);     // air bubble! 1.0f theta of air, 1.33f theta of water
 //    auto material_bubble = make_shared<dielectric>(1.0 / 1.3333);
 //    auto material_right      = make_shared<metal>(pixel_f(0.8, 0.6, 0.2), 0.7);
-    auto material_ground = make_shared<lambertian>(pixel_f(0.8, 0.8, 0.0));
+    auto material_ground = make_shared<lambertian>(pixel_f(0.2, 0.2, 0.2));
 
 // initialize objects
 
@@ -103,22 +107,30 @@ int main(){
 //    world.append(make_shared<sphere>(vec3f(-1.0,    0.0, -1.0),   0.5, material_left));
 //    world.append(make_shared<sphere>(vec3f(-1.0,    0.0, -1.0),   0.4, material_bubble));
 //    world.append(make_shared<sphere>(vec3f( 1.0,    0.0, -1.0),   0.5, material_right));
-
-    world.append(make_shared<sphere>(vec3f(0, 2, 0), 2, material_perlin));
+    hittable_list box;
+//    box.append(make_shared<sphere>(vec3f(0, 2, 0), 2, sample_sphere_mat));
+//    shared_ptr<hittable_list> py = pyramid_sqr_base(vec3f(-2,0,-2), vec3f(4,0,0), vec3f(0,0,4), vec3f(0,5,0), sample_sphere_mat);
+//    box.append(py);
+//    box.append(make_shared<sphere>(vec3f(-4, 2, 0), 2, material_left));
+//    box.append(make_shared<sphere>(vec3f(4, 2, 0), 2, material_bubble));
+    box.append(make_shared<sphere>(vec3f(0, 2, 0), 2, material_perlin));
 //    world.append(make_shared<sphere>(vec3f(0, 2, 0), 2, material_texture));
+//    world.append(make_shared<quad>(vec3f(-5, 6, -5), vec3f(6,0,0), vec3f(0,6, 6), make_shared<diffuse_light>(5.0f)));
     world.append(make_shared<sphere>(vec3f(0,-1000,0), 1000, material_ground));
-
+    world.append(make_shared<bvh_node>(box));
 
     // Initialize camera
     camera main_camera;
-//    main_camera.defocus_angle = 10;
-    main_camera.image_width   = 600;
+//    main_camera.defocus_angle = 5;
+    main_camera.image_width   = 1500;
+    main_camera.samples_number = 300;
+    main_camera.max_recursion_depth = 50;
     main_camera.aspect_ratio = 1.f;
-    main_camera.vfov = 25;
+    main_camera.vfov = 50;
     main_camera.background = pixel_f(0.70, 0.80, 1.00);
 
     // perlin noise test camera position
-    main_camera.look_from   = vec3f(13,2,3);
+    main_camera.look_from   = vec3f(6,6,-10);
     main_camera.look_at     = vec3f(0,2,0);
     main_camera.view_up     = vec3f(0,1,0);
 
@@ -126,6 +138,6 @@ int main(){
 //    main_camera.look_from   = vec3f(-2,2,1);
 //    main_camera.look_at     = vec3f(0,0,-1);
 //    main_camera.view_up     = vec3f(0,1,0);
-    main_camera.render_png("r2r.png", world);
+    main_camera.render_png("pyramid.png", world);
 }
 

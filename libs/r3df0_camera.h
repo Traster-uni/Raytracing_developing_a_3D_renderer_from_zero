@@ -64,8 +64,8 @@ namespace r3dfrom0{
 
 
         pixel_f ray_color(const ray& r, hittable_list& worldList, const int& recursive_depth){
+            // keeps track of light
             if (recursive_depth <= 0){ // end of recursion check
-//                return {0,0,0};
                 return background;
             }
 
@@ -144,7 +144,7 @@ namespace r3dfrom0{
             // clock
             auto const end_timer {std::chrono::steady_clock::now()};
             const duration<float> elapsed_time {end_timer - start_timer};
-            clog << "\rRENDERING DONE IN: " << int(elapsed_time.count()) << " seconds" << flush;
+            clog << "\rRENDERING DONE IN: " << int(elapsed_time.count())/60 << ":" << int(elapsed_time.count()) % 60 << " seconds" << flush;
         }
 
     private: // private attributes
@@ -213,7 +213,7 @@ namespace r3dfrom0{
         }
 
         ray get_ray(const int& i, const int& j) {
-            auto offset = sample_square();
+            auto offset = sample_square(); // random offset in a square shaped area
             // pixel_center with added random offsets
             auto sampled_pixel = pixel00_location + ((i+offset.y) * pixel_delta_v) + ((j+offset.x) * pixel_delta_u);
             // origin sampling for fringe lens effect

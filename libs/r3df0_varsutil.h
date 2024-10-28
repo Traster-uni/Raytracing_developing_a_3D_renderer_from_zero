@@ -38,11 +38,15 @@ inline float random_float(){
     return distribution(generator);
 }
 
+inline auto& generator() {
+    static mt19937 generator(random_device{}());
+    return generator;
+}
+
 inline float random_float(float min, float max){
     // returns a random in [min, max]
-    static mt19937 generator;
-    static uniform_real_distribution<float> distribution(min,max);
-    return distribution(generator);
+    std::uniform_real_distribution<float> distribution(min, max);
+    return distribution(generator());
 }
 
 inline int random_int(int min, int max){

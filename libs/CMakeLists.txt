@@ -19,6 +19,7 @@ add_library(r3dfrom0 STATIC
         r3df0_texture.h
         r3df0_polygons.h
         r3df0_polygons.h
+        r3df0_ftransforms.h
 )
 
 set_target_properties(r3dfrom0 PROPERTIES CXX_STANDARD 17 CXX_STANDARD_REQUIRED YES)

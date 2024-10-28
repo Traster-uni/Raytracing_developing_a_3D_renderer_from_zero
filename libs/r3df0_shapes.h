@@ -40,7 +40,7 @@ namespace r3dfrom0{
                 return false;
             }
             auto sqrt_delta = sqrt(delta);
-            // roots of the quadratic equation
+            // roots of the quadratic formula
             auto roots = (h - sqrt_delta) / a;
             if (i.excludes(roots)){
                 roots = (h + sqrt_delta) / a;
@@ -233,6 +233,10 @@ namespace r3dfrom0{
             if (!i.includes(t)) { // check if t intersection point is behind the surface
                 return false;
             }
+
+            if (dot(r_t.direction(), normal) > 0 && single_side)
+                return false;
+
             auto intersect = r_t.at(t);
 
             auto c1 = intersect - v1;
@@ -318,10 +322,10 @@ namespace r3dfrom0{
         auto center = vec3f((v1.x + v2.x + v3.x + v4.x)/4, 0,(v1.z + v2.z + v3.z + v4.z)/4);
         auto apex = center + h;
         // (43, 124, 255)
-        pyramid_list->append(make_shared<triangle>(v1, v2, apex, make_shared<lambertian>(pixel_f(1, 0, 0)))); // front
-        pyramid_list->append(make_shared<triangle>(v2, v3, apex, make_shared<lambertian>(pixel_f(0, 1, 0)))); // right
-        pyramid_list->append(make_shared<triangle>(v3, v4, apex, make_shared<lambertian>(pixel_f(0, 0, 1)))); // back
-        pyramid_list->append(make_shared<triangle>(v4, v1, apex, make_shared<lambertian>(pixel_f(0, 1, 1)))); // left
+        pyramid_list->append(make_shared<triangle>(v1, v2, apex, mat)); // front
+        pyramid_list->append(make_shared<triangle>(v2, v3, apex, mat)); // right
+        pyramid_list->append(make_shared<triangle>(v3, v4, apex, mat)); // back
+        pyramid_list->append(make_shared<triangle>(v4, v1, apex, mat)); // left
 
         return pyramid_list;
     }
